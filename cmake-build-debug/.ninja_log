@@ -1,0 +1,11 @@
+# ninja log v5
+2767	2818	1703328730214102150	/home/swx/2023_project/zsxqDev/KVstorageBaseRaft-cpp/lib/librpc_lib.a	54d2ee91f1967433
+0	29	1703329183278570356	build.ninja	bcea8d9c8dc31a9a
+1	2767	1703328730162101637	src/rpc/CMakeFiles/rpc_lib.dir/rpcprovider.cpp.o	b838899510c55867
+685	2312	1703328729706097140	example/rpc/callee/CMakeFiles/provider.dir/__/friend.pb.cc.o	99fb0fa83a3dfc18
+1	1644	1703328729042090592	src/rpc/CMakeFiles/rpc_lib.dir/rpcheader.pb.cpp.o	b2820d570feb8a31
+0	684	1703328728082081123	src/rpc/CMakeFiles/rpc_lib.dir/mprpccontroller.cpp.o	360a0dc3e626f3c7
+1	781	1703328728178082070	src/rpc/CMakeFiles/rpc_lib.dir/mprpcconfig.cpp.o	6fd3803d606653b3
+1	1275	1703214654081062461	example/rpc/caller/CMakeFiles/consumer.dir/callFriendService.cpp.o	38c34e8600e1456
+1	2264	1703328729658096667	src/rpc/CMakeFiles/rpc_lib.dir/mprpcchannel.cpp.o	85b93700d5e2d259
+2	1973	1703328729366093786	example/rpc/callee/CMakeFiles/provider.dir/friendService.cpp.o	8257ee65542ce664
