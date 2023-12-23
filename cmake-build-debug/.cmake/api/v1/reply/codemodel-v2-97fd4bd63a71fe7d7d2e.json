@@ -1,0 +1,199 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						4
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2,
+						3
+					],
+					"jsonFile" : "directory-src-Debug-b6cf2213fc5053b67c22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src"
+				},
+				{
+					"build" : "src/rpc",
+					"jsonFile" : "directory-src.rpc-Debug-7cfaa0b0de104e780152.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/rpc",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "src/common",
+					"jsonFile" : "directory-src.common-Debug-26ca1aee19599f655637.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/common"
+				},
+				{
+					"build" : "example",
+					"childIndexes" : 
+					[
+						5
+					],
+					"jsonFile" : "directory-example-Debug-b6fca4a6d0a37c6ae6b9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "example"
+				},
+				{
+					"build" : "example/rpc",
+					"childIndexes" : 
+					[
+						6,
+						7
+					],
+					"jsonFile" : "directory-example.rpc-Debug-c0d4c8ea7c472315c1e4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 0,
+					"source" : "example/rpc"
+				},
+				{
+					"build" : "example/rpc/callee",
+					"jsonFile" : "directory-example.rpc.callee-Debug-aabb22c3a481315dd2a6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 0,
+					"source" : "example/rpc/callee",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "example/rpc/caller",
+					"jsonFile" : "directory-example.rpc.caller-Debug-cb4dcd6494c194281642.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 0,
+					"source" : "example/rpc/caller",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					],
+					"name" : "KVRaftCpp",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 7,
+					"id" : "consumer::@9afc6e042b31d61cb779",
+					"jsonFile" : "target-consumer-Debug-271e20a9e37f96e0905d.json",
+					"name" : "consumer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "provider::@c38675296bc53b6d4328",
+					"jsonFile" : "target-provider-Debug-52a1645551ef752ea0b6.json",
+					"name" : "provider",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "rpc_lib::@c0b061266edb2b3621b8",
+					"jsonFile" : "target-rpc_lib-Debug-56b2cbb74fa179a24165.json",
+					"name" : "rpc_lib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "skip_list_on_raft::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-skip_list_on_raft-Debug-3dceb3da18e11e8988c3.json",
+					"name" : "skip_list_on_raft",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/swx/2023_project/zsxqDev/KVstorageBaseRaft-cpp/cmake-build-debug",
+		"source" : "/home/swx/2023_project/zsxqDev/KVstorageBaseRaft-cpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
