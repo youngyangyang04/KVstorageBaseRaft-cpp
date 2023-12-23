@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../lib/libskip_list_on_raft.a CMakeFiles/skip_list_on_raft.dir/src/rpc/mprpcchannel.cpp.o CMakeFiles/skip_list_on_raft.dir/src/rpc/mprpcconfig.cpp.o CMakeFiles/skip_list_on_raft.dir/src/rpc/mprpccontroller.cpp.o CMakeFiles/skip_list_on_raft.dir/src/rpc/rpcheader.pb.cpp.o CMakeFiles/skip_list_on_raft.dir/src/rpc/rpcprovider.cpp.o
-/usr/bin/ranlib ../lib/libskip_list_on_raft.a
