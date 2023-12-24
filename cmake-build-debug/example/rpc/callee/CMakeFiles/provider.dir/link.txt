@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/provider.dir/friendService.cpp.o CMakeFiles/provider.dir/__/friend.pb.cc.o -o ../../../../bin/provider   -L/home/swx/2023_project/zsxqDev/KVstorageBaseRaft-cpp/lib  -Wl,-rpath,/home/swx/2023_project/zsxqDev/KVstorageBaseRaft-cpp/lib ../../../../lib/librpc_lib.a -lprotobuf -lmuduo_net -lmuduo_base -lpthread -lboost_serialization 
