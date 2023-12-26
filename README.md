@@ -14,8 +14,13 @@ cd cmake-build-debug
 cmake ..
 make
 ```
-之后在目录bin就有对应的可执行文件生成
+之后在目录bin就有对应的可执行文件生成：
+- consumer
+- provider
+运行即可。
 
+## Docs
+- 如果你想创建自己的rpc，请参考example中rpc的md文件和friendRPC相关代码
 
 ## todoList
 
