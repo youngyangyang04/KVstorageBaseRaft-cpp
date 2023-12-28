@@ -24,11 +24,13 @@ make
 
 ## Docs
 - 如果你想创建自己的rpc，请参考example中rpc的md文件和friendRPC相关代码
-
+## 各个文件夹文件内容说明
+ todo
 ## todoList
 
-- [ ] 完成raft节点的集群功能
-- [ ] 去除冗余的库
+- [x] 完成raft节点的集群功能
+- [ ] 去除冗余的库：muduo、boost 
 - [ ] 代码精简优化
+- [ ] code format
 - [ ] 代码解读 maybe
 

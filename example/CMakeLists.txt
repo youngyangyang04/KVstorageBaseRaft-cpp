@@ -1,2 +1,4 @@
 
-add_subdirectory(rpc)
+add_subdirectory(rpcExample)
+
+add_subdirectory(raftCoreExample)

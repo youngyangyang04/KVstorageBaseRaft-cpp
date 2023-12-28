@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+
+package raftKVRpcProctoc; //所在的命名空间
+
+option cc_generic_services = true;  //开启stub服务
+
+// 日志实体
+message GetArgs{
+  bytes Key = 1 ;
+  bytes ClientId = 2 ;
+  int32 RequestId = 3;
+}
+
+
+message GetReply  {
+  //	下面几个参数和论文中相同
+  bytes Err = 1;
+  bytes Value = 2;
+
+}
+
+
+// Put or Append
+message PutAppendArgs  {
+  bytes Key = 1;
+  bytes  Value = 2 ;
+  bytes  Op = 3;
+  // "Put" or "Append"
+  // You'll have to add definitions here.
+  // Field names must start with capital letters,
+  // otherwise RPC will break.
+  bytes  ClientId = 4;
+  int32  RequestId = 5;
+}
+
+message PutAppendReply  {
+  bytes Err = 1;
+}
+
+
+//只有raft节点之间才会涉及rpc通信
+service kvServerRpc
+{
+  //PutAppend(args *PutAppendArgs, reply *PutAppendReply)
+  //Get(args *GetArgs, reply *GetReply)
+
+  rpc PutAppend(PutAppendArgs) returns(PutAppendReply);
+  rpc Get (GetArgs) returns (GetReply);
+}
+// message ResultCode
+// {
+//     int32 errcode = 1;
+//     bytes errmsg = 2;
+// }
+
+// message GetFriendsListRequest  //请求，响应
+// {
+//     uint32 userid = 1;
+// }
+
+// message GetFriendsListResponse  //请求，响应
+// {
+//     ResultCode result = 1;
+//     repeated bytes friends = 2;
+// }
+
+// // 好友模块
+// service FiendServiceRpc  //具体的服务模块和服务方法
+// {
+//     rpc GetFriendsList(GetFriendsListRequest) returns(GetFriendsListResponse);
+// }
