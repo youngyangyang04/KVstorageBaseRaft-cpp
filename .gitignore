@@ -1,4 +1,6 @@
 
+!bin/test.conf
 .idea
 bin
 cmake-build-debug
+lib

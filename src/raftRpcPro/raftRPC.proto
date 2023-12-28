@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+
+package raftRpcProctoc; //所在的命名空间
+
+option cc_generic_services = true;  //开启stub服务
+
+// 日志实体
+message LogEntry{
+    bytes Command  =1;
+	int32 LogTerm   =2;
+	int32 LogIndex  = 3;
+}
+// AppendEntriesArgs 由leader复制log条目，也可以当做是心跳连接，注释中的rf为leader节点
+message AppendEntriesArgs  {
+	//	下面几个参数和论文中相同
+	int32 Term        =1;
+	int32 LeaderId       =2;
+	int32 PrevLogIndex =3;
+	int32 PrevLogTerm  =4;
+	repeated LogEntry Entries  = 5;
+	int32 LeaderCommit  = 6;
+}
+
+// AppendEntriesReply 论文中没有提及返回要设置哪些状态
+message AppendEntriesReply {
+	int32 Term =1;             // leader的term可能是与Follower不同的，
+	bool Success      =2;
+	int32 UpdateNextIndex = 3;               //快速调整leader对应的nextIndex
+	int32 AppState        =4; // 用来标识节点（网络）状态
+}
+
+message RequestVoteArgs  {
+	int32 Term         =1;
+	int32 CandidateId  =2;
+	int32 LastLogIndex =3;
+	int32 LastLogTerm  =4;
+}
+
+// RequestVoteReply
+// example RequestVote RPC reply structure.
+// field names must start with capital letters!
+message RequestVoteReply  {
+	// Your data here (2A).
+	int32 Term        =1;
+	bool VoteGranted  =2;
+	int32 VoteState   =3;
+}
+
+
+message InstallSnapshotRequest  {
+	int32 LeaderId                 =1;
+	int32 Term                     =2;
+	int32 LastSnapShotIncludeIndex =3;
+	int32 LastSnapShotIncludeTerm  =4;
+	bytes Data                     =5;//快照信息，当然是用bytes来传递
+}
+
+// InstallSnapshotResponse 只用返回Term，因为对于快照只要Term是符合的就是无条件接受的
+message InstallSnapshotResponse  {
+	int32 Term  = 1;
+}
+//只有raft节点之间才会涉及rpc通信
+service raftRpc  
+{
+    rpc AppendEntries(AppendEntriesArgs) returns(AppendEntriesReply);
+    rpc InstallSnapshot (InstallSnapshotRequest) returns (InstallSnapshotResponse);
+    rpc RequestVote (RequestVoteArgs) returns (RequestVoteReply);
+}
+// message ResultCode
+// {
+//     int32 errcode = 1;
+//     bytes errmsg = 2;
+// }
+
+// message GetFriendsListRequest  //请求，响应
+// {
+//     uint32 userid = 1;
+// }
+
+// message GetFriendsListResponse  //请求，响应
+// {
+//     ResultCode result = 1;
+//     repeated bytes friends = 2;
+// }
+
+// // 好友模块
+// service FiendServiceRpc  //具体的服务模块和服务方法
+// {
+//     rpc GetFriendsList(GetFriendsListRequest) returns(GetFriendsListResponse);
+// }

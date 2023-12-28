@@ -12,9 +12,12 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # 设置项目编译头文件搜索路径 -I
-include_directories(${PROJECT_SOURCE_DIR}/src/rpc/include)
 include_directories(${PROJECT_SOURCE_DIR}/src/common/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/rpc/include)
 include_directories(${PROJECT_SOURCE_DIR}/example)
+include_directories(${PROJECT_SOURCE_DIR}/src/raftCore/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/raftRpcPro/include)
+
 
 # 设置项目库文件搜索路径 -L
 link_directories(${PROJECT_SOURCE_DIR}/lib)
@@ -25,6 +28,6 @@ add_subdirectory(src)
 add_subdirectory(example)
 
 
-add_library(skip_list_on_raft STATIC  ${rpc_frame_src} ${rpc_example} ${raftsource} )
+add_library(skip_list_on_raft STATIC  ${src_rpc} ${rpc_example} ${raftsource} ${src_raftCore} ${src_raftRpcPro})
 
 target_link_libraries(skip_list_on_raft muduo_net muduo_base pthread )

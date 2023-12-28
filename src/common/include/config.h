@@ -6,7 +6,7 @@
 #define CONFIG_H
 
 
-const bool Debug = false;
+const bool Debug = true;
 
 const int debugMul = 1;
 const int HeartBeatTimeout = 25 *debugMul;//心跳时间应该要比选举超时小一个数量级

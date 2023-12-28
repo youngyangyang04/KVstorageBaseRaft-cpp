@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="raftCoreRun" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-n 3 -f test.conf" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="KVRaftCpp" TARGET_NAME="raftCoreRun" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="KVRaftCpp" RUN_TARGET_NAME="raftCoreRun">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>

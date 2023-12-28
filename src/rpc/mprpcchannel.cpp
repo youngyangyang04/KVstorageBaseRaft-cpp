@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <cerrno>
 #include "mprpccontroller.h"
-// #include "util.h"  ##todo :使用util导致找不到dprint函数定义
+#include "util.h"
 /*
 header_size + service_name method_name args_size + args
 */
@@ -24,11 +24,11 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
         std::string errMsg;
         bool rt = newConnect(m_ip.c_str(), m_port, &errMsg);
         if(!rt){
-            // DPrintf("[func-MprpcChannel::CallMethod]重连接ip：{%s} port{%d}失败",m_ip.c_str(),m_port);
+            DPrintf("[func-MprpcChannel::CallMethod]重连接ip：{%s} port{%d}失败",m_ip.c_str(),m_port);
             controller->SetFailed(errMsg);
             return ;
         }else{
-            // DPrintf("[func-MprpcChannel::CallMethod]连接ip：{%s} port{%d}成功",m_ip.c_str(),m_port);
+            DPrintf("[func-MprpcChannel::CallMethod]连接ip：{%s} port{%d}成功",m_ip.c_str(),m_port);
         }
     }
     
@@ -114,7 +114,7 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
     }
 
     // 反序列化rpc调用的响应数据
-    // std::string response_str(recv_buf, 0, recv_size); // bug出现问题，recv_buf中遇到\0后面的数据就存不下来了，导致反序列化失败
+    // std::string response_str(recv_buf, 0, recv_size); // bug：出现问题，recv_buf中遇到\0后面的数据就存不下来了，导致反序列化失败
     // if (!response->ParseFromString(response_str))
     if (!response->ParseFromArray(recv_buf, recv_size))
     {
