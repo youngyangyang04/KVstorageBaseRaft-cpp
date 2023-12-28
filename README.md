@@ -2,6 +2,7 @@
 【代码随想录知识星球】项目分享-基于Raft的k-v存储数据库
 
 ## 分支说明
+- main：最新内容
 - rpc：基于muduo和rpc框架相关内容
 
 ## 使用方法
@@ -76,4 +77,16 @@ raftCoreRun -n 3 -f test.conf
 - [ ] 代码精简优化
 - [ ] code format
 - [ ] 代码解读 maybe
+
+
+## Star History
+
+<a href="https://star-history.com/#youngyangyang04/KVstorageBaseRaft-cpp&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=youngyangyang04/KVstorageBaseRaft-cpp&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=youngyangyang04/KVstorageBaseRaft-cpp&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=youngyangyang04/KVstorageBaseRaft-cpp&type=Date" />
+  </picture>
+</a>
+
 
