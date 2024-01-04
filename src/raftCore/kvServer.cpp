@@ -397,7 +397,7 @@ KvServer::KvServer(int me, int maxraftstate, std::string nodeInforFileName, shor
         }
         ipPortVt.emplace_back(nodeIp, atoi(nodePortStr.c_str())); //沒有atos方法，可以考慮自己实现
     }
-    std::vector<std::shared_ptr<RaftRpc> > servers;
+    std::vector<std::shared_ptr<RaftRpcUtil> > servers;
     //进行连接
     for (int i = 0; i < ipPortVt.size(); ++i) {
         if (i == m_me) {
@@ -406,8 +406,8 @@ KvServer::KvServer(int me, int maxraftstate, std::string nodeInforFileName, shor
         }
         std::string otherNodeIp = ipPortVt[i].first;
         short otherNodePort = ipPortVt[i].second;
-        auto *rpc = new RaftRpc(otherNodeIp, otherNodePort);
-        servers.push_back(std::shared_ptr<RaftRpc>(rpc));
+        auto *rpc = new RaftRpcUtil(otherNodeIp, otherNodePort);
+        servers.push_back(std::shared_ptr<RaftRpcUtil>(rpc));
 
         std::cout << "node" << m_me << " 连接node" << i << "success!" << std::endl;
     }
