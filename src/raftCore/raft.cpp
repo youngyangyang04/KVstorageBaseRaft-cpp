@@ -903,7 +903,7 @@ void Raft::Start(Op command, int *newLogIndex, int *newLogTerm, bool *isLeader) 
 // tester or service expects Raft to send ApplyMsg messages.
 // Make() must return quickly, so it should start goroutines
 // for any long-running work.
-void Raft::init(std::vector<std::shared_ptr<RaftRpc> > peers, int me, std::shared_ptr<Persister> persister,
+void Raft::init(std::vector<std::shared_ptr<RaftRpcUtil> > peers, int me, std::shared_ptr<Persister> persister,
                 std::shared_ptr<LockQueue<ApplyMsg> > applyCh) {
     m_peers = peers;
     m_persister = persister;

@@ -1,7 +1,7 @@
 #ifndef RAFT_H
 #define  RAFT_H
 
-#include "raftRpc.h"
+#include "raftRpcUtil.h"
 #include <mutex>
 #include <iostream>
 #include <chrono>
@@ -34,7 +34,7 @@ class Raft : public raftRpcProctoc::raftRpc
 
 private:
     std::mutex m_mtx;
-    std::vector<std::shared_ptr< RaftRpc >> m_peers;
+    std::vector<std::shared_ptr< RaftRpcUtil >> m_peers;
     std::shared_ptr<Persister> m_persister;
     int m_me;
     int m_currentTerm;
@@ -136,7 +136,7 @@ public:
 
 
 public:
-    void init(std::vector<std::shared_ptr< RaftRpc >> peers,int me,std::shared_ptr<Persister> persister,std::shared_ptr<LockQueue<ApplyMsg>> applyCh);
+    void init(std::vector<std::shared_ptr< RaftRpcUtil >> peers,int me,std::shared_ptr<Persister> persister,std::shared_ptr<LockQueue<ApplyMsg>> applyCh);
 
 
 
