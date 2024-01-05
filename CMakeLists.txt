@@ -19,6 +19,7 @@ include_directories(${PROJECT_SOURCE_DIR}/example)
 include_directories(${PROJECT_SOURCE_DIR}/src/raftCore/include)
 include_directories(${PROJECT_SOURCE_DIR}/src/raftRpcPro/include)
 include_directories(${PROJECT_SOURCE_DIR}/src/raftClerk/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/skipList/include)
 
 
 # 设置项目库文件搜索路径 -L

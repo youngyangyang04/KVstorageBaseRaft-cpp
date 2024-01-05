@@ -9,6 +9,7 @@
 #include "raft.h"
 #include <unordered_map>
 #include "kvServerRPC.pb.h"
+#include "skipList.h"
 #include <iostream>
 #include <unordered_map>
 #include <boost/serialization/serialization.hpp>
@@ -32,6 +33,8 @@ private:
     int m_maxRaftState; // snapshot if log grows this big
 
     // Your definitions here.
+    std::string m_serializedKVData; // todo ： 序列化后的kv数据，理论上可以不用，但是目前没有找到特别好的替代方法
+    SkipList<std::string, std::string> m_skipList;
     std::unordered_map<std::string, std::string> m_kvDB;
 
     std::unordered_map<int, LockQueue<Op> *> waitApplyCh;
@@ -108,14 +111,18 @@ private:
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version) //这里面写需要序列话和反序列化的字段
     {
-        ar & m_kvDB;
+        ar & m_serializedKVData;
+
+        // ar & m_kvDB;
         ar & m_lastRequestId;
     }
 
     std::string getSnapshotData() {
+        m_serializedKVData = m_skipList.dump_file();
         std::stringstream ss;
         boost::archive::text_oarchive oa(ss);
         oa << *this;
+        m_serializedKVData.clear();
         return ss.str();
     }
 
@@ -123,6 +130,8 @@ private:
         std::stringstream ss(str);
         boost::archive::text_iarchive ia(ss);
         ia >> *this;
+        m_skipList.load_file(m_serializedKVData);
+        m_serializedKVData.clear();
     }
 
     /////////////////serialiazation end ///////////////////////////////

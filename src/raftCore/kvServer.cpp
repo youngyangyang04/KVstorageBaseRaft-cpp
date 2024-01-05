@@ -1,4 +1,4 @@
-#include "kvServer.h"   //todo  ： 这里为什么只能用相对路径
+#include "kvServer.h"
 
 #include <rpcprovider.h>
 
@@ -10,10 +10,12 @@ void KvServer::DprintfKVDB() {
     }
     std::lock_guard<std::mutex> lg(m_mtx);
     Defer ec1([this]() -> void {
-        for (const auto &item: m_kvDB) {
-            DPrintf("[DBInfo ----]Key : %s, Value : %s", &item.first, &item.second);
-        }
+        // for (const auto &item: m_kvDB) {
+        //     DPrintf("[DBInfo ----]Key : %s, Value : %s", &item.first, &item.second);
+        // }
+        m_skipList.display_list();
     });
+
 }
 
 void KvServer::ExecuteAppendOpOnKVDB(Op op) {
@@ -21,11 +23,14 @@ void KvServer::ExecuteAppendOpOnKVDB(Op op) {
     //	return
     //}
     m_mtx.lock();
-    if (m_kvDB.find(op.Key) != m_kvDB.end()) {
-        m_kvDB[op.Key] = m_kvDB[op.Key] + op.Value;
-    } else {
-        m_kvDB.insert(std::make_pair(op.Key, op.Value));
-    }
+
+    m_skipList.insert_set_element(op.Key,op.Value);
+
+    // if (m_kvDB.find(op.Key) != m_kvDB.end()) {
+    //     m_kvDB[op.Key] = m_kvDB[op.Key] + op.Value;
+    // } else {
+    //     m_kvDB.insert(std::make_pair(op.Key, op.Value));
+    // }
     m_lastRequestId[op.ClientId] = op.RequestId;
     m_mtx.unlock();
 
@@ -38,10 +43,14 @@ void KvServer::ExecuteGetOpOnKVDB(Op op, std::string *value, bool *exist) {
     m_mtx.lock();
     *value = "";
     *exist = false;
-    if (m_kvDB.find(op.Key) != m_kvDB.end()) {
+    if(m_skipList.search_element(op.Key, *value)) {
         *exist = true;
-        *value = m_kvDB[op.Key];
+        // *value = m_skipList.se //value已经完成赋值了
     }
+    // if (m_kvDB.find(op.Key) != m_kvDB.end()) {
+    //     *exist = true;
+    //     *value = m_kvDB[op.Key];
+    // }
     m_lastRequestId[op.ClientId] = op.RequestId;
     m_mtx.unlock();
 
@@ -56,7 +65,8 @@ void KvServer::ExecuteGetOpOnKVDB(Op op, std::string *value, bool *exist) {
 
 void KvServer::ExecutePutOpOnKVDB(Op op) {
     m_mtx.lock();
-    m_kvDB[op.Key] = op.Value;
+    m_skipList.insert_set_element(op.Key,op.Value);
+    // m_kvDB[op.Key] = op.Value;
     m_lastRequestId[op.ClientId] = op.RequestId;
     m_mtx.unlock();
 
@@ -357,7 +367,8 @@ void KvServer::Get(google::protobuf::RpcController *controller, const ::raftKVRp
     done->Run();
 }
 
-KvServer::KvServer(int me, int maxraftstate, std::string nodeInforFileName, short port) {
+KvServer::KvServer(int me, int maxraftstate, std::string nodeInforFileName, short port):
+m_skipList(6){
     std::shared_ptr<Persister> persister = std::make_shared<Persister>(me);
 
     m_me = me;
@@ -418,7 +429,8 @@ KvServer::KvServer(int me, int maxraftstate, std::string nodeInforFileName, shor
     //////////////////////////////////
 
     // You may need initialization code here.
-    m_kvDB; //kvdb初始化
+    // m_kvDB; //kvdb初始化
+    m_skipList;
     waitApplyCh;
     m_lastRequestId;
     m_lastSnapShotRaftLogIndex = 0; //todo:感覺這個函數沒什麼用，不如直接調用raft節點中的snapshot值？？？
