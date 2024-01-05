@@ -21,8 +21,8 @@
 
 #define STORE_FILE "store/dumpFile"
 
-std::mutex mtx;     // mutex for critical section
-std::string delimiter = ":";
+
+static std::string delimiter = ":";
 
 //Class template to implement node
 template<typename K, typename V>
@@ -83,7 +83,22 @@ template<typename K, typename V>
 void Node<K, V>::set_value(V value) {
     this->value=value;
 };
+//Class template to implement node
+template<typename K, typename V>
+class SkipListDump {
+public:
+    friend class  boost::serialization::access;
 
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & keyDumpVt_;
+        ar & valDumpVt_;
+    }
+    std::vector<K> keyDumpVt_;
+    std::vector<V> valDumpVt_;
+public:
+    void insert(const Node<K, V> &node);
+};
 // Class template for Skip list
 template <typename K, typename V>
 class SkipList {
@@ -95,10 +110,11 @@ public:
     Node<K, V>* create_node(K, V, int);
     int insert_element(K, V);
     void display_list();
-    bool search_element(K);
+    bool search_element(K, V &value);
     void delete_element(K);
-    void dump_file();
-    void load_file();
+    void insert_set_element(K&,V&);
+    std::string dump_file();
+    void load_file(const std::string &dumpStr);
     //递归删除节点
     void clear(Node<K,V>*);
     int size();
@@ -123,6 +139,8 @@ private:
 
     // skiplist current element count
     int _element_count;
+
+    std::mutex _mtx;     // mutex for critical section
 };
 
 // create new node
@@ -158,7 +176,7 @@ level 0         1    4   9 10         30   40  | 50 |  60      70       100
 template<typename K, typename V>
 int SkipList<K, V>::insert_element(const K key, const V value) {
 
-    mtx.lock();
+    _mtx.lock();
     Node<K, V> *current = this->_header;
 
     // create update array and initialize it
@@ -180,7 +198,7 @@ int SkipList<K, V>::insert_element(const K key, const V value) {
     // if current node have key equal to searched key, we get it
     if (current != NULL && current->get_key() == key) {
         std::cout << "key: " << key << ", exists" << std::endl;
-        mtx.unlock();
+        _mtx.unlock();
         return 1;
     }
 
@@ -210,7 +228,7 @@ int SkipList<K, V>::insert_element(const K key, const V value) {
         std::cout << "Successfully inserted key:" << key << ", value:" << value << std::endl;
         _element_count ++;
     }
-    mtx.unlock();
+    _mtx.unlock();
     return 0;
 }
 
@@ -230,46 +248,62 @@ void SkipList<K, V>::display_list() {
     }
 }
 
+// todo 对dump 和 load 后面可能要考虑加锁的问题
 // Dump data in memory to file
 template<typename K, typename V>
-void SkipList<K, V>::dump_file() {
+std::string SkipList<K, V>::dump_file() {
 
-    std::cout << "dump_file-----------------" << std::endl;
-    _file_writer.open(STORE_FILE);
+    // std::cout << "dump_file-----------------" << std::endl;
+    //
+    //
+    // _file_writer.open(STORE_FILE);
     Node<K, V> *node = this->_header->forward[0];
-
-    while (node != NULL) {
-        _file_writer << node->get_key() << ":" << node->get_value() << "\n";
-        std::cout << node->get_key() << ":" << node->get_value() << ";\n";
+    SkipListDump<K, V> dumper;
+    while (node != nullptr) {
+        dumper.insert(*node);
+        // _file_writer << node->get_key() << ":" << node->get_value() << "\n";
+        // std::cout << node->get_key() << ":" << node->get_value() << ";\n";
         node = node->forward[0];
     }
-
-    _file_writer.flush();
-    _file_writer.close();
-    return ;
+    std::stringstream ss;
+    boost::archive::text_oarchive oa(ss);
+    oa<< dumper;
+    return ss.str();
+    // _file_writer.flush();
+    // _file_writer.close();
 }
 
 // Load data from disk
 template<typename K, typename V>
-void SkipList<K, V>::load_file() {
+void SkipList<K, V>::load_file(const std::string &dumpStr) {
+    // _file_reader.open(STORE_FILE);
+    // std::cout << "load_file-----------------" << std::endl;
+    // std::string line;
+    // std::string* key = new std::string();
+    // std::string* value = new std::string();
+    // while (getline(_file_reader, line)) {
+    //     get_key_value_from_string(line, key, value);
+    //     if (key->empty() || value->empty()) {
+    //         continue;
+    //     }
+    //     // Define key as int type
+    //     insert_element(stoi(*key), *value);
+    //     std::cout << "key:" << *key << "value:" << *value << std::endl;
+    // }
+    // delete key;
+    // delete value;
+    // _file_reader.close();
 
-    _file_reader.open(STORE_FILE);
-    std::cout << "load_file-----------------" << std::endl;
-    std::string line;
-    std::string* key = new std::string();
-    std::string* value = new std::string();
-    while (getline(_file_reader, line)) {
-        get_key_value_from_string(line, key, value);
-        if (key->empty() || value->empty()) {
-            continue;
-        }
-        // Define key as int type
-        insert_element(stoi(*key), *value);
-        std::cout << "key:" << *key << "value:" << *value << std::endl;
+    if(dumpStr.empty()) {
+        return ;
     }
-    delete key;
-    delete value;
-    _file_reader.close();
+    SkipListDump<K, V> dumper;
+    std::stringstream iss(dumpStr);
+    boost::archive::text_iarchive ia(iss);
+    ia >> dumper;
+    for(int i = 0;i<dumper.keyDumpVt_.size();++i) {
+        insert_element(dumper.keyDumpVt_[i], dumper.keyDumpVt_[i]);
+    }
 }
 
 // Get current SkipList size
@@ -304,7 +338,7 @@ bool SkipList<K, V>::is_valid_string(const std::string& str) {
 template<typename K, typename V>
 void SkipList<K, V>::delete_element(K key) {
 
-    mtx.lock();
+    _mtx.lock();
     Node<K, V> *current = this->_header;
     Node<K, V> *update[_max_level+1];
     memset(update, 0, sizeof(Node<K, V>*)*(_max_level+1));
@@ -339,8 +373,22 @@ void SkipList<K, V>::delete_element(K key) {
         delete current;
         _element_count --;
     }
-    mtx.unlock();
+    _mtx.unlock();
     return;
+}
+
+/**
+ * \brief 作用与insert_element相同类似，
+ * insert_element是插入新元素，
+ * insert_set_element是插入元素，如果元素存在则改变其值
+ */
+template<typename K, typename V>
+void SkipList<K, V>::insert_set_element(K &key, V &value) {
+    V oldValue;
+    if(search_element(key,oldValue)) {
+        delete_element(key);
+    }
+    insert_element(key,value);
 }
 
 // Search for element in skip list
@@ -363,7 +411,7 @@ level 1         1    4     10         30         50|           70       100
 level 0         1    4   9 10         30   40    50+-->60      70       100
 */
 template<typename K, typename V>
-bool SkipList<K, V>::search_element(K key) {
+bool SkipList<K, V>::search_element(K key,V &value) {
 
     std::cout << "search_element-----------------" << std::endl;
     Node<K, V> *current = _header;
@@ -380,12 +428,19 @@ bool SkipList<K, V>::search_element(K key) {
 
     // if current node have key equal to searched key, we get it
     if (current and current->get_key() == key) {
+        value = current->get_value();
         std::cout << "Found key: " << key << ", value: " << current->get_value() << std::endl;
         return true;
     }
 
     std::cout << "Not Found Key:" << key << std::endl;
     return false;
+}
+
+template<typename K, typename V>
+void SkipListDump<K, V>::insert(const Node<K, V> &node) {
+    keyDumpVt_.emplace_back(node.get_key());
+    valDumpVt_.emplace_back(node.get_value());
 }
 
 // construct skip list
