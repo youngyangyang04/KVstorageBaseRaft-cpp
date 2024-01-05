@@ -9,6 +9,7 @@
 #include "raft.h"
 #include <unordered_map>
 #include "kvServerRPC.pb.h"
+#include "skipList.h"
 #include <iostream>
 #include <unordered_map>
 #include <boost/serialization/serialization.hpp>
@@ -32,6 +33,7 @@ private:
     int m_maxRaftState; // snapshot if log grows this big
 
     // Your definitions here.
+    SkipList<std::string, std::string> m_skipList;
     std::unordered_map<std::string, std::string> m_kvDB;
 
     std::unordered_map<int, LockQueue<Op> *> waitApplyCh;
