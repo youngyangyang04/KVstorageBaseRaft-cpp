@@ -1,5 +1,6 @@
 # KVstorageBaseRaft-cpp
 【代码随想录知识星球】项目分享-基于Raft的k-v存储数据库
+notice：本项目的目的是学习Raft的原理，并实现一个简单的k-v存储数据库。因此并不适用于生产环境。
 
 ## 分支说明
 - main：最新内容，已经实现一个简单的clerk
@@ -64,6 +65,11 @@ raftCoreRun -n 3 -f test.conf
 [2023-12-28-21-4-41] [func-Raft::sendAppendEntries-raft{1}] leader 向节点{2}发送AE rpc開始 ， args->entries_size():{0}
 [2023-12-28-21-4-41] [func-Raft::doHeartBeat()-Leader: {1}] Leader的心跳定时器触发了
 ```
+
+#### 使用kv
+在启动raft集群之后启动`callerMain`即可。
+
+
 ## Docs
 - 如果你想创建自己的rpc，请参考example中rpc的md文件和friendRPC相关代码.此外可以见rpc分支
 
