@@ -1,6 +1,8 @@
 # KVstorageBaseRaft-cpp
-【代码随想录知识星球】项目分享-基于Raft的k-v存储数据库
-notice：本项目的目的是学习Raft的原理，并实现一个简单的k-v存储数据库。因此并不适用于生产环境。
+
+[【代码随想录知识星球】](https://programmercarl.com/other/kstar.html)项目分享-基于Raft的k-v存储数据库，[项目专栏](https://t.zsxq.com/16jOQtIDb) 有本项目的详细文档
+
+> notice：本项目的目的是学习Raft的原理，并实现一个简单的k-v存储数据库。因此并不适用于生产环境。
 
 ## 分支说明
 - main：最新内容，已经实现一个简单的clerk
