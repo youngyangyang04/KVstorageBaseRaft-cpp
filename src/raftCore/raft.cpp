@@ -18,7 +18,8 @@ void Raft::AppendEntries1(const raftRpcProctoc::AppendEntriesArgs *args, raftRpc
                 args->term(), m_me, m_currentTerm);
         return; // 注意从过期的领导人收到消息不要重设定时器
     }
-    Defer ec1([this]() -> void { this->persist(); }); //由于这个局部变量创建在锁之后，因此执行persist的时候应该也是拿到锁的.
+//    Defer ec1([this]() -> void { this->persist(); }); //由于这个局部变量创建在锁之后，因此执行persist的时候应该也是拿到锁的.
+    DEFER { persist(); }; //由于这个局部变量创建在锁之后，因此执行persist的时候应该也是拿到锁的.
     if (args->term() > m_currentTerm) {
         // 三变 ,防止遗漏，无论什么时候都是三变
         // DPrintf("[func-AppendEntries-rf{%v} ] 变成follower且更新term 因为Leader{%v}的term{%v}> rf{%v}.term{%v}\n", rf.me, args.LeaderId, args.Term, rf.me, rf.currentTerm)
@@ -367,10 +368,10 @@ void Raft::getPrevLogInfo(int server, int *preIndex, int *preTerm) {
 // believes it is the Leader.
 void Raft::GetState(int *term, bool *isLeader) {
     m_mtx.lock();
-    Defer ec1([this]() -> void {
+    DEFER {
         //todo 暂时不清楚会不会导致死锁
         m_mtx.unlock();
-    });
+    };
 
     // Your code here (2A).
     *term = m_currentTerm;
@@ -380,9 +381,9 @@ void Raft::GetState(int *term, bool *isLeader) {
 void Raft::InstallSnapshot(const raftRpcProctoc::InstallSnapshotRequest *args,
                            raftRpcProctoc::InstallSnapshotResponse *reply) {
     m_mtx.lock();
-    Defer ec1([this]() -> void {
+    DEFER {
         m_mtx.unlock();
-    });
+    };
     if (args->term() < m_currentTerm) {
         reply->set_term(m_currentTerm);
         //        DPrintf("[func-InstallSnapshot-rf{%v}] leader{%v}.term{%v}<rf{%v}.term{%v} ", rf.me, args.LeaderId, args.Term, rf.me, rf.currentTerm)
@@ -472,9 +473,9 @@ void Raft::leaderSendSnapShot(int server) {
     m_mtx.unlock();
     bool ok = m_peers[server]->InstallSnapshot(&args, &reply);
     m_mtx.lock();
-    Defer ec1([this]() -> void {
-        this->m_mtx.unlock();
-    });
+    DEFER {
+        m_mtx.unlock();
+    };
     if (!ok) { return; }
     if (m_status != Leader || m_currentTerm != args.term()) {
         return; //中间释放过锁，可能状态已经改变了
@@ -544,10 +545,10 @@ void Raft::RequestVote(const raftRpcProctoc::RequestVoteArgs *args, raftRpcProct
     std::lock_guard<std::mutex> lg(m_mtx);
 
     // Your code here (2A, 2B).
-    Defer ec1([this]() -> void {
+    DEFER {
         //应该先持久化，再撤销lock
-        this->persist();
-    });
+        persist();
+    };
     //对args的term的三种情况分别进行处理，大于小于等于自己的term都是不同的处理
     //reason: 出现网络分区，该竞选者已经OutOfDate(过时）
     if (args->term() < m_currentTerm) {

@@ -17,9 +17,12 @@ std::string Persister::ReadSnapshot() {
     if (m_snapshotOutStream.is_open()) {
         m_snapshotOutStream.close();
     }
-    Defer ec1([this]()-> void {
-        this->m_snapshotOutStream.open(snapshotFile);
-    }); //这个变量后生成，会先销毁
+//    Defer ec1([this]()-> void {
+//        this->m_snapshotOutStream.open(snapshotFile);
+//    }); //这个变量后生成，会先销毁
+    DEFER {
+        m_snapshotOutStream.open(snapshotFile);
+    }; //这个变量后生成，会先销毁
     std::fstream ifs(snapshotFile, std::ios_base::in);
     if (!ifs.good()) {
         return "";

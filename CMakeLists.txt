@@ -31,6 +31,8 @@ add_subdirectory(src)
 add_subdirectory(example)
 
 
-add_library(skip_list_on_raft STATIC  ${src_rpc} ${rpc_example} ${raftsource} ${src_raftCore} ${src_raftRpcPro})
+add_library(skip_list_on_raft STATIC  ${src_rpc} ${rpc_example} ${raftsource} ${src_raftCore} ${src_raftRpcPro}
+        test/include/defer.h
+        test/defer_run.cpp)
 
 target_link_libraries(skip_list_on_raft muduo_net muduo_base pthread )
