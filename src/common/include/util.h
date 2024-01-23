@@ -20,15 +20,28 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 
-class Defer final
-{
+template <class F>
+class Defer {
 public:
-    explicit Defer(std::function<void()> fun) : m_funCall(fun) {}
-    ~Defer() { m_funCall(); }
+    Defer(F&& f) : m_func(std::forward<F>(f)) {}
+    Defer(const F& f) : m_func(f) {}
+    ~Defer() {
+        m_func();
+    }
+
+    Defer(const Defer& e) = delete;
+    Defer& operator=(const Defer& e) = delete;
 
 private:
-    std::function<void()> m_funCall;
+    F m_func;
 };
+
+#define _CONCAT(a, b) a##b
+#define _MAKE_DEFER_(line) Defer _CONCAT(defer, line) = [&]()
+
+#undef DEFER
+#define DEFER _MAKE_DEFER_(__LINE__)
+
 void DPrintf(const char* format, ...);
 
 void myAssert(bool condition, std::string message = "Assertion failed!");
