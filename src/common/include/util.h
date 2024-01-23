@@ -21,23 +21,23 @@
 #include <boost/archive/text_iarchive.hpp>
 
 template <class F>
-class Defer {
+class DeferClass {
 public:
-    Defer(F&& f) : m_func(std::forward<F>(f)) {}
-    Defer(const F& f) : m_func(f) {}
-    ~Defer() {
+    DeferClass(F&& f) : m_func(std::forward<F>(f)) {}
+    DeferClass(const F& f) : m_func(f) {}
+    ~DeferClass() {
         m_func();
     }
 
-    Defer(const Defer& e) = delete;
-    Defer& operator=(const Defer& e) = delete;
+    DeferClass(const DeferClass& e) = delete;
+    DeferClass& operator=(const DeferClass& e) = delete;
 
 private:
     F m_func;
 };
 
 #define _CONCAT(a, b) a##b
-#define _MAKE_DEFER_(line) Defer _CONCAT(defer, line) = [&]()
+#define _MAKE_DEFER_(line) DeferClass _CONCAT(defer_placeholder, line) = [&]()
 
 #undef DEFER
 #define DEFER _MAKE_DEFER_(__LINE__)
