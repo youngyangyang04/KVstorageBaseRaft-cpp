@@ -4,3 +4,6 @@
 bin
 cmake-build-debug
 lib
+
+*.out
+*.a
