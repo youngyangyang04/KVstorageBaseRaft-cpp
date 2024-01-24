@@ -26,7 +26,7 @@ make
 之后在目录bin就有对应的可执行文件生成：
 - consumer
 - provider
-运行即可。
+运行即可，注意先运行provider，再运行consumer，原因很简单：需要先提供rpc服务，才能去调用。
 
 #### 使用raft集群
 ```
