@@ -14,6 +14,9 @@
 ### 1.库准备
 - muduo
 - boost
+- protoc
+
+> 如果库安装编译本仓库的时候有错误，可以参考这个issue：https://github.com/youngyangyang04/KVstorageBaseRaft-cpp/issues/28
 
 ### 2.编译启动
 #### 使用rpc
