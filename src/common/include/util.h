@@ -2,7 +2,6 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-
 #include <functional>
 #include <iostream>
 #include <queue>
@@ -41,6 +40,7 @@ private:
 
 #undef DEFER
 #define DEFER _MAKE_DEFER_(__LINE__)
+
 
 void DPrintf(const char* format, ...);
 

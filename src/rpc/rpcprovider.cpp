@@ -15,7 +15,7 @@ json   protobuf
 */
 // 这里是框架提供给外部使用的，可以发布rpc方法的函数接口
 // 只是简单的把服务描述符和方法描述符全部保存在本地而已
-//todo 待修改 要把本机开启的ip和端口写在文件里面
+// todo 待修改 要把本机开启的ip和端口写在文件里面
 void RpcProvider::NotifyService(google::protobuf::Service *service)
 {
     ServiceInfo service_info;
@@ -27,7 +27,7 @@ void RpcProvider::NotifyService(google::protobuf::Service *service)
     // 获取服务对象service的方法的数量
     int methodCnt = pserviceDesc->method_count();
 
-     std::cout << "service_name:" << service_name << std::endl;
+    std::cout << "service_name:" << service_name << std::endl;
 
     for (int i = 0; i < methodCnt; ++i)
     {
@@ -35,54 +35,56 @@ void RpcProvider::NotifyService(google::protobuf::Service *service)
         const google::protobuf::MethodDescriptor *pmethodDesc = pserviceDesc->method(i);
         std::string method_name = pmethodDesc->name();
         service_info.m_methodMap.insert({method_name, pmethodDesc});
-
     }
     service_info.m_service = service;
     m_serviceMap.insert({service_name, service_info});
 }
 
 // 启动rpc服务节点，开始提供rpc远程网络调用服务
-void RpcProvider::Run(int nodeIndex,short port)
+void RpcProvider::Run(int nodeIndex, short port)
 {
-    //获取可用ip
-    char* ipC;
+    // 获取可用ip
+    char *ipC;
     char hname[128];
-    struct hostent* hent;
+    struct hostent *hent;
+    // gethostname 获取主机的信息
     gethostname(hname, sizeof(hname));
     hent = gethostbyname(hname);
     for (int i = 0; hent->h_addr_list[i]; i++)
     {
-        ipC = inet_ntoa(*(struct in_addr*)(hent->h_addr_list[i]));//IP地址
+        ipC = inet_ntoa(*(struct in_addr *)(hent->h_addr_list[i])); // IP地址
     }
-    std::string ip = std::string (ipC);
-//    // 获取端口
-//    if(getReleasePort(port)) //在port的基础上获取一个可用的port，不知道为何没有效果
-//    {
-//        std::cout << "可用的端口号为：" << port << std::endl;
-//    }
-//    else
-//    {
-//        std::cout << "获取可用端口号失败！" << std::endl;
-//    }
-    //写入文件 "test.conf"
+
+    std::string ip = std::string(ipC);
+    ip = "127.0.0.1";
+    //     // 获取端口
+    //     if(getReleasePort(port)) //在port的基础上获取一个可用的port，不知道为何没有效果
+    //     {
+    //         std::cout << "可用的端口号为：" << port << std::endl;
+    //     }
+    //     else
+    //     {
+    //         std::cout << "获取可用端口号失败！" << std::endl;
+    //     }
+    //  写入文件 "test.conf"
     std::string node = "node" + std::to_string(nodeIndex);
     std::ofstream outfile;
-    outfile.open("test.conf", std::ios::app); //打开文件并追加写入
+    outfile.open("test.conf", std::ios::app); // 打开文件并追加写入
     if (!outfile.is_open())
     {
         std::cout << "打开文件失败！" << std::endl;
         exit(EXIT_FAILURE);
     }
-    outfile << node+"ip="+ip << std::endl;
-    outfile << node+"port="+std::to_string(port)<< std::endl;
+    outfile << node + "ip=" + ip << std::endl;
+    outfile << node + "port=" + std::to_string(port) << std::endl;
     outfile.close();
 
-    //创建服务器
+    // 创建服务器
     muduo::net::InetAddress address(ip, port);
-
+    std::cout << "muduo::net::InetAddress success ,ip:" << ip << ", port:" << port << std::endl;
     // 创建TcpServer对象
-    m_muduo_server =  std::make_shared<muduo::net::TcpServer>(&m_eventLoop, address, "RpcProvider");
-
+    m_muduo_server = std::make_shared<muduo::net::TcpServer>(&m_eventLoop, address, "RpcProvider");
+    std::cout << "make tcp server success " << std::endl;
     // 绑定连接回调和消息读写回调方法  分离了网络代码和业务代码
     /*
     bind的作用：
@@ -91,8 +93,9 @@ void RpcProvider::Run(int nodeIndex,short port)
     */
     m_muduo_server->setConnectionCallback(std::bind(&RpcProvider::OnConnection, this, std::placeholders::_1));
     m_muduo_server->setMessageCallback(std::bind(&RpcProvider::OnMessage, this, std::placeholders::_1,
-                                        std::placeholders::_2, std::placeholders::_3));
+                                                 std::placeholders::_2, std::placeholders::_3));
 
+    std::cout << "bind callback server success " << std::endl;
     // 设置muduo库的线程数量
     m_muduo_server->setThreadNum(4);
 
@@ -101,6 +104,7 @@ void RpcProvider::Run(int nodeIndex,short port)
 
     // 启动网络服务
     m_muduo_server->start();
+    std::cout << "start server success" << std::endl;
     m_eventLoop.loop();
     /*
     这段代码是在启动网络服务和事件循环，其中server是一个TcpServer对象，m_eventLoop是一个EventLoop对象。
@@ -174,23 +178,25 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     std::string args_str = recv_buf.substr(4 + header_size, args_size);
 
     // 打印调试信息
-//    std::cout << "============================================" << std::endl;
-//    std::cout << "header_size: " << header_size << std::endl;
-//    std::cout << "rpc_header_str: " << rpc_header_str << std::endl;
-//    std::cout << "service_name: " << service_name << std::endl;
-//    std::cout << "method_name: " << method_name << std::endl;
-//    std::cout << "args_str: " << args_str << std::endl;
-//    std::cout << "============================================" << std::endl;
+    //    std::cout << "============================================" << std::endl;
+    //    std::cout << "header_size: " << header_size << std::endl;
+    //    std::cout << "rpc_header_str: " << rpc_header_str << std::endl;
+    //    std::cout << "service_name: " << service_name << std::endl;
+    //    std::cout << "method_name: " << method_name << std::endl;
+    //    std::cout << "args_str: " << args_str << std::endl;
+    //    std::cout << "============================================" << std::endl;
 
     // 获取service对象和method对象
     auto it = m_serviceMap.find(service_name);
     if (it == m_serviceMap.end())
     {
-        std::cout << "服务："<<service_name << " is not exist!" << std::endl;
-        std::cout<<"当前已经有的服务列表为:";
-        for(auto item:m_serviceMap){
-            std::cout<<item.first<<" ";
-        }std::cout <<std::endl;
+        std::cout << "服务：" << service_name << " is not exist!" << std::endl;
+        std::cout << "当前已经有的服务列表为:";
+        for (auto item : m_serviceMap)
+        {
+            std::cout << item.first << " ";
+        }
+        std::cout << std::endl;
         return;
     }
 
@@ -233,7 +239,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     由于xx方法被 用户注册的service类 重写了，因此这个方法运行的时候会调用 用户注册的service类 的xx方法
     真的是妙呀
     */
-   //真正调用方法
+    // 真正调用方法
     service->CallMethod(method, nullptr, request, response, done);
 }
 
@@ -250,15 +256,12 @@ void RpcProvider::SendRpcResponse(const muduo::net::TcpConnectionPtr &conn, goog
     {
         std::cout << "serialize response_str error!" << std::endl;
     }
-//    conn->shutdown(); // 模拟http的短链接服务，由rpcprovider主动断开连接  //改为长连接，不主动断开
+    //    conn->shutdown(); // 模拟http的短链接服务，由rpcprovider主动断开连接  //改为长连接，不主动断开
 }
 
-RpcProvider::~RpcProvider() {
-    std::cout<<"[func - RpcProvider::~RpcProvider()]: ip和port信息："<< m_muduo_server->ipPort()<<std::endl;
+RpcProvider::~RpcProvider()
+{
+    std::cout << "[func - RpcProvider::~RpcProvider()]: ip和port信息：" << m_muduo_server->ipPort() << std::endl;
     m_eventLoop.quit();
-//    m_muduo_server.   怎么没有stop函数，奇奇怪怪，看csdn上面的教程也没有要停止，甚至上面那个都没有
-
-
-
-
+    //    m_muduo_server.   怎么没有stop函数，奇奇怪怪，看csdn上面的教程也没有要停止，甚至上面那个都没有
 }

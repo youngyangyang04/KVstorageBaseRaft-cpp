@@ -13,9 +13,8 @@
 
 int main(int argc, char **argv) {
     // https://askubuntu.com/questions/754213/what-is-difference-between-localhost-address-127-0-0-1-and-127-0-1-1
-    std::string ip = "127.0.1.1";
-    short port = 7788;
-
+    std::string ip = "127.0.0.1";
+    short port = 8000;
     // 演示调用远程发布的rpc方法Login
     fixbug::FiendServiceRpc_Stub stub(new MprpcChannel(ip, port, true)); //注册进自己写的channel类，channel类用于自定义发送格式和负责序列化等操作
     // rpc方法的请求参数

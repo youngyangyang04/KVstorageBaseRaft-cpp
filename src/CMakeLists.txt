@@ -6,6 +6,8 @@ add_subdirectory(common) #需要注意如果rpc中需要依靠common中的代码
 # 使用include_directories()函数应该也是可行的
 add_subdirectory(rpc)
 
+add_subdirectory(fiber)
+
 add_subdirectory(raftRpcPro)
 
 add_subdirectory(raftCore)
