@@ -56,7 +56,7 @@ void RpcProvider::Run(int nodeIndex, short port)
     }
 
     std::string ip = std::string(ipC);
-    ip = "127.0.0.1";
+    //ip = "127.0.0.1";
     //     // 获取端口
     //     if(getReleasePort(port)) //在port的基础上获取一个可用的port，不知道为何没有效果
     //     {
