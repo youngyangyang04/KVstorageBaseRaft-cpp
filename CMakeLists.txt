@@ -2,6 +2,11 @@
 cmake_minimum_required(VERSION 3.22)
 project(KVRaftCpp)
 
+
+
+
+
+
 set(CMAKE_CXX_STANDARD 20)
 # 生成debug版本，可以进行gdb调试
 set(CMAKE_BUILD_TYPE "Debug")
@@ -38,9 +43,13 @@ target_link_libraries(skip_list_on_raft muduo_net muduo_base pthread )
 
 # 添加格式化目标 start
 # from : https://blog.csdn.net/guotianqing/article/details/121661067
-# https://www.cnblogs.com/__tudou__/p/13322854.html
-execute_process(COMMAND find ${PROJECT_SOURCE_DIR} -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' ! -regex '.*\(pb\.h\|pb\.cc\)$' -exec clang-format -style=file -i {} \;
 
+add_custom_target(format
+        COMMAND bash ${PROJECT_SOURCE_DIR}/format.sh
+        COMMAND echo "format done!"
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
+
 # 添加格式化目标 end
+
