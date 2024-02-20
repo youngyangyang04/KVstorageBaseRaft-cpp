@@ -49,29 +49,34 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
         return;
     }
 
-    // 定义rpc的请求header
     RPC::RpcHeader rpcHeader;
     rpcHeader.set_service_name(service_name);
     rpcHeader.set_method_name(method_name);
     rpcHeader.set_args_size(args_size);
 
-    uint32_t header_size = 0;
     std::string rpc_header_str;
-    if (rpcHeader.SerializeToString(&rpc_header_str))
-    {
-        header_size = rpc_header_str.size();
-    }
-    else
-    {
+    if (!rpcHeader.SerializeToString(&rpc_header_str)) {
         controller->SetFailed("serialize rpc header error!");
         return;
     }
 
-    // 组织待发送的rpc请求的字符串
-    std::string send_rpc_str;
-    send_rpc_str.insert(0, std::string((char *)&header_size, 4)); // header_size
-    send_rpc_str += rpc_header_str;                               // rpcheader
-    send_rpc_str += args_str;                                     // args
+    // 使用protobuf的CodedOutputStream来构建发送的数据流
+    std::string send_rpc_str; // 用来存储最终发送的数据
+    {
+        // 创建一个StringOutputStream用于写入send_rpc_str
+        google::protobuf::io::StringOutputStream string_output(&send_rpc_str);
+        google::protobuf::io::CodedOutputStream coded_output(&string_output);
+
+        // 先写入header的长度（变长编码）
+        coded_output.WriteVarint32(static_cast<uint32_t>(rpc_header_str.size()));
+
+        // 不需要手动写入header_size，因为上面的WriteVarint32已经包含了header的长度信息
+        // 然后写入rpc_header本身
+        coded_output.WriteString(rpc_header_str);
+    }
+
+    // 最后，将请求参数附加到send_rpc_str后面
+    send_rpc_str += args_str;
 
     // 打印调试信息
 //    std::cout << "============================================" << std::endl;
