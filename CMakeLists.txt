@@ -34,3 +34,13 @@ add_subdirectory(example)
 add_library(skip_list_on_raft STATIC  ${src_rpc} ${rpc_example} ${raftsource} ${src_raftCore} ${src_raftRpcPro})
 
 target_link_libraries(skip_list_on_raft muduo_net muduo_base pthread )
+
+
+# 添加格式化目标 start
+# from : https://blog.csdn.net/guotianqing/article/details/121661067
+# https://www.cnblogs.com/__tudou__/p/13322854.html
+execute_process(COMMAND find ${PROJECT_SOURCE_DIR} -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' ! -regex '.*\(pb\.h\|pb\.cc\)$' -exec clang-format -style=file -i {} \;
+
+)
+
+# 添加格式化目标 end
