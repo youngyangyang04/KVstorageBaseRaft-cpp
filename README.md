@@ -16,7 +16,7 @@
 - boost
 - protoc
 
-> 如果库安装编译本仓库的时候有错误，可以参考这个issue：https://github.com/youngyangyang04/KVstorageBaseRaft-cpp/issues/28
+> 如果库安装编译本仓库的时候有错误或者需要确认版本信息，可以在issue页面查看其他人遇到的问题和分享： [链接](https://github.com/youngyangyang04/KVstorageBaseRaft-cpp/issues)
 
 ### 2.编译启动
 #### 使用rpc
