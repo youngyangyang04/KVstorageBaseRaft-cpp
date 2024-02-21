@@ -450,18 +450,24 @@ void Raft::pushMsgToKvServer(ApplyMsg msg) { applyChan->Push(msg); }
 
 void Raft::leaderHearBeatTicker() {
   while (true) {
-    // Your code here (2A)
-    auto nowTime = now();
+    //不是leader的话就没有必要进行后续操作，况且还要拿锁，很影响性能，目前是睡眠，后面再优化优化
+    while ( m_status != Leader) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(HeartBeatTimeout));
+    }
+    auto wakaTime = now();
     m_mtx.lock();
 
-    auto suitableSleepTime = std::chrono::milliseconds(HeartBeatTimeout) + m_lastResetHearBeatTime - nowTime;
+    auto suitableSleepTime = std::chrono::milliseconds(HeartBeatTimeout) + m_lastResetHearBeatTime - wakaTime;
     m_mtx.unlock();
-    if (suitableSleepTime.count() < 1) {
-      suitableSleepTime = std::chrono::milliseconds(1);
+
+
+    if (std::chrono::duration<double, std::milli>(suitableSleepTime).count() > 1) {
+      std::this_thread::sleep_for(suitableSleepTime);
     }
-    std::this_thread::sleep_for(suitableSleepTime);
-    if ((m_lastResetHearBeatTime - nowTime).count() > 0) {
-      //说明睡眠的这段时间有重置定时器，那么就没有超时，再次睡眠
+
+
+    if (std::chrono::duration<double, std::milli>(m_lastResetHearBeatTime - wakaTime).count() > 0) {
+      //睡眠的这段时间有重置定时器，没有超时，再次睡眠
       continue;
     }
     doHeartBeat();
