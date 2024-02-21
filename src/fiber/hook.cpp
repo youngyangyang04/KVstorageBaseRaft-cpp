@@ -162,10 +162,13 @@ unsigned int sleep(unsigned int seconds) {
 }
 // usleep 在指定的微妙数内暂停线程运行
 int usleep(useconds_t usec) {
-  // std::cout << "HOOK USLEEP" << std::endl;
+  // std::cout << "HOOK USLEEP START" << std::endl;
   if (!t_hook_enable) {
     // 不允许hook,则直接使用系统调用
-    return usleep_f(usec);
+    // std::cout << "THIS THREAD NOT ALLOW HOOK" << std::endl;
+    auto ret = usleep_f(usec);
+    // std::cout << "THIS THREAD WAKE UP" << std::endl;
+    return 0;
   }
   // 允许hook,则直接让当前协程退出，seconds秒后再重启（by定时器）
   Fiber::ptr fiber = Fiber::GetThis();

@@ -168,8 +168,8 @@ void Raft::applierTicker() {
     for (auto& message : applyMsgs) {
       applyChan->Push(message);
     }
-    usleep(1000 * ApplyInterval);
-    // sleepNMilliseconds(ApplyInterval);
+    // usleep(1000 * ApplyInterval);
+    sleepNMilliseconds(ApplyInterval);
   }
 }
 
@@ -317,8 +317,9 @@ void Raft::electionTimeOutTicker() {
     auto suitableSleepTime = getRandomizedElectionTimeout() + m_lastResetElectionTime - nowTime;
     m_mtx.unlock();
     if (suitableSleepTime.count() > 1) {
-      usleep(1000 * suitableSleepTime.count());
-      // std::this_thread::sleep_for(suitableSleepTime);
+
+      // usleep(std::chrono::duration_cast<std::chrono::microseconds>(suitableSleepTime).count());
+      std::this_thread::sleep_for(suitableSleepTime);
     }
 
     if ((m_lastResetElectionTime - nowTime).count() > 0) {
@@ -460,8 +461,8 @@ void Raft::leaderHearBeatTicker() {
     if (suitableSleepTime.count() < 1) {
       suitableSleepTime = std::chrono::milliseconds(1);
     }
-    usleep(1000 * suitableSleepTime.count());
-    // std::this_thread::sleep_for(suitableSleepTime);
+    // usleep(std::chrono::duration_cast<std::chrono::microseconds>(suitableSleepTime).count());
+    std::this_thread::sleep_for(suitableSleepTime);
     if ((m_lastResetHearBeatTime - wakeTime).count() > 0) {
       //说明睡眠的这段时间有重置定时器，那么就没有超时，再次睡眠
       continue;
@@ -954,7 +955,7 @@ void Raft::init(std::vector<std::shared_ptr<RaftRpcUtil>> peers, int me, std::sh
 
   m_mtx.unlock();
 
-  m_ioManager = std::make_unique<monsoon::IOManager>(FIBER_THREAD_NUM, FIBER_USE_CALLER_THREAD);
+  // m_ioManager = std::make_unique<monsoon::IOManager>(FIBER_THREAD_NUM, FIBER_USE_CALLER_THREAD);
 
   // start ticker fiber to start elections
   // 启动三个循环定时器
