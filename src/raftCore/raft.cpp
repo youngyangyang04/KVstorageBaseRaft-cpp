@@ -1,8 +1,8 @@
 #include "raft.h"
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
-#include "util.h"
 #include "config.h"
+#include "util.h"
 
 void Raft::AppendEntries1(const raftRpcProctoc::AppendEntriesArgs *args, raftRpcProctoc::AppendEntriesReply *reply) {
   std::lock_guard<std::mutex> locker(m_mtx);
@@ -103,7 +103,7 @@ void Raft::AppendEntries1(const raftRpcProctoc::AppendEntriesArgs *args, raftRpc
                m_me, getLastLogIndex(), args->prevlogindex(), args->entries_size()));
     // if len(args.Entries) > 0 {
     //	fmt.Printf("[func-AppendEntries  rf:{%v}] ] : args.term:%v, rf.term:%v  ,rf.logs的长度：%v\n", rf.me, args.Term,
-    //rf.currentTerm, len(rf.logs))
+    // rf.currentTerm, len(rf.logs))
     // }
     if (args->leadercommit() > m_commitIndex) {
       m_commitIndex = std::min(args->leadercommit(), getLastLogIndex());
@@ -161,7 +161,7 @@ void Raft::applierTicker() {
     auto applyMsgs = getApplyLogs();
     m_mtx.unlock();
     //使用匿名函数是因为传递管道的时候不用拿锁
-    //todo:好像必须拿锁，因为不拿锁的话如果调用多次applyLog函数，可能会导致应用的顺序不一样
+    // todo:好像必须拿锁，因为不拿锁的话如果调用多次applyLog函数，可能会导致应用的顺序不一样
     if (!applyMsgs.empty()) {
       DPrintf("[func- Raft::applierTicker()-raft{%d}] 向kvserver報告的applyMsgs長度爲：{%d}", m_me, applyMsgs.size());
     }
@@ -345,8 +345,8 @@ std::vector<ApplyMsg> Raft::getApplyLogs() {
     applyMsg.Command = m_logs[getSlicesIndexFromLogIndex(m_lastApplied)].command();
     applyMsg.CommandIndex = m_lastApplied;
     applyMsgs.emplace_back(applyMsg);
-    //        DPrintf("[	applyLog func-rf{%v}	] apply Log,logIndex:%v  ，logTerm：{%v},command：{%v}\n", rf.me,
-    //        rf.lastApplied, rf.logs[rf.getSlicesIndexFromLogIndex(rf.lastApplied)].LogTerm,
+    //        DPrintf("[	applyLog func-rf{%v}	] apply Log,logIndex:%v  ，logTerm：{%v},command：{%v}\n",
+    //        rf.me, rf.lastApplied, rf.logs[rf.getSlicesIndexFromLogIndex(rf.lastApplied)].LogTerm,
     //        rf.logs[rf.getSlicesIndexFromLogIndex(rf.lastApplied)].Command)
   }
   return applyMsgs;
@@ -570,8 +570,9 @@ void Raft::RequestVote(const raftRpcProctoc::RequestVoteArgs *args, raftRpcProct
   }
   // fig2:右下角，如果任何时候rpc请求或者响应的term大于自己的term，更新term，并变成follower
   if (args->term() > m_currentTerm) {
-    //        DPrintf("[	    func-RequestVote-rf(%v)		] : 变成follower且更新term 因为candidate{%v}的term{%v}>
-    //        rf{%v}.term{%v}\n ", rf.me, args.CandidateId, args.Term, rf.me, rf.currentTerm)
+    //        DPrintf("[	    func-RequestVote-rf(%v)		] : 变成follower且更新term
+    //        因为candidate{%v}的term{%v}> rf{%v}.term{%v}\n ", rf.me, args.CandidateId, args.Term, rf.me,
+    //        rf.currentTerm)
     m_status = Follower;
     m_currentTerm = args->term();
     m_votedFor = -1;
@@ -606,8 +607,8 @@ void Raft::RequestVote(const raftRpcProctoc::RequestVoteArgs *args, raftRpcProct
   // todo ： 啥时候会出现rf.votedFor == args.CandidateId ，就算candidate选举超时再选举，其term也是不一样的呀
   //     当因为网络质量不好导致的请求丢失重发就有可能！！！！
   if (m_votedFor != -1 && m_votedFor != args->candidateid()) {
-    //        DPrintf("[	    func-RequestVote-rf(%v)		] : refuse voted rf[%v] ,because has voted\n", rf.me,
-    //        args.CandidateId)
+    //        DPrintf("[	    func-RequestVote-rf(%v)		] : refuse voted rf[%v] ,because has voted\n",
+    //        rf.me, args.CandidateId)
     reply->set_term(m_currentTerm);
     reply->set_votestate(Voted);
     reply->set_votegranted(false);
@@ -795,7 +796,7 @@ bool Raft::sendAppendEntries(int server, std::shared_ptr<raftRpcProctoc::AppendE
            format("reply.Term{%d} != rf.currentTerm{%d}   ", reply->term(), m_currentTerm));
   if (!reply->success()) {
     //日志不匹配，正常来说就是index要往前-1，既然能到这里，第一个日志（idnex =
-    //1）发送后肯定是匹配的，因此不用考虑变成负数 因为真正的环境不会知道是服务器宕机还是发生网络分区了
+    // 1）发送后肯定是匹配的，因此不用考虑变成负数 因为真正的环境不会知道是服务器宕机还是发生网络分区了
     if (reply->updatenextindex() != -100) {
       // todo:待总结，就算term匹配，失败的时候nextIndex也不是照单全收的，因为如果发生rpc延迟，leader的term可能从不符合term要求
       //变得符合term要求
@@ -825,7 +826,7 @@ bool Raft::sendAppendEntries(int server, std::shared_ptr<raftRpcProctoc::AppendE
       *appendNums = 0;
       // todo https://578223592-laughing-halibut-wxvpggvw69qh99q4.github.dev/ 不断遍历来统计rf.commitIndex
       //改了好久！！！！！
-      //leader只有在当前term有日志提交的时候才更新commitIndex，因为raft无法保证之前term的Index是否提交
+      // leader只有在当前term有日志提交的时候才更新commitIndex，因为raft无法保证之前term的Index是否提交
       //只有当前term有日志提交，之前term的log才可以被提交，只有这样才能保证“领导人完备性{当选领导人的节点拥有之前被提交的所有log，当然也可能有一些没有被提交的}”
       // rf.leaderUpdateCommitIndex()
       if (args->entries_size() > 0) {

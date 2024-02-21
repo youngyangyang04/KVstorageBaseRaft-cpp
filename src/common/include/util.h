@@ -38,7 +38,6 @@ class DeferClass {
 #undef DEFER
 #define DEFER _MAKE_DEFER_(__LINE__)
 
-
 void DPrintf(const char* format, ...);
 
 void myAssert(bool condition, std::string message = "Assertion failed!");
