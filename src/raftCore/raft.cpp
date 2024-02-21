@@ -452,33 +452,24 @@ void Raft::pushMsgToKvServer(ApplyMsg msg) { applyChan->Push(msg); }
 
 void Raft::leaderHearBeatTicker() {
   while (true) {
-    static auto wakeTime = now();
+    //不是leader的话就没有必要进行后续操作，况且还要拿锁，很影响性能，目前是睡眠，后面再优化优化
+    while ( m_status != Leader) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(HeartBeatTimeout));
+    }
+    auto wakaTime = now();
     m_mtx.lock();
 
-    auto suitableSleepTime = std::chrono::milliseconds(HeartBeatTimeout) + m_lastResetHearBeatTime - wakeTime;
+    auto suitableSleepTime = std::chrono::milliseconds(HeartBeatTimeout) + m_lastResetHearBeatTime - wakaTime;
     m_mtx.unlock();
 
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(suitableSleepTime).count() < 1) {
-      suitableSleepTime = std::chrono::milliseconds(1);
+
+    if (std::chrono::duration<double, std::milli>(suitableSleepTime).count() > 1) {
+      std::this_thread::sleep_for(suitableSleepTime);
     }
-    // usleep(std::chrono::duration_cast<std::chrono::microseconds>(suitableSleepTime).count());
-    // 获取当前时间点
-    auto start = std::chrono::steady_clock::now();
-    std::this_thread::sleep_for(suitableSleepTime);
-
-    // 获取函数运行结束后的时间点
-    auto end = std::chrono::steady_clock::now();
-
-    // 计算时间差并输出结果（单位为毫秒）
-    std::chrono::duration<double, std::milli> duration = end - start;
-
-    // 使用ANSI控制序列将输出颜色修改为紫色
-    std::cout << "\033[1;35m  leaderHearBeatTicker() 设置睡眠时间为: " << std::chrono::duration_cast<std::chrono::milliseconds>(suitableSleepTime).count() << " 毫秒\033[0m" << "\n";
-    std::cout << "\033[1;35m  leaderHearBeatTicker() 实际睡眠时间为: " << duration.count() << " 毫秒\033[0m" << "\n";
 
 
-    if ((m_lastResetHearBeatTime - wakeTime).count() > 0) {
-      //说明睡眠的这段时间有重置定时器，那么就没有超时，再次睡眠
+    if (std::chrono::duration<double, std::milli>(m_lastResetHearBeatTime - wakaTime).count() > 0) {
+      //睡眠的这段时间有重置定时器，没有超时，再次睡眠
       continue;
     }
 
