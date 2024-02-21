@@ -70,6 +70,9 @@ class Raft : public raftRpcProctoc::raftRpc {
   void applierTicker();
   bool CondInstallSnapshot(int lastIncludedTerm, int lastIncludedIndex, std::string snapshot);
   void doElection();
+  /**
+   * \brief 发起心跳，只有leader才需要发起心跳
+   */
   void doHeartBeat();
   // 每隔一段时间检查睡眠时间内有没有重置定时器，没有则说明超时了
   // 如果有则设置合适睡眠时间：睡眠到重置时间+超时时间
