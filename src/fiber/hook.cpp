@@ -1,6 +1,6 @@
 #include "hook.hpp"
 #include <dlfcn.h>
-#include <stdarg.h>
+#include <cstdarg>
 #include <string>
 #include "fd_manager.hpp"
 #include "fiber.hpp"
@@ -58,7 +58,7 @@ static _HOOKIniter s_hook_initer;
 
 bool is_hook_enable() { return t_hook_enable; }
 
-void set_hook_enable(bool flag) { t_hook_enable = flag; }
+void set_hook_enable(const bool flag) { t_hook_enable = flag; }
 
 struct timer_info {
   int cnacelled = 0;
@@ -141,6 +141,11 @@ extern "C" {
 HOOK_FUN(XX);
 #undef XX
 
+/**
+ * \brief
+ * \param seconds 睡眠的秒数
+ * \return
+ */
 unsigned int sleep(unsigned int seconds) {
   // std::cout << "HOOK SLEEP" << std::endl;
   if (!t_hook_enable) {

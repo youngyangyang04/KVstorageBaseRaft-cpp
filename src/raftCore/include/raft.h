@@ -7,6 +7,7 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include <monsoon.h>
 #include <mutex>
 #include <string>
 #include <thread>
@@ -64,6 +65,10 @@ class Raft : public raftRpcProctoc::raftRpc {
   // 储存了快照中的最后一个日志的Index和Term
   int m_lastSnapshotIncludeIndex;
   int m_lastSnapshotIncludeTerm;
+
+
+ // 协程
+ std::unique_ptr<monsoon::IOManager> m_ioManager;
 
  public:
   void AppendEntries1(const raftRpcProctoc::AppendEntriesArgs *args, raftRpcProctoc::AppendEntriesReply *reply);

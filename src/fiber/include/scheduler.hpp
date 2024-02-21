@@ -55,14 +55,18 @@ class Scheduler {
   // 获取当前线程的调度器协程
   static Fiber *GetMainFiber();
 
-  // 添加调度任务
-  // 任务可以是协程对象或函数指针
+  /**
+   * \brief 添加调度任务
+    * \tparam TaskType 任务类型，可以是协程对象或函数指针
+   * \param task 任务
+   * \param thread 指定执行函数的线程，-1为不指定
+   */
   template <class TaskType>
-  void scheduler(TaskType t, int thread = -1) {
+  void scheduler(TaskType task, int thread = -1) {
     bool isNeedTickle = false;
     {
       Mutex::Lock lock(mutex_);
-      isNeedTickle = schedulerNoLock(t, thread);
+      isNeedTickle = schedulerNoLock(task, thread);
       // std::cout << "isNeedTickle: " << isNeedTickle << std::endl;
     }
 
@@ -86,7 +90,10 @@ class Scheduler {
  protected:
   // 通知调度器任务到达
   virtual void tickle();
-  // 协程调度函数
+  /**
+   * \brief  协程调度函数,
+   * 默认会启用hook
+   */
   void run();
   // 无任务时执行idle协程
   virtual void idle();
@@ -99,6 +106,7 @@ class Scheduler {
 
  private:
   // 无锁下，添加调度任务
+    // todo 可以加入使用clang的锁检查
   template <class TaskType>
   bool schedulerNoLock(TaskType t, int thread) {
     bool isNeedTickle = tasks_.empty();
