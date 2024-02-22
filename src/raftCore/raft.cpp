@@ -312,9 +312,11 @@ void Raft::doHeartBeat() {
 void Raft::electionTimeOutTicker() {
   // Check if a Leader election should be started.
   while (true) {
-
+    /**
+     * 如果不睡眠，那么对于leader，这个函数会一直空转，浪费cpu。且加入协程之后，空转会导致其他协程无法运行，对于时间敏感的AE，会导致心跳无法正常发送导致异常
+     */
     while (m_status == Leader) {
-      usleep(HeartBeatTimeout);
+      usleep(HeartBeatTimeout); //定时时间没有严谨设置，因为HeartBeatTimeout比选举超时一般小一个数量级，因此就设置为HeartBeatTimeout了
     }
 
     m_mtx.lock();
