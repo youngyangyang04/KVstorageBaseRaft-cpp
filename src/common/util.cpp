@@ -22,9 +22,7 @@ std::chrono::milliseconds getRandomizedElectionTimeout() {
   return std::chrono::milliseconds(dist(rng));
 }
 
-void sleepNMilliseconds(int N) {
-  std::this_thread::sleep_for(std::chrono::milliseconds(N));
-};
+void sleepNMilliseconds(int N) { std::this_thread::sleep_for(std::chrono::milliseconds(N)); };
 
 bool getReleasePort(short &port) {
   short num = 0;

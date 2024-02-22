@@ -57,7 +57,7 @@ class Scheduler {
 
   /**
    * \brief 添加调度任务
-    * \tparam TaskType 任务类型，可以是协程对象或函数指针
+   * \tparam TaskType 任务类型，可以是协程对象或函数指针
    * \param task 任务
    * \param thread 指定执行函数的线程，-1为不指定
    */
@@ -106,7 +106,7 @@ class Scheduler {
 
  private:
   // 无锁下，添加调度任务
-    // todo 可以加入使用clang的锁检查
+  // todo 可以加入使用clang的锁检查
   template <class TaskType>
   bool schedulerNoLock(TaskType t, int thread) {
     bool isNeedTickle = tasks_.empty();
