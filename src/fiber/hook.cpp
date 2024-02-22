@@ -170,6 +170,7 @@ int usleep(useconds_t usec) {
     // std::cout << "THIS THREAD WAKE UP" << std::endl;
     return 0;
   }
+  std::cout << "HOOK USLEEP REAL START" << std::endl;
   // 允许hook,则直接让当前协程退出，seconds秒后再重启（by定时器）
   Fiber::ptr fiber = Fiber::GetThis();
   IOManager *iom = IOManager::GetThis();

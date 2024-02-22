@@ -39,7 +39,7 @@ IOManager::IOManager(size_t threads, bool use_caller, const std::string &name) :
   CondPanic(ret == 0, "pipe error");
 
   // 注册pipe读句柄的可读事件，用于tickle调度协程
-  epoll_event event;
+  epoll_event event{};
   memset(&event, 0, sizeof(epoll_event));
   event.events = EPOLLIN | EPOLLET;
   event.data.fd = tickleFds_[0];

@@ -68,7 +68,7 @@ class Raft : public raftRpcProctoc::raftRpc {
 
 
  // 协程
- std::unique_ptr<monsoon::IOManager> m_ioManager;
+ std::unique_ptr<monsoon::IOManager> m_ioManager=nullptr;
 
  public:
   void AppendEntries1(const raftRpcProctoc::AppendEntriesArgs *args, raftRpcProctoc::AppendEntriesReply *reply);

@@ -62,7 +62,7 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool run_inscheduler)
 
   // std::cout << "create son fiber , id = " << id_ << ",backtrace:\n"
   //           << BacktraceToString(6, 3, "") << std::endl;
-  std::cout << "[fiber]create son fiber , id = " << id_ << std::endl;
+  // std::cout << "[fiber]create son fiber , id = " << id_ << std::endl;
 }
 
 // 切换当前协程到执行态,并保存主协程的上下文
