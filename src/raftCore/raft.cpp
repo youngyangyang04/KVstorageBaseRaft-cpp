@@ -535,6 +535,7 @@ void Raft::leaderUpdateCommitIndex() {
   //    DPrintf("[func-leaderUpdateCommitIndex()-rf{%v}] Leader %d(term%d) commitIndex
   //    %d",rf.me,rf.me,rf.currentTerm,rf.commitIndex)
 }
+shit
 
 //进来前要保证logIndex是存在的，即≥rf.lastSnapshotIncludeIndex	，而且小于等于rf.getLastLogIndex()
 bool Raft::matchLog(int logIndex, int logTerm) {
