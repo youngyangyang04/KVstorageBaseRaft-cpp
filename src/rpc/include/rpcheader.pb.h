@@ -286,31 +286,31 @@ inline const std::string& RpcHeader::_internal_service_name() const {
   return service_name_.Get();
 }
 inline void RpcHeader::_internal_set_service_name(const std::string& value) {
-  
+
   service_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void RpcHeader::set_service_name(std::string&& value) {
-  
+
   service_name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:RPC.RpcHeader.service_name)
 }
 inline void RpcHeader::set_service_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   service_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:RPC.RpcHeader.service_name)
 }
 inline void RpcHeader::set_service_name(const void* value,
     size_t size) {
-  
+
   service_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:RPC.RpcHeader.service_name)
 }
 inline std::string* RpcHeader::_internal_mutable_service_name() {
-  
+
   return service_name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* RpcHeader::release_service_name() {
@@ -319,9 +319,9 @@ inline std::string* RpcHeader::release_service_name() {
 }
 inline void RpcHeader::set_allocated_service_name(std::string* service_name) {
   if (service_name != nullptr) {
-    
+
   } else {
-    
+
   }
   service_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_name,
       GetArena());
@@ -330,7 +330,7 @@ inline void RpcHeader::set_allocated_service_name(std::string* service_name) {
 inline std::string* RpcHeader::unsafe_arena_release_service_name() {
   // @@protoc_insertion_point(field_unsafe_arena_release:RPC.RpcHeader.service_name)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return service_name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -338,9 +338,9 @@ inline void RpcHeader::unsafe_arena_set_allocated_service_name(
     std::string* service_name) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (service_name != nullptr) {
-    
+
   } else {
-    
+
   }
   service_name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       service_name, GetArena());
@@ -367,31 +367,31 @@ inline const std::string& RpcHeader::_internal_method_name() const {
   return method_name_.Get();
 }
 inline void RpcHeader::_internal_set_method_name(const std::string& value) {
-  
+
   method_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void RpcHeader::set_method_name(std::string&& value) {
-  
+
   method_name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:RPC.RpcHeader.method_name)
 }
 inline void RpcHeader::set_method_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   method_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:RPC.RpcHeader.method_name)
 }
 inline void RpcHeader::set_method_name(const void* value,
     size_t size) {
-  
+
   method_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:RPC.RpcHeader.method_name)
 }
 inline std::string* RpcHeader::_internal_mutable_method_name() {
-  
+
   return method_name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* RpcHeader::release_method_name() {
@@ -400,9 +400,9 @@ inline std::string* RpcHeader::release_method_name() {
 }
 inline void RpcHeader::set_allocated_method_name(std::string* method_name) {
   if (method_name != nullptr) {
-    
+
   } else {
-    
+
   }
   method_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), method_name,
       GetArena());
@@ -411,7 +411,7 @@ inline void RpcHeader::set_allocated_method_name(std::string* method_name) {
 inline std::string* RpcHeader::unsafe_arena_release_method_name() {
   // @@protoc_insertion_point(field_unsafe_arena_release:RPC.RpcHeader.method_name)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return method_name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -419,9 +419,9 @@ inline void RpcHeader::unsafe_arena_set_allocated_method_name(
     std::string* method_name) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (method_name != nullptr) {
-    
+
   } else {
-    
+
   }
   method_name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       method_name, GetArena());
@@ -440,7 +440,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 RpcHeader::args_size() const {
   return _internal_args_size();
 }
 inline void RpcHeader::_internal_set_args_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
+
   args_size_ = value;
 }
 inline void RpcHeader::set_args_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {

@@ -446,5 +446,5 @@ KvServer::KvServer(int me, int maxraftstate, std::string nodeInforFileName, shor
     ReadSnapShotToInstall(snapshot);
   }
   std::thread t2(&KvServer::ReadRaftApplyCommandLoop, this);  //马上向其他节点宣告自己就是leader
-  t2.join();  //由於ReadRaftApplyCommandLoop一直不會結束，相當於一直卡死在這裏了
+  t2.join();  //由於ReadRaftApplyCommandLoop一直不會結束，达到一直卡在这的目的
 }

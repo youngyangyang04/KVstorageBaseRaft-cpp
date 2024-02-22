@@ -1404,31 +1404,31 @@ inline const std::string& LogEntry::_internal_command() const {
   return command_.Get();
 }
 inline void LogEntry::_internal_set_command(const std::string& value) {
-  
+
   command_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void LogEntry::set_command(std::string&& value) {
-  
+
   command_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftRpcProctoc.LogEntry.Command)
 }
 inline void LogEntry::set_command(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   command_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftRpcProctoc.LogEntry.Command)
 }
 inline void LogEntry::set_command(const void* value,
     size_t size) {
-  
+
   command_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftRpcProctoc.LogEntry.Command)
 }
 inline std::string* LogEntry::_internal_mutable_command() {
-  
+
   return command_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* LogEntry::release_command() {
@@ -1437,9 +1437,9 @@ inline std::string* LogEntry::release_command() {
 }
 inline void LogEntry::set_allocated_command(std::string* command) {
   if (command != nullptr) {
-    
+
   } else {
-    
+
   }
   command_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), command,
       GetArena());
@@ -1448,7 +1448,7 @@ inline void LogEntry::set_allocated_command(std::string* command) {
 inline std::string* LogEntry::unsafe_arena_release_command() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftRpcProctoc.LogEntry.Command)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return command_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1456,9 +1456,9 @@ inline void LogEntry::unsafe_arena_set_allocated_command(
     std::string* command) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (command != nullptr) {
-    
+
   } else {
-    
+
   }
   command_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       command, GetArena());
@@ -1477,7 +1477,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 LogEntry::logterm() const {
   return _internal_logterm();
 }
 inline void LogEntry::_internal_set_logterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   logterm_ = value;
 }
 inline void LogEntry::set_logterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1497,7 +1497,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 LogEntry::logindex() const {
   return _internal_logindex();
 }
 inline void LogEntry::_internal_set_logindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   logindex_ = value;
 }
 inline void LogEntry::set_logindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1521,7 +1521,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesArgs::term() const {
   return _internal_term();
 }
 inline void AppendEntriesArgs::_internal_set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   term_ = value;
 }
 inline void AppendEntriesArgs::set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1541,7 +1541,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesArgs::leaderid() const {
   return _internal_leaderid();
 }
 inline void AppendEntriesArgs::_internal_set_leaderid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   leaderid_ = value;
 }
 inline void AppendEntriesArgs::set_leaderid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1561,7 +1561,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesArgs::prevlogindex() const {
   return _internal_prevlogindex();
 }
 inline void AppendEntriesArgs::_internal_set_prevlogindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   prevlogindex_ = value;
 }
 inline void AppendEntriesArgs::set_prevlogindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1581,7 +1581,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesArgs::prevlogterm() const {
   return _internal_prevlogterm();
 }
 inline void AppendEntriesArgs::_internal_set_prevlogterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   prevlogterm_ = value;
 }
 inline void AppendEntriesArgs::set_prevlogterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1640,7 +1640,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesArgs::leadercommit() const {
   return _internal_leadercommit();
 }
 inline void AppendEntriesArgs::_internal_set_leadercommit(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   leadercommit_ = value;
 }
 inline void AppendEntriesArgs::set_leadercommit(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1664,7 +1664,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesReply::term() const {
   return _internal_term();
 }
 inline void AppendEntriesReply::_internal_set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   term_ = value;
 }
 inline void AppendEntriesReply::set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1684,7 +1684,7 @@ inline bool AppendEntriesReply::success() const {
   return _internal_success();
 }
 inline void AppendEntriesReply::_internal_set_success(bool value) {
-  
+
   success_ = value;
 }
 inline void AppendEntriesReply::set_success(bool value) {
@@ -1704,7 +1704,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesReply::updatenextindex() cons
   return _internal_updatenextindex();
 }
 inline void AppendEntriesReply::_internal_set_updatenextindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   updatenextindex_ = value;
 }
 inline void AppendEntriesReply::set_updatenextindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1724,7 +1724,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 AppendEntriesReply::appstate() const {
   return _internal_appstate();
 }
 inline void AppendEntriesReply::_internal_set_appstate(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   appstate_ = value;
 }
 inline void AppendEntriesReply::set_appstate(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1748,7 +1748,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RequestVoteArgs::term() const {
   return _internal_term();
 }
 inline void RequestVoteArgs::_internal_set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   term_ = value;
 }
 inline void RequestVoteArgs::set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1768,7 +1768,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RequestVoteArgs::candidateid() const {
   return _internal_candidateid();
 }
 inline void RequestVoteArgs::_internal_set_candidateid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   candidateid_ = value;
 }
 inline void RequestVoteArgs::set_candidateid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1788,7 +1788,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RequestVoteArgs::lastlogindex() const {
   return _internal_lastlogindex();
 }
 inline void RequestVoteArgs::_internal_set_lastlogindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   lastlogindex_ = value;
 }
 inline void RequestVoteArgs::set_lastlogindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1808,7 +1808,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RequestVoteArgs::lastlogterm() const {
   return _internal_lastlogterm();
 }
 inline void RequestVoteArgs::_internal_set_lastlogterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   lastlogterm_ = value;
 }
 inline void RequestVoteArgs::set_lastlogterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1832,7 +1832,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RequestVoteReply::term() const {
   return _internal_term();
 }
 inline void RequestVoteReply::_internal_set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   term_ = value;
 }
 inline void RequestVoteReply::set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1852,7 +1852,7 @@ inline bool RequestVoteReply::votegranted() const {
   return _internal_votegranted();
 }
 inline void RequestVoteReply::_internal_set_votegranted(bool value) {
-  
+
   votegranted_ = value;
 }
 inline void RequestVoteReply::set_votegranted(bool value) {
@@ -1872,7 +1872,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RequestVoteReply::votestate() const {
   return _internal_votestate();
 }
 inline void RequestVoteReply::_internal_set_votestate(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   votestate_ = value;
 }
 inline void RequestVoteReply::set_votestate(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1896,7 +1896,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 InstallSnapshotRequest::leaderid() const {
   return _internal_leaderid();
 }
 inline void InstallSnapshotRequest::_internal_set_leaderid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   leaderid_ = value;
 }
 inline void InstallSnapshotRequest::set_leaderid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1916,7 +1916,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 InstallSnapshotRequest::term() const {
   return _internal_term();
 }
 inline void InstallSnapshotRequest::_internal_set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   term_ = value;
 }
 inline void InstallSnapshotRequest::set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1936,7 +1936,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 InstallSnapshotRequest::lastsnapshotinclud
   return _internal_lastsnapshotincludeindex();
 }
 inline void InstallSnapshotRequest::_internal_set_lastsnapshotincludeindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   lastsnapshotincludeindex_ = value;
 }
 inline void InstallSnapshotRequest::set_lastsnapshotincludeindex(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1956,7 +1956,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 InstallSnapshotRequest::lastsnapshotinclud
   return _internal_lastsnapshotincludeterm();
 }
 inline void InstallSnapshotRequest::_internal_set_lastsnapshotincludeterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   lastsnapshotincludeterm_ = value;
 }
 inline void InstallSnapshotRequest::set_lastsnapshotincludeterm(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1984,31 +1984,31 @@ inline const std::string& InstallSnapshotRequest::_internal_data() const {
   return data_.Get();
 }
 inline void InstallSnapshotRequest::_internal_set_data(const std::string& value) {
-  
+
   data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void InstallSnapshotRequest::set_data(std::string&& value) {
-  
+
   data_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftRpcProctoc.InstallSnapshotRequest.Data)
 }
 inline void InstallSnapshotRequest::set_data(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftRpcProctoc.InstallSnapshotRequest.Data)
 }
 inline void InstallSnapshotRequest::set_data(const void* value,
     size_t size) {
-  
+
   data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftRpcProctoc.InstallSnapshotRequest.Data)
 }
 inline std::string* InstallSnapshotRequest::_internal_mutable_data() {
-  
+
   return data_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* InstallSnapshotRequest::release_data() {
@@ -2017,9 +2017,9 @@ inline std::string* InstallSnapshotRequest::release_data() {
 }
 inline void InstallSnapshotRequest::set_allocated_data(std::string* data) {
   if (data != nullptr) {
-    
+
   } else {
-    
+
   }
   data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data,
       GetArena());
@@ -2028,7 +2028,7 @@ inline void InstallSnapshotRequest::set_allocated_data(std::string* data) {
 inline std::string* InstallSnapshotRequest::unsafe_arena_release_data() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftRpcProctoc.InstallSnapshotRequest.Data)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return data_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -2036,9 +2036,9 @@ inline void InstallSnapshotRequest::unsafe_arena_set_allocated_data(
     std::string* data) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (data != nullptr) {
-    
+
   } else {
-    
+
   }
   data_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       data, GetArena());
@@ -2061,7 +2061,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 InstallSnapshotResponse::term() const {
   return _internal_term();
 }
 inline void InstallSnapshotResponse::_internal_set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   term_ = value;
 }
 inline void InstallSnapshotResponse::set_term(::PROTOBUF_NAMESPACE_ID::int32 value) {

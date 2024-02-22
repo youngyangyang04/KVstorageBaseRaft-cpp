@@ -944,31 +944,31 @@ inline const std::string& GetArgs::_internal_key() const {
   return key_.Get();
 }
 inline void GetArgs::_internal_set_key(const std::string& value) {
-  
+
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetArgs::set_key(std::string&& value) {
-  
+
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetArgs.Key)
 }
 inline void GetArgs::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetArgs.Key)
 }
 inline void GetArgs::set_key(const void* value,
     size_t size) {
-  
+
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetArgs.Key)
 }
 inline std::string* GetArgs::_internal_mutable_key() {
-  
+
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetArgs::release_key() {
@@ -977,9 +977,9 @@ inline std::string* GetArgs::release_key() {
 }
 inline void GetArgs::set_allocated_key(std::string* key) {
   if (key != nullptr) {
-    
+
   } else {
-    
+
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
@@ -988,7 +988,7 @@ inline void GetArgs::set_allocated_key(std::string* key) {
 inline std::string* GetArgs::unsafe_arena_release_key() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetArgs.Key)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return key_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -996,9 +996,9 @@ inline void GetArgs::unsafe_arena_set_allocated_key(
     std::string* key) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (key != nullptr) {
-    
+
   } else {
-    
+
   }
   key_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       key, GetArena());
@@ -1025,31 +1025,31 @@ inline const std::string& GetArgs::_internal_clientid() const {
   return clientid_.Get();
 }
 inline void GetArgs::_internal_set_clientid(const std::string& value) {
-  
+
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetArgs::set_clientid(std::string&& value) {
-  
+
   clientid_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetArgs.ClientId)
 }
 inline void GetArgs::set_clientid(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetArgs.ClientId)
 }
 inline void GetArgs::set_clientid(const void* value,
     size_t size) {
-  
+
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetArgs.ClientId)
 }
 inline std::string* GetArgs::_internal_mutable_clientid() {
-  
+
   return clientid_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetArgs::release_clientid() {
@@ -1058,9 +1058,9 @@ inline std::string* GetArgs::release_clientid() {
 }
 inline void GetArgs::set_allocated_clientid(std::string* clientid) {
   if (clientid != nullptr) {
-    
+
   } else {
-    
+
   }
   clientid_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), clientid,
       GetArena());
@@ -1069,7 +1069,7 @@ inline void GetArgs::set_allocated_clientid(std::string* clientid) {
 inline std::string* GetArgs::unsafe_arena_release_clientid() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetArgs.ClientId)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return clientid_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1077,9 +1077,9 @@ inline void GetArgs::unsafe_arena_set_allocated_clientid(
     std::string* clientid) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (clientid != nullptr) {
-    
+
   } else {
-    
+
   }
   clientid_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       clientid, GetArena());
@@ -1098,7 +1098,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 GetArgs::requestid() const {
   return _internal_requestid();
 }
 inline void GetArgs::_internal_set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   requestid_ = value;
 }
 inline void GetArgs::set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1130,31 +1130,31 @@ inline const std::string& GetReply::_internal_err() const {
   return err_.Get();
 }
 inline void GetReply::_internal_set_err(const std::string& value) {
-  
+
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetReply::set_err(std::string&& value) {
-  
+
   err_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetReply.Err)
 }
 inline void GetReply::set_err(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetReply.Err)
 }
 inline void GetReply::set_err(const void* value,
     size_t size) {
-  
+
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetReply.Err)
 }
 inline std::string* GetReply::_internal_mutable_err() {
-  
+
   return err_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetReply::release_err() {
@@ -1163,9 +1163,9 @@ inline std::string* GetReply::release_err() {
 }
 inline void GetReply::set_allocated_err(std::string* err) {
   if (err != nullptr) {
-    
+
   } else {
-    
+
   }
   err_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), err,
       GetArena());
@@ -1174,7 +1174,7 @@ inline void GetReply::set_allocated_err(std::string* err) {
 inline std::string* GetReply::unsafe_arena_release_err() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetReply.Err)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return err_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1182,9 +1182,9 @@ inline void GetReply::unsafe_arena_set_allocated_err(
     std::string* err) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (err != nullptr) {
-    
+
   } else {
-    
+
   }
   err_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       err, GetArena());
@@ -1211,31 +1211,31 @@ inline const std::string& GetReply::_internal_value() const {
   return value_.Get();
 }
 inline void GetReply::_internal_set_value(const std::string& value) {
-  
+
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetReply::set_value(std::string&& value) {
-  
+
   value_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetReply.Value)
 }
 inline void GetReply::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetReply.Value)
 }
 inline void GetReply::set_value(const void* value,
     size_t size) {
-  
+
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetReply.Value)
 }
 inline std::string* GetReply::_internal_mutable_value() {
-  
+
   return value_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetReply::release_value() {
@@ -1244,9 +1244,9 @@ inline std::string* GetReply::release_value() {
 }
 inline void GetReply::set_allocated_value(std::string* value) {
   if (value != nullptr) {
-    
+
   } else {
-    
+
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArena());
@@ -1255,7 +1255,7 @@ inline void GetReply::set_allocated_value(std::string* value) {
 inline std::string* GetReply::unsafe_arena_release_value() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetReply.Value)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return value_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1263,9 +1263,9 @@ inline void GetReply::unsafe_arena_set_allocated_value(
     std::string* value) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (value != nullptr) {
-    
+
   } else {
-    
+
   }
   value_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       value, GetArena());
@@ -1296,31 +1296,31 @@ inline const std::string& PutAppendArgs::_internal_key() const {
   return key_.Get();
 }
 inline void PutAppendArgs::_internal_set_key(const std::string& value) {
-  
+
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_key(std::string&& value) {
-  
+
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.Key)
 }
 inline void PutAppendArgs::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.Key)
 }
 inline void PutAppendArgs::set_key(const void* value,
     size_t size) {
-  
+
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.Key)
 }
 inline std::string* PutAppendArgs::_internal_mutable_key() {
-  
+
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_key() {
@@ -1329,9 +1329,9 @@ inline std::string* PutAppendArgs::release_key() {
 }
 inline void PutAppendArgs::set_allocated_key(std::string* key) {
   if (key != nullptr) {
-    
+
   } else {
-    
+
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
@@ -1340,7 +1340,7 @@ inline void PutAppendArgs::set_allocated_key(std::string* key) {
 inline std::string* PutAppendArgs::unsafe_arena_release_key() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.Key)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return key_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1348,9 +1348,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_key(
     std::string* key) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (key != nullptr) {
-    
+
   } else {
-    
+
   }
   key_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       key, GetArena());
@@ -1377,31 +1377,31 @@ inline const std::string& PutAppendArgs::_internal_value() const {
   return value_.Get();
 }
 inline void PutAppendArgs::_internal_set_value(const std::string& value) {
-  
+
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_value(std::string&& value) {
-  
+
   value_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.Value)
 }
 inline void PutAppendArgs::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.Value)
 }
 inline void PutAppendArgs::set_value(const void* value,
     size_t size) {
-  
+
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.Value)
 }
 inline std::string* PutAppendArgs::_internal_mutable_value() {
-  
+
   return value_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_value() {
@@ -1410,9 +1410,9 @@ inline std::string* PutAppendArgs::release_value() {
 }
 inline void PutAppendArgs::set_allocated_value(std::string* value) {
   if (value != nullptr) {
-    
+
   } else {
-    
+
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArena());
@@ -1421,7 +1421,7 @@ inline void PutAppendArgs::set_allocated_value(std::string* value) {
 inline std::string* PutAppendArgs::unsafe_arena_release_value() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.Value)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return value_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1429,9 +1429,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_value(
     std::string* value) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (value != nullptr) {
-    
+
   } else {
-    
+
   }
   value_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       value, GetArena());
@@ -1458,31 +1458,31 @@ inline const std::string& PutAppendArgs::_internal_op() const {
   return op_.Get();
 }
 inline void PutAppendArgs::_internal_set_op(const std::string& value) {
-  
+
   op_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_op(std::string&& value) {
-  
+
   op_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.Op)
 }
 inline void PutAppendArgs::set_op(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   op_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.Op)
 }
 inline void PutAppendArgs::set_op(const void* value,
     size_t size) {
-  
+
   op_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.Op)
 }
 inline std::string* PutAppendArgs::_internal_mutable_op() {
-  
+
   return op_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_op() {
@@ -1491,9 +1491,9 @@ inline std::string* PutAppendArgs::release_op() {
 }
 inline void PutAppendArgs::set_allocated_op(std::string* op) {
   if (op != nullptr) {
-    
+
   } else {
-    
+
   }
   op_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), op,
       GetArena());
@@ -1502,7 +1502,7 @@ inline void PutAppendArgs::set_allocated_op(std::string* op) {
 inline std::string* PutAppendArgs::unsafe_arena_release_op() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.Op)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return op_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1510,9 +1510,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_op(
     std::string* op) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (op != nullptr) {
-    
+
   } else {
-    
+
   }
   op_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       op, GetArena());
@@ -1539,31 +1539,31 @@ inline const std::string& PutAppendArgs::_internal_clientid() const {
   return clientid_.Get();
 }
 inline void PutAppendArgs::_internal_set_clientid(const std::string& value) {
-  
+
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_clientid(std::string&& value) {
-  
+
   clientid_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.ClientId)
 }
 inline void PutAppendArgs::set_clientid(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.ClientId)
 }
 inline void PutAppendArgs::set_clientid(const void* value,
     size_t size) {
-  
+
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.ClientId)
 }
 inline std::string* PutAppendArgs::_internal_mutable_clientid() {
-  
+
   return clientid_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_clientid() {
@@ -1572,9 +1572,9 @@ inline std::string* PutAppendArgs::release_clientid() {
 }
 inline void PutAppendArgs::set_allocated_clientid(std::string* clientid) {
   if (clientid != nullptr) {
-    
+
   } else {
-    
+
   }
   clientid_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), clientid,
       GetArena());
@@ -1583,7 +1583,7 @@ inline void PutAppendArgs::set_allocated_clientid(std::string* clientid) {
 inline std::string* PutAppendArgs::unsafe_arena_release_clientid() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.ClientId)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return clientid_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1591,9 +1591,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_clientid(
     std::string* clientid) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (clientid != nullptr) {
-    
+
   } else {
-    
+
   }
   clientid_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       clientid, GetArena());
@@ -1612,7 +1612,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 PutAppendArgs::requestid() const {
   return _internal_requestid();
 }
 inline void PutAppendArgs::_internal_set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   requestid_ = value;
 }
 inline void PutAppendArgs::set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1644,31 +1644,31 @@ inline const std::string& PutAppendReply::_internal_err() const {
   return err_.Get();
 }
 inline void PutAppendReply::_internal_set_err(const std::string& value) {
-  
+
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendReply::set_err(std::string&& value) {
-  
+
   err_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendReply.Err)
 }
 inline void PutAppendReply::set_err(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendReply.Err)
 }
 inline void PutAppendReply::set_err(const void* value,
     size_t size) {
-  
+
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendReply.Err)
 }
 inline std::string* PutAppendReply::_internal_mutable_err() {
-  
+
   return err_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendReply::release_err() {
@@ -1677,9 +1677,9 @@ inline std::string* PutAppendReply::release_err() {
 }
 inline void PutAppendReply::set_allocated_err(std::string* err) {
   if (err != nullptr) {
-    
+
   } else {
-    
+
   }
   err_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), err,
       GetArena());
@@ -1688,7 +1688,7 @@ inline void PutAppendReply::set_allocated_err(std::string* err) {
 inline std::string* PutAppendReply::unsafe_arena_release_err() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendReply.Err)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return err_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1696,9 +1696,9 @@ inline void PutAppendReply::unsafe_arena_set_allocated_err(
     std::string* err) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (err != nullptr) {
-    
+
   } else {
-    
+
   }
   err_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       err, GetArena());
