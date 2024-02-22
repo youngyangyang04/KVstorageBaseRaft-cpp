@@ -312,13 +312,16 @@ void Raft::doHeartBeat() {
 void Raft::electionTimeOutTicker() {
   // Check if a Leader election should be started.
   while (true) {
+
+    while (m_status == Leader) {
+      usleep(HeartBeatTimeout);
+    }
+
     m_mtx.lock();
     auto wakeTime = now();
     auto suitableSleepTime = getRandomizedElectionTimeout() + m_lastResetElectionTime - wakeTime;
     m_mtx.unlock();
     if (std::chrono::duration<double, std::milli> (suitableSleepTime).count() > 1) {
-
-
 
       // 获取当前时间点
       auto start = std::chrono::steady_clock::now();
@@ -472,22 +475,24 @@ void Raft::leaderHearBeatTicker() {
       usleep(1000 * HeartBeatTimeout);
       // std::this_thread::sleep_for(std::chrono::milliseconds(HeartBeatTimeout));
     }
+    static std::atomic<int32_t> atomicCount = 0;
 
-    m_mtx.lock();
-    auto wakaTime = now();
-    auto suitableSleepTime = std::chrono::milliseconds(HeartBeatTimeout) + m_lastResetHearBeatTime - wakaTime;
-    m_mtx.unlock();
+    std::chrono::duration<signed long int, std::ratio<1, 1000000000>> suitableSleepTime{};
+    std::chrono::system_clock::time_point wakaTime{};
+    {
+      std::lock_guard<std::mutex> lock(m_mtx);
+      wakaTime = now();
+      suitableSleepTime = std::chrono::milliseconds(HeartBeatTimeout) + m_lastResetHearBeatTime - wakaTime;
+    }
 
 
     if (std::chrono::duration<double, std::milli>(suitableSleepTime).count() > 1) {
-      std::cout << "\033[1;35m leaderHearBeatTicker();函数设置睡眠时间为: " << std::chrono::duration_cast<std::chrono::milliseconds>(suitableSleepTime).count() << " 毫秒\033[0m" << std::endl;
+      std::cout << atomicCount<<"\033[1;35m leaderHearBeatTicker();函数设置睡眠时间为: " << std::chrono::duration_cast<std::chrono::milliseconds>(suitableSleepTime).count() << " 毫秒\033[0m" << std::endl;
       // 获取当前时间点
       auto start = std::chrono::steady_clock::now();
 
       usleep(std::chrono::duration_cast<std::chrono::microseconds>(suitableSleepTime).count());
       // std::this_thread::sleep_for(suitableSleepTime);
-
-
 
       // 获取函数运行结束后的时间点
       auto end = std::chrono::steady_clock::now();
@@ -496,8 +501,8 @@ void Raft::leaderHearBeatTicker() {
       std::chrono::duration<double, std::milli> duration = end - start;
 
       // 使用ANSI控制序列将输出颜色修改为紫色
-      std::cout << "\033[1;35m leaderHearBeatTicker();函数实际睡眠时间为: " << duration.count() << " 毫秒\033[0m" << std::endl;
-
+      std::cout <<atomicCount<< "\033[1;35m leaderHearBeatTicker();函数实际睡眠时间为: " << duration.count() << " 毫秒\033[0m" << std::endl;
+      ++atomicCount;
     }
 
 
