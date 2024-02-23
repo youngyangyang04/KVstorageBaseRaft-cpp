@@ -6,5 +6,5 @@ message RpcHeader
 {
     bytes service_name = 1;
     bytes method_name = 2;
-    uint32 args_size = 3;
+    uint32 args_size = 3; //这里虽然是uint32，但是protobuf编码的时候默认就是变长编码，可见：https://www.cnblogs.com/yangwenhuan/p/10328960.html
 }

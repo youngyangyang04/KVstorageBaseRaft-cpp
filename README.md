@@ -51,7 +51,7 @@ make
 raftCoreRun -n 3 -f test.conf
 ```
 这里更推荐一键运行，使用clion/clion nova，点击这个按钮即可：
-![img.png](images/img.png)
+![img.png](docs/images/img.png)
 
 正常运行后，命令行应该有如下raft的运行输出：
 ```

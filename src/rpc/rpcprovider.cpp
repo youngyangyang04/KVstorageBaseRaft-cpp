@@ -137,7 +137,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net
     // 使用protobuf的CodedInputStream来解析数据流
     google::protobuf::io::ArrayInputStream array_input(recv_buf.data(), recv_buf.size());
     google::protobuf::io::CodedInputStream coded_input(&array_input);
-    uint32_t header_size = 0;
+    uint32_t header_size{};
 
     coded_input.ReadVarint32(&header_size); // 解析header_size
 
@@ -152,8 +152,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net
     coded_input.ReadString(&rpc_header_str, header_size);
     // 恢复之前的限制，以便安全地继续读取其他数据
     coded_input.PopLimit(msg_limit);
-
-    uint32_t args_size;
+    uint32_t args_size{};
     if (rpcHeader.ParseFromString(rpc_header_str))
     {
         // 数据头反序列化成功
