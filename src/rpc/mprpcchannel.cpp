@@ -15,9 +15,9 @@ header_size + service_name method_name args_size + args
 // 所有通过stub代理对象调用的rpc方法，都会走到这里了，
 // 统一通过rpcChannel来调用方法
 // 统一做rpc方法调用的数据数据序列化和网络发送
-void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
-                              google::protobuf::RpcController *controller, const google::protobuf::Message *request,
-                              google::protobuf::Message *response, google::protobuf::Closure *done) {
+void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
+                              google::protobuf::RpcController* controller, const google::protobuf::Message* request,
+                              google::protobuf::Message* response, google::protobuf::Closure* done) {
   if (m_clientFd == -1) {
     std::string errMsg;
     bool rt = newConnect(m_ip.c_str(), m_port, &errMsg);
@@ -30,12 +30,12 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
     }
   }
 
-  const google::protobuf::ServiceDescriptor *sd = method->service();
-  std::string service_name = sd->name();     // service_name
-  std::string method_name = method->name();  // method_name
+  const google::protobuf::ServiceDescriptor* sd = method->service();
+  std::string service_name = sd->name();    // service_name
+  std::string method_name = method->name(); // method_name
 
   // 获取参数的序列化字符串长度 args_size
-  uint32_t args_size = 0;
+  uint32_t args_size{};
   std::string args_str;
   if (request->SerializeToString(&args_str)) {
     args_size = args_str.size();
@@ -43,27 +43,34 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
     controller->SetFailed("serialize request error!");
     return;
   }
-
-  // 定义rpc的请求header
   RPC::RpcHeader rpcHeader;
   rpcHeader.set_service_name(service_name);
   rpcHeader.set_method_name(method_name);
   rpcHeader.set_args_size(args_size);
 
-  uint32_t header_size = 0;
   std::string rpc_header_str;
-  if (rpcHeader.SerializeToString(&rpc_header_str)) {
-    header_size = rpc_header_str.size();
-  } else {
+  if (!rpcHeader.SerializeToString(&rpc_header_str)) {
     controller->SetFailed("serialize rpc header error!");
     return;
   }
 
-  // 组织待发送的rpc请求的字符串
-  std::string send_rpc_str;
-  send_rpc_str.insert(0, std::string((char *)&header_size, 4));  // header_size
-  send_rpc_str += rpc_header_str;                                // rpcheader
-  send_rpc_str += args_str;                                      // args
+  // 使用protobuf的CodedOutputStream来构建发送的数据流
+  std::string send_rpc_str; // 用来存储最终发送的数据
+  {
+    // 创建一个StringOutputStream用于写入send_rpc_str
+    google::protobuf::io::StringOutputStream string_output(&send_rpc_str);
+    google::protobuf::io::CodedOutputStream coded_output(&string_output);
+
+    // 先写入header的长度（变长编码）
+    coded_output.WriteVarint32(static_cast<uint32_t>(rpc_header_str.size()));
+
+    // 不需要手动写入header_size，因为上面的WriteVarint32已经包含了header的长度信息
+    // 然后写入rpc_header本身
+    coded_output.WriteString(rpc_header_str);
+  }
+
+  // 最后，将请求参数附加到send_rpc_str后面
+  send_rpc_str += args_str;
 
   // 打印调试信息
   //    std::cout << "============================================" << std::endl;
@@ -117,7 +124,7 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
   }
 }
 
-bool MprpcChannel::newConnect(const char *ip, uint16_t port, string *errMsg) {
+bool MprpcChannel::newConnect(const char* ip, uint16_t port, string* errMsg) {
   int clientfd = socket(AF_INET, SOCK_STREAM, 0);
   if (-1 == clientfd) {
     char errtxt[512] = {0};
@@ -132,7 +139,7 @@ bool MprpcChannel::newConnect(const char *ip, uint16_t port, string *errMsg) {
   server_addr.sin_port = htons(port);
   server_addr.sin_addr.s_addr = inet_addr(ip);
   // 连接rpc服务节点
-  if (-1 == connect(clientfd, (struct sockaddr *)&server_addr, sizeof(server_addr))) {
+  if (-1 == connect(clientfd, (struct sockaddr*)&server_addr, sizeof(server_addr))) {
     close(clientfd);
     char errtxt[512] = {0};
     sprintf(errtxt, "connect fail! errno:%d", errno);
@@ -144,7 +151,10 @@ bool MprpcChannel::newConnect(const char *ip, uint16_t port, string *errMsg) {
   return true;
 }
 
-MprpcChannel::MprpcChannel(string ip, short port, bool connectNow) : m_ip(ip), m_port(port), m_clientFd(-1) {
+MprpcChannel::MprpcChannel(string ip, short port, bool connectNow)
+  : m_ip(ip),
+    m_port(port),
+    m_clientFd(-1) {
   // 使用tcp编程，完成rpc方法的远程调用，使用的是短连接，因此每次都要重新连接上去，待改成长连接。
   // 没有连接或者连接已经断开，那么就要重新连接呢,会一直不断地重试
   // 读取配置文件rpcserver的信息
@@ -154,7 +164,7 @@ MprpcChannel::MprpcChannel(string ip, short port, bool connectNow) : m_ip(ip), m
   //  /UserServiceRpc/Login
   if (!connectNow) {
     return;
-  }  //可以允许延迟连接
+  } //可以允许延迟连接
   std::string errMsg;
   auto rt = newConnect(ip.c_str(), port, &errMsg);
   int tryCount = 3;
