@@ -9,18 +9,16 @@
 
 template <class F>
 class Defer {
-public:
-    Defer(F&& f) : m_func(std::forward<F>(f)) {}
-    Defer(const F& f) : m_func(f) {}
-    ~Defer() {
-        m_func();
-    }
+ public:
+  Defer(F&& f) : m_func(std::forward<F>(f)) {}
+  Defer(const F& f) : m_func(f) {}
+  ~Defer() { m_func(); }
 
-    Defer(const Defer& e) = delete;
-    Defer& operator=(const Defer& e) = delete;
+  Defer(const Defer& e) = delete;
+  Defer& operator=(const Defer& e) = delete;
 
-private:
-    F m_func;
+ private:
+  F m_func;
 };
 
 #define _CONCAT(a, b) a##b
@@ -29,4 +27,4 @@ private:
 #undef DEFER
 #define DEFER _MAKE_DEFER_(__LINE__)
 
-#endif //KVRAFTCPP_DEFER_H
+#endif  // KVRAFTCPP_DEFER_H

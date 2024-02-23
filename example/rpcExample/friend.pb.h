@@ -628,7 +628,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 ResultCode::errcode() const {
   return _internal_errcode();
 }
 inline void ResultCode::_internal_set_errcode(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+
   errcode_ = value;
 }
 inline void ResultCode::set_errcode(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -656,31 +656,31 @@ inline const std::string& ResultCode::_internal_errmsg() const {
   return errmsg_.Get();
 }
 inline void ResultCode::_internal_set_errmsg(const std::string& value) {
-  
+
   errmsg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void ResultCode::set_errmsg(std::string&& value) {
-  
+
   errmsg_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:fixbug.ResultCode.errmsg)
 }
 inline void ResultCode::set_errmsg(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  
+
   errmsg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:fixbug.ResultCode.errmsg)
 }
 inline void ResultCode::set_errmsg(const void* value,
     size_t size) {
-  
+
   errmsg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:fixbug.ResultCode.errmsg)
 }
 inline std::string* ResultCode::_internal_mutable_errmsg() {
-  
+
   return errmsg_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* ResultCode::release_errmsg() {
@@ -689,9 +689,9 @@ inline std::string* ResultCode::release_errmsg() {
 }
 inline void ResultCode::set_allocated_errmsg(std::string* errmsg) {
   if (errmsg != nullptr) {
-    
+
   } else {
-    
+
   }
   errmsg_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), errmsg,
       GetArena());
@@ -700,7 +700,7 @@ inline void ResultCode::set_allocated_errmsg(std::string* errmsg) {
 inline std::string* ResultCode::unsafe_arena_release_errmsg() {
   // @@protoc_insertion_point(field_unsafe_arena_release:fixbug.ResultCode.errmsg)
   GOOGLE_DCHECK(GetArena() != nullptr);
-  
+
   return errmsg_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -708,9 +708,9 @@ inline void ResultCode::unsafe_arena_set_allocated_errmsg(
     std::string* errmsg) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (errmsg != nullptr) {
-    
+
   } else {
-    
+
   }
   errmsg_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       errmsg, GetArena());
@@ -733,7 +733,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 GetFriendsListRequest::userid() const {
   return _internal_userid();
 }
 inline void GetFriendsListRequest::_internal_set_userid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
+
   userid_ = value;
 }
 inline void GetFriendsListRequest::set_userid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -774,9 +774,9 @@ inline void GetFriendsListResponse::unsafe_arena_set_allocated_result(
   }
   result_ = result;
   if (result) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:fixbug.GetFriendsListResponse.result)
 }
@@ -789,13 +789,13 @@ inline ::fixbug::ResultCode* GetFriendsListResponse::release_result() {
 }
 inline ::fixbug::ResultCode* GetFriendsListResponse::unsafe_arena_release_result() {
   // @@protoc_insertion_point(field_release:fixbug.GetFriendsListResponse.result)
-  
+
   ::fixbug::ResultCode* temp = result_;
   result_ = nullptr;
   return temp;
 }
 inline ::fixbug::ResultCode* GetFriendsListResponse::_internal_mutable_result() {
-  
+
   if (result_ == nullptr) {
     auto* p = CreateMaybeMessage<::fixbug::ResultCode>(GetArena());
     result_ = p;
@@ -818,9 +818,9 @@ inline void GetFriendsListResponse::set_allocated_result(::fixbug::ResultCode* r
       result = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, result, submessage_arena);
     }
-    
+
   } else {
-    
+
   }
   result_ = result;
   // @@protoc_insertion_point(field_set_allocated:fixbug.GetFriendsListResponse.result)
