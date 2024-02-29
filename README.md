@@ -94,7 +94,7 @@ raftCoreRun -n 3 -f test.conf
 - [x] 完成raft节点的集群功能
 - [ ] 去除冗余的库：muduo、boost 
 - [ ] 代码精简优化
-- [ ] code format
+- [x] code format
 - [ ] 代码解读 maybe
 
 
