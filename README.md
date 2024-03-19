@@ -84,11 +84,10 @@ raftCoreRun -n 3 -f test.conf
 
 ## Docs
 - 如果你想创建自己的rpc，请参考example中rpc的md文件和friendRPC相关代码.此外可以见rpc分支
-
+- 各个文件夹文件内容说明：[这里](./docs/目录导览.md)
 > notice:在代码编写过程中可能有一些bug改进，其他分支可能并没有修复这些bug以及相应的改进。注意甄别
 >同时欢迎issue提出这些bug或者pr改进。
-## 各个文件夹文件内容说明
- todo
+
 ## todoList
 
 - [x] 完成raft节点的集群功能
