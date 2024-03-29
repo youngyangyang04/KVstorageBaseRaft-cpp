@@ -99,13 +99,8 @@ raftCoreRun -n 3 -f test.conf
 ## 贡献者列表
 
 <!-- readme: contributors -start -->
-<table>
-<tr>
-    <td align="center">
-        
-    </td></tr>
-</table>
 <!-- readme: contributors -end -->
+
 ## Star History
 
 <a href="https://star-history.com/#youngyangyang04/KVstorageBaseRaft-cpp&Date">
