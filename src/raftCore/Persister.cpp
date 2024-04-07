@@ -3,25 +3,26 @@
 //
 #include "Persister.h"
 #include "util.h"
-// todo:如果文件出现问题会怎么办？？
+
+// todo:会涉及反复打开文件的操作，没有考虑如果文件出现问题会怎么办？？
 void Persister::Save(const std::string raftstate, const std::string snapshot) {
-  std::lock_guard<std::mutex> lg(mtx);
+  std::lock_guard<std::mutex> lg(m_mtx);
+  clearRaftStateAndSnapshot();
   // 将raftstate和snapshot写入本地文件
-  std::ofstream outfile;
   m_raftStateOutStream << raftstate;
   m_snapshotOutStream << snapshot;
 }
 
 std::string Persister::ReadSnapshot() {
-  std::lock_guard<std::mutex> lg(mtx);
+  std::lock_guard<std::mutex> lg(m_mtx);
   if (m_snapshotOutStream.is_open()) {
     m_snapshotOutStream.close();
   }
-  //    Defer ec1([this]()-> void {
-  //        this->m_snapshotOutStream.open(snapshotFile);
-  //    }); //这个变量后生成，会先销毁
-  DEFER { m_snapshotOutStream.open(snapshotFile); };  //这个变量后生成，会先销毁
-  std::fstream ifs(snapshotFile, std::ios_base::in);
+
+  DEFER {
+    m_snapshotOutStream.open(m_snapshotFileName);  //默认是追加
+  };
+  std::fstream ifs(m_snapshotFileName, std::ios_base::in);
   if (!ifs.good()) {
     return "";
   }
@@ -32,21 +33,23 @@ std::string Persister::ReadSnapshot() {
 }
 
 void Persister::SaveRaftState(const std::string &data) {
-  std::lock_guard<std::mutex> lg(mtx);
+  std::lock_guard<std::mutex> lg(m_mtx);
   // 将raftstate和snapshot写入本地文件
+  clearRaftState();
   m_raftStateOutStream << data;
+  m_raftStateSize += data.size();
 }
 
 long long Persister::RaftStateSize() {
-  std::lock_guard<std::mutex> lg(mtx);
+  std::lock_guard<std::mutex> lg(m_mtx);
 
   return m_raftStateSize;
 }
 
 std::string Persister::ReadRaftState() {
-  std::lock_guard<std::mutex> lg(mtx);
+  std::lock_guard<std::mutex> lg(m_mtx);
 
-  std::fstream ifs(raftStateFile, std::ios_base::in);
+  std::fstream ifs(m_raftStateFileName, std::ios_base::in);
   if (!ifs.good()) {
     return "";
   }
@@ -56,20 +59,34 @@ std::string Persister::ReadRaftState() {
   return snapshot;
 }
 
-Persister::Persister(int me)
-    : raftStateFile("raftstatePersist" + std::to_string(me) + ".txt"),
-      snapshotFile("snapshotPersist" + std::to_string(me) + ".txt"),
+Persister::Persister(const int me)
+    : m_raftStateFileName("raftstatePersist" + std::to_string(me) + ".txt"),
+      m_snapshotFileName("snapshotPersist" + std::to_string(me) + ".txt"),
       m_raftStateSize(0) {
-  std::fstream file(raftStateFile, std::ios::out | std::ios::trunc);
+  /**
+   * 检查文件状态并清空文件
+   */
+  bool fileOpenFlag = true;
+  std::fstream file(m_raftStateFileName, std::ios::out | std::ios::trunc);
   if (file.is_open()) {
     file.close();
+  } else {
+    fileOpenFlag = false;
   }
-  file = std::fstream(snapshotFile, std::ios::out | std::ios::trunc);
+  file = std::fstream(m_snapshotFileName, std::ios::out | std::ios::trunc);
   if (file.is_open()) {
     file.close();
+  } else {
+    fileOpenFlag = false;
   }
-  m_raftStateOutStream.open(raftStateFile);
-  m_snapshotOutStream.open(snapshotFile);
+  if (!fileOpenFlag) {
+    DPrintf("[func-Persister::Persister] file open error");
+  }
+  /**
+   * 绑定流
+   */
+  m_raftStateOutStream.open(m_raftStateFileName);
+  m_snapshotOutStream.open(m_snapshotFileName);
 }
 
 Persister::~Persister() {
@@ -79,4 +96,26 @@ Persister::~Persister() {
   if (m_snapshotOutStream.is_open()) {
     m_snapshotOutStream.close();
   }
+}
+
+void Persister::clearRaftState() {
+  m_raftStateSize = 0;
+  // 关闭文件流
+  if (m_raftStateOutStream.is_open()) {
+    m_raftStateOutStream.close();
+  }
+  // 重新打开文件流并清空文件内容
+  m_raftStateOutStream.open(m_raftStateFileName, std::ios::out | std::ios::trunc);
+}
+
+void Persister::clearSnapshot() {
+  if (m_snapshotOutStream.is_open()) {
+    m_snapshotOutStream.close();
+  }
+  m_snapshotOutStream.open(m_snapshotFileName, std::ios::out | std::ios::trunc);
+}
+
+void Persister::clearRaftStateAndSnapshot() {
+  clearRaftState();
+  clearSnapshot();
 }

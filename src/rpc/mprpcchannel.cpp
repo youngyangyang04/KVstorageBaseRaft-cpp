@@ -31,8 +31,8 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
   }
 
   const google::protobuf::ServiceDescriptor* sd = method->service();
-  std::string service_name = sd->name();    // service_name
-  std::string method_name = method->name(); // method_name
+  std::string service_name = sd->name();     // service_name
+  std::string method_name = method->name();  // method_name
 
   // 获取参数的序列化字符串长度 args_size
   uint32_t args_size{};
@@ -55,7 +55,7 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
   }
 
   // 使用protobuf的CodedOutputStream来构建发送的数据流
-  std::string send_rpc_str; // 用来存储最终发送的数据
+  std::string send_rpc_str;  // 用来存储最终发送的数据
   {
     // 创建一个StringOutputStream用于写入send_rpc_str
     google::protobuf::io::StringOutputStream string_output(&send_rpc_str);
@@ -151,10 +151,7 @@ bool MprpcChannel::newConnect(const char* ip, uint16_t port, string* errMsg) {
   return true;
 }
 
-MprpcChannel::MprpcChannel(string ip, short port, bool connectNow)
-  : m_ip(ip),
-    m_port(port),
-    m_clientFd(-1) {
+MprpcChannel::MprpcChannel(string ip, short port, bool connectNow) : m_ip(ip), m_port(port), m_clientFd(-1) {
   // 使用tcp编程，完成rpc方法的远程调用，使用的是短连接，因此每次都要重新连接上去，待改成长连接。
   // 没有连接或者连接已经断开，那么就要重新连接呢,会一直不断地重试
   // 读取配置文件rpcserver的信息
@@ -164,7 +161,7 @@ MprpcChannel::MprpcChannel(string ip, short port, bool connectNow)
   //  /UserServiceRpc/Login
   if (!connectNow) {
     return;
-  } //可以允许延迟连接
+  }  //可以允许延迟连接
   std::string errMsg;
   auto rt = newConnect(ip.c_str(), port, &errMsg);
   int tryCount = 3;
