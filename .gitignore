@@ -3,7 +3,9 @@
 .idea
 bin
 cmake-build-debug
+build
 lib
 
 *.out
 *.a
+.cache
