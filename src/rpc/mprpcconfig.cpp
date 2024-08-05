@@ -21,7 +21,7 @@ void MprpcConfig::LoadConfigFile(const char *config_file) {
     Trim(read_buf);
 
     // 判断#的注释
-    if (read_buf[0] == '#' || read_buf.empty()) {
+    if (read_buf.empty() || read_buf[0] == '#') {
       continue;
     }
 
