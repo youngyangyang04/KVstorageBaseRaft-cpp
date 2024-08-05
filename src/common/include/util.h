@@ -44,10 +44,12 @@ void myAssert(bool condition, std::string message = "Assertion failed!");
 
 template <typename... Args>
 std::string format(const char* format_str, Args... args) {
-  std::stringstream ss;
-  int _[] = {((ss << args), 0)...};
-  (void)_;
-  return ss.str();
+    int size_s = std::snprintf(nullptr, 0, format_str, args...) + 1; // "\0"
+    if (size_s <= 0) { throw std::runtime_error("Error during formatting."); }
+    auto size = static_cast<size_t>(size_s);
+    std::vector<char> buf(size);
+    std::snprintf(buf.data(), size, format_str, args...);
+    return std::string(buf.data(), buf.data() + size - 1);  // remove '\0'
 }
 
 std::chrono::_V2::system_clock::time_point now();
