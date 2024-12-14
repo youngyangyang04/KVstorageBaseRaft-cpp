@@ -1,7 +1,7 @@
 # KVstorageBaseRaft-cpp
 
-> 本项目为[【代码随想录知识星球】](https://programmercarl.com/other/kstar.html) 内部项目实战课  
-> 在 [分布式KV存储项目文档](https://www.programmercarl.com/other/project_fenbushi.html)  里详细讲解：**项目前置知识 + 项目细节 +  代码解读 + 项目难点 + 面试题与回答 + 简历写法  + 项目拓展**。 全面帮助你用这个项目求职面试！
+> 本项目为[【代码随想录知识星球】](https://programmercarl.com/other/kstar.html) 教学项目  
+> ⭐️ 在 [分布式KV存储项目文档](https://www.programmercarl.com/other/project_fenbushi.html)  里详细讲解：**项目前置知识 + 项目细节 +  代码解读 + 项目难点 + 面试题与回答 + 简历写法  + 项目拓展**。 全面帮助你用这个项目求职面试！
 
 
 > notice：本项目的目的是学习Raft的原理，并实现一个简单的k-v存储数据库。因此并不适用于生产环境。
