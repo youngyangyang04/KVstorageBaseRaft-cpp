@@ -36,9 +36,22 @@ cmake ..
 make
 ```
 之后在目录bin就有对应的可执行文件生成：
-- consumer
-- provider
+
+* provider
+* consumer
+
+```
+./provider
+``` 
+
+换一个窗口，在执行 consumer 
+
+```
+./consumer
+``` 
+
 运行即可，注意先运行provider，再运行consumer，原因很简单：需要先提供rpc服务，才能去调用。
+
 
 #### 使用raft集群
 ```
@@ -52,7 +65,9 @@ make
 // make sure you in bin directory ,and this has a test.conf file
 raftCoreRun -n 3 -f test.conf
 ```
+
 这里更推荐一键运行，使用clion/clion nova，点击这个按钮即可：
+
 ![img.png](docs/images/img.png)
 
 正常运行后，命令行应该有如下raft的运行输出：
