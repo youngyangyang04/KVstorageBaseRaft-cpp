@@ -30,6 +30,7 @@
 ### 2.编译启动
 #### 使用rpc
 ```
+cd KVstorageBaseRaft-cpp // 进入项目目录
 mkdir cmake-build-debug
 cd cmake-build-debug
 cmake ..
