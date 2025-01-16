@@ -28,7 +28,8 @@
 > 如果库安装编译本仓库的时候有错误或者需要确认版本信息，可以在issue页面查看其他人遇到的问题和分享： [链接](https://github.com/youngyangyang04/KVstorageBaseRaft-cpp/issues)
 
 ### 2.编译启动
-#### 使用rpc
+
+#### 先启动rpc
 ```
 cd KVstorageBaseRaft-cpp // 进入项目目录
 mkdir cmake-build-debug
@@ -45,27 +46,28 @@ make
 ./provider
 ``` 
 
+![](docs/images/rpc1.jpg)
+
+
 换一个窗口，在执行 consumer 
 
 ```
 ./consumer
 ``` 
 
+![](docs/images/rpc2.jpg)
+
 运行即可，注意先运行provider，再运行consumer，原因很简单：需要先提供rpc服务，才能去调用。
 
 
 #### 使用raft集群
-```
-mkdir cmake-build-debug
-cd cmake-build-debug
-cmake..
-make
-```
 之后在目录bin就有对应的可执行文件生成，
 ```
 // make sure you in bin directory ,and this has a test.conf file
-raftCoreRun -n 3 -f test.conf
+./raftCoreRun -n 3 -f test.conf
 ```
+
+![](docs/images/raft.jpg)
 
 这里更推荐一键运行，使用clion/clion nova，点击这个按钮即可：
 
