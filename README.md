@@ -1,6 +1,6 @@
 # KVstorageBaseRaft-cpp
 
-本项目目前只在[知识星球](https://programmercarl.com/other/kstar.html)答疑并维护。
+> **本项目目前只在[知识星球](https://programmercarl.com/other/kstar.html)答疑并维护**。
 
 [代码随想录知识星球](https://programmercarl.com/other/kstar.html)分布式存储项目目前已经做了全面升级：
 
