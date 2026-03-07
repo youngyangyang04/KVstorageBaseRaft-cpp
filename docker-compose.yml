@@ -1,8 +1,9 @@
-services:
+services: 
   kv-dev:
     build: .
     image: kvstorage-dev:latest
     container_name: kv-dev-container
+    network_mode: host # 使用宿主机网络模式，解决网卡 IP 绑定问题
     volumes:
       - .:/workspace
     privileged: true # 为了在容器内使用 gdb 调试

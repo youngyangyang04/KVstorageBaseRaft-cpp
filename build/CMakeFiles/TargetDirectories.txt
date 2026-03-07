@@ -38,5 +38,6 @@
 /workspace/build/example/rpcExample/caller/CMakeFiles/rebuild_cache.dir
 /workspace/build/example/raftCoreExample/CMakeFiles/raftCoreRun.dir
 /workspace/build/example/raftCoreExample/CMakeFiles/callerMain.dir
+/workspace/build/example/raftCoreExample/CMakeFiles/benchmark.dir
 /workspace/build/example/raftCoreExample/CMakeFiles/edit_cache.dir
 /workspace/build/example/raftCoreExample/CMakeFiles/rebuild_cache.dir

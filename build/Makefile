@@ -272,6 +272,19 @@ callerMain/fast:
 	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/build
 .PHONY : callerMain/fast
 
+#=============================================================================
+# Target rules for targets named benchmark
+
+# Build rule for target.
+benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark
+.PHONY : benchmark
+
+# fast build rule for target.
+benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/build
+.PHONY : benchmark/fast
+
 src/fiber/fd_manager.o: src/fiber/fd_manager.cpp.o
 .PHONY : src/fiber/fd_manager.o
 
@@ -737,6 +750,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... format"
+	@echo "... benchmark"
 	@echo "... callerMain"
 	@echo "... consumer"
 	@echo "... fiber_lib"

@@ -779,6 +779,7 @@ example/raftCoreExample/CMakeFiles/raftCoreRun.dir/raftKvDB.cpp.o: \
  /usr/include/c++/11/bits/stl_numeric.h \
  /usr/include/c++/11/pstl/glue_numeric_defs.h \
  /workspace/src/common/include/config.h \
+ /workspace/src/rpc/include/mprpcconfig.h \
  /workspace/src/raftCore/include/kvServer.h \
  /usr/include/boost/archive/binary_iarchive.hpp \
  /usr/include/boost/archive/binary_iarchive_impl.hpp \

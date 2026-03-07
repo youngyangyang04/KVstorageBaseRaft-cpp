@@ -144,12 +144,27 @@ callerMain/fast:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/build
 .PHONY : callerMain/fast
 
+# Convenience name for target.
+example/raftCoreExample/CMakeFiles/benchmark.dir/rule:
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/raftCoreExample/CMakeFiles/benchmark.dir/rule
+.PHONY : example/raftCoreExample/CMakeFiles/benchmark.dir/rule
+
+# Convenience name for target.
+benchmark: example/raftCoreExample/CMakeFiles/benchmark.dir/rule
+.PHONY : benchmark
+
+# fast build rule for target.
+benchmark/fast:
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/build
+.PHONY : benchmark/fast
+
 __/__/src/common/util.o: __/__/src/common/util.cpp.o
 .PHONY : __/__/src/common/util.o
 
 # target to build an object file
 __/__/src/common/util.cpp.o:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/common/util.cpp.o
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/common/util.cpp.o
 .PHONY : __/__/src/common/util.cpp.o
 
 __/__/src/common/util.i: __/__/src/common/util.cpp.i
@@ -158,6 +173,7 @@ __/__/src/common/util.i: __/__/src/common/util.cpp.i
 # target to preprocess a source file
 __/__/src/common/util.cpp.i:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/common/util.cpp.i
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/common/util.cpp.i
 .PHONY : __/__/src/common/util.cpp.i
 
 __/__/src/common/util.s: __/__/src/common/util.cpp.s
@@ -166,6 +182,7 @@ __/__/src/common/util.s: __/__/src/common/util.cpp.s
 # target to generate assembly for a file
 __/__/src/common/util.cpp.s:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/common/util.cpp.s
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/common/util.cpp.s
 .PHONY : __/__/src/common/util.cpp.s
 
 __/__/src/raftClerk/clerk.o: __/__/src/raftClerk/clerk.cpp.o
@@ -174,6 +191,7 @@ __/__/src/raftClerk/clerk.o: __/__/src/raftClerk/clerk.cpp.o
 # target to build an object file
 __/__/src/raftClerk/clerk.cpp.o:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/raftClerk/clerk.cpp.o
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/raftClerk/clerk.cpp.o
 .PHONY : __/__/src/raftClerk/clerk.cpp.o
 
 __/__/src/raftClerk/clerk.i: __/__/src/raftClerk/clerk.cpp.i
@@ -182,6 +200,7 @@ __/__/src/raftClerk/clerk.i: __/__/src/raftClerk/clerk.cpp.i
 # target to preprocess a source file
 __/__/src/raftClerk/clerk.cpp.i:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/raftClerk/clerk.cpp.i
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/raftClerk/clerk.cpp.i
 .PHONY : __/__/src/raftClerk/clerk.cpp.i
 
 __/__/src/raftClerk/clerk.s: __/__/src/raftClerk/clerk.cpp.s
@@ -190,6 +209,7 @@ __/__/src/raftClerk/clerk.s: __/__/src/raftClerk/clerk.cpp.s
 # target to generate assembly for a file
 __/__/src/raftClerk/clerk.cpp.s:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/raftClerk/clerk.cpp.s
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/raftClerk/clerk.cpp.s
 .PHONY : __/__/src/raftClerk/clerk.cpp.s
 
 __/__/src/raftClerk/raftServerRpcUtil.o: __/__/src/raftClerk/raftServerRpcUtil.cpp.o
@@ -198,6 +218,7 @@ __/__/src/raftClerk/raftServerRpcUtil.o: __/__/src/raftClerk/raftServerRpcUtil.c
 # target to build an object file
 __/__/src/raftClerk/raftServerRpcUtil.cpp.o:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/raftClerk/raftServerRpcUtil.cpp.o
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/raftClerk/raftServerRpcUtil.cpp.o
 .PHONY : __/__/src/raftClerk/raftServerRpcUtil.cpp.o
 
 __/__/src/raftClerk/raftServerRpcUtil.i: __/__/src/raftClerk/raftServerRpcUtil.cpp.i
@@ -206,6 +227,7 @@ __/__/src/raftClerk/raftServerRpcUtil.i: __/__/src/raftClerk/raftServerRpcUtil.c
 # target to preprocess a source file
 __/__/src/raftClerk/raftServerRpcUtil.cpp.i:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/raftClerk/raftServerRpcUtil.cpp.i
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/raftClerk/raftServerRpcUtil.cpp.i
 .PHONY : __/__/src/raftClerk/raftServerRpcUtil.cpp.i
 
 __/__/src/raftClerk/raftServerRpcUtil.s: __/__/src/raftClerk/raftServerRpcUtil.cpp.s
@@ -214,7 +236,32 @@ __/__/src/raftClerk/raftServerRpcUtil.s: __/__/src/raftClerk/raftServerRpcUtil.c
 # target to generate assembly for a file
 __/__/src/raftClerk/raftServerRpcUtil.cpp.s:
 	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/__/__/src/raftClerk/raftServerRpcUtil.cpp.s
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/__/__/src/raftClerk/raftServerRpcUtil.cpp.s
 .PHONY : __/__/src/raftClerk/raftServerRpcUtil.cpp.s
+
+benchmark.o: benchmark.cpp.o
+.PHONY : benchmark.o
+
+# target to build an object file
+benchmark.cpp.o:
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/benchmark.cpp.o
+.PHONY : benchmark.cpp.o
+
+benchmark.i: benchmark.cpp.i
+.PHONY : benchmark.i
+
+# target to preprocess a source file
+benchmark.cpp.i:
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/benchmark.cpp.i
+.PHONY : benchmark.cpp.i
+
+benchmark.s: benchmark.cpp.s
+.PHONY : benchmark.s
+
+# target to generate assembly for a file
+benchmark.cpp.s:
+	cd /workspace/build && $(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/benchmark.cpp.s
+.PHONY : benchmark.cpp.s
 
 caller.o: caller.cpp.o
 .PHONY : caller.o
@@ -272,6 +319,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... benchmark"
 	@echo "... callerMain"
 	@echo "... raftCoreRun"
 	@echo "... __/__/src/common/util.o"
@@ -283,6 +331,9 @@ help:
 	@echo "... __/__/src/raftClerk/raftServerRpcUtil.o"
 	@echo "... __/__/src/raftClerk/raftServerRpcUtil.i"
 	@echo "... __/__/src/raftClerk/raftServerRpcUtil.s"
+	@echo "... benchmark.o"
+	@echo "... benchmark.i"
+	@echo "... benchmark.s"
 	@echo "... caller.o"
 	@echo "... caller.i"
 	@echo "... caller.s"

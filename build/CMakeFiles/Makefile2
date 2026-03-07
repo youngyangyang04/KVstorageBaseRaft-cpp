@@ -128,6 +128,7 @@ example/fiberExample/clean: example/fiberExample/CMakeFiles/test_hook.dir/clean
 # Recursive "all" directory target.
 example/raftCoreExample/all: example/raftCoreExample/CMakeFiles/raftCoreRun.dir/all
 example/raftCoreExample/all: example/raftCoreExample/CMakeFiles/callerMain.dir/all
+example/raftCoreExample/all: example/raftCoreExample/CMakeFiles/benchmark.dir/all
 .PHONY : example/raftCoreExample/all
 
 # Recursive "preinstall" directory target.
@@ -137,6 +138,7 @@ example/raftCoreExample/preinstall:
 # Recursive "clean" directory target.
 example/raftCoreExample/clean: example/raftCoreExample/CMakeFiles/raftCoreRun.dir/clean
 example/raftCoreExample/clean: example/raftCoreExample/CMakeFiles/callerMain.dir/clean
+example/raftCoreExample/clean: example/raftCoreExample/CMakeFiles/benchmark.dir/clean
 .PHONY : example/raftCoreExample/clean
 
 #=============================================================================
@@ -332,7 +334,7 @@ src/skipList/clean:
 CMakeFiles/skip_list_on_raft.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_on_raft.dir/build.make CMakeFiles/skip_list_on_raft.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_on_raft.dir/build.make CMakeFiles/skip_list_on_raft.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49 "Built target skip_list_on_raft"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54 "Built target skip_list_on_raft"
 .PHONY : CMakeFiles/skip_list_on_raft.dir/all
 
 # Build rule for subdir invocation for target.
@@ -384,7 +386,7 @@ CMakeFiles/format.dir/clean:
 src/rpc/CMakeFiles/rpc_lib.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc_lib.dir/build.make src/rpc/CMakeFiles/rpc_lib.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc_lib.dir/build.make src/rpc/CMakeFiles/rpc_lib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=23,24,25,26,27,28,29 "Built target rpc_lib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=28,29,30,31,32,33,34 "Built target rpc_lib"
 .PHONY : src/rpc/CMakeFiles/rpc_lib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -410,7 +412,7 @@ src/rpc/CMakeFiles/rpc_lib.dir/clean:
 src/fiber/CMakeFiles/fiber_lib.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/fiber/CMakeFiles/fiber_lib.dir/build.make src/fiber/CMakeFiles/fiber_lib.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/fiber/CMakeFiles/fiber_lib.dir/build.make src/fiber/CMakeFiles/fiber_lib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17 "Built target fiber_lib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=14,15,16,17,18,19,20,21,22 "Built target fiber_lib"
 .PHONY : src/fiber/CMakeFiles/fiber_lib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -436,7 +438,7 @@ src/fiber/CMakeFiles/fiber_lib.dir/clean:
 example/fiberExample/CMakeFiles/test_server.dir/all: src/fiber/CMakeFiles/fiber_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_server.dir/build.make example/fiberExample/CMakeFiles/test_server.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_server.dir/build.make example/fiberExample/CMakeFiles/test_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=56,57 "Built target test_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=61,62 "Built target test_server"
 .PHONY : example/fiberExample/CMakeFiles/test_server.dir/all
 
 # Build rule for subdir invocation for target.
@@ -462,7 +464,7 @@ example/fiberExample/CMakeFiles/test_server.dir/clean:
 example/fiberExample/CMakeFiles/test_scheduler.dir/all: src/fiber/CMakeFiles/fiber_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_scheduler.dir/build.make example/fiberExample/CMakeFiles/test_scheduler.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_scheduler.dir/build.make example/fiberExample/CMakeFiles/test_scheduler.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=54,55 "Built target test_scheduler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=59,60 "Built target test_scheduler"
 .PHONY : example/fiberExample/CMakeFiles/test_scheduler.dir/all
 
 # Build rule for subdir invocation for target.
@@ -488,7 +490,7 @@ example/fiberExample/CMakeFiles/test_scheduler.dir/clean:
 example/fiberExample/CMakeFiles/test_iomanager.dir/all: src/fiber/CMakeFiles/fiber_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_iomanager.dir/build.make example/fiberExample/CMakeFiles/test_iomanager.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_iomanager.dir/build.make example/fiberExample/CMakeFiles/test_iomanager.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=52,53 "Built target test_iomanager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=57,58 "Built target test_iomanager"
 .PHONY : example/fiberExample/CMakeFiles/test_iomanager.dir/all
 
 # Build rule for subdir invocation for target.
@@ -514,7 +516,7 @@ example/fiberExample/CMakeFiles/test_iomanager.dir/clean:
 example/fiberExample/CMakeFiles/test_hook.dir/all: src/fiber/CMakeFiles/fiber_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_hook.dir/build.make example/fiberExample/CMakeFiles/test_hook.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/fiberExample/CMakeFiles/test_hook.dir/build.make example/fiberExample/CMakeFiles/test_hook.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=50,51 "Built target test_hook"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=55,56 "Built target test_hook"
 .PHONY : example/fiberExample/CMakeFiles/test_hook.dir/all
 
 # Build rule for subdir invocation for target.
@@ -540,7 +542,7 @@ example/fiberExample/CMakeFiles/test_hook.dir/clean:
 example/rpcExample/callee/CMakeFiles/provider.dir/all: src/rpc/CMakeFiles/rpc_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/rpcExample/callee/CMakeFiles/provider.dir/build.make example/rpcExample/callee/CMakeFiles/provider.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/rpcExample/callee/CMakeFiles/provider.dir/build.make example/rpcExample/callee/CMakeFiles/provider.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=18,19,20 "Built target provider"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=23,24,25 "Built target provider"
 .PHONY : example/rpcExample/callee/CMakeFiles/provider.dir/all
 
 # Build rule for subdir invocation for target.
@@ -566,7 +568,7 @@ example/rpcExample/callee/CMakeFiles/provider.dir/clean:
 example/rpcExample/caller/CMakeFiles/consumer.dir/all: src/rpc/CMakeFiles/rpc_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/rpcExample/caller/CMakeFiles/consumer.dir/build.make example/rpcExample/caller/CMakeFiles/consumer.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/rpcExample/caller/CMakeFiles/consumer.dir/build.make example/rpcExample/caller/CMakeFiles/consumer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=6,7,8 "Built target consumer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=11,12,13 "Built target consumer"
 .PHONY : example/rpcExample/caller/CMakeFiles/consumer.dir/all
 
 # Build rule for subdir invocation for target.
@@ -593,7 +595,7 @@ example/raftCoreExample/CMakeFiles/raftCoreRun.dir/all: CMakeFiles/skip_list_on_
 example/raftCoreExample/CMakeFiles/raftCoreRun.dir/all: src/rpc/CMakeFiles/rpc_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/raftCoreRun.dir/build.make example/raftCoreExample/CMakeFiles/raftCoreRun.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/raftCoreRun.dir/build.make example/raftCoreExample/CMakeFiles/raftCoreRun.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=21,22 "Built target raftCoreRun"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=26,27 "Built target raftCoreRun"
 .PHONY : example/raftCoreExample/CMakeFiles/raftCoreRun.dir/all
 
 # Build rule for subdir invocation for target.
@@ -619,7 +621,7 @@ example/raftCoreExample/CMakeFiles/raftCoreRun.dir/clean:
 example/raftCoreExample/CMakeFiles/callerMain.dir/all: CMakeFiles/skip_list_on_raft.dir/all
 	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/depend
 	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target callerMain"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=6,7,8,9,10 "Built target callerMain"
 .PHONY : example/raftCoreExample/CMakeFiles/callerMain.dir/all
 
 # Build rule for subdir invocation for target.
@@ -637,6 +639,32 @@ callerMain: example/raftCoreExample/CMakeFiles/callerMain.dir/rule
 example/raftCoreExample/CMakeFiles/callerMain.dir/clean:
 	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/callerMain.dir/build.make example/raftCoreExample/CMakeFiles/callerMain.dir/clean
 .PHONY : example/raftCoreExample/CMakeFiles/callerMain.dir/clean
+
+#=============================================================================
+# Target rules for target example/raftCoreExample/CMakeFiles/benchmark.dir
+
+# All Build rule for target.
+example/raftCoreExample/CMakeFiles/benchmark.dir/all: CMakeFiles/skip_list_on_raft.dir/all
+	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/depend
+	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target benchmark"
+.PHONY : example/raftCoreExample/CMakeFiles/benchmark.dir/all
+
+# Build rule for subdir invocation for target.
+example/raftCoreExample/CMakeFiles/benchmark.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/build/CMakeFiles 25
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 example/raftCoreExample/CMakeFiles/benchmark.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/build/CMakeFiles 0
+.PHONY : example/raftCoreExample/CMakeFiles/benchmark.dir/rule
+
+# Convenience name for target.
+benchmark: example/raftCoreExample/CMakeFiles/benchmark.dir/rule
+.PHONY : benchmark
+
+# clean rule for target.
+example/raftCoreExample/CMakeFiles/benchmark.dir/clean:
+	$(MAKE) $(MAKESILENT) -f example/raftCoreExample/CMakeFiles/benchmark.dir/build.make example/raftCoreExample/CMakeFiles/benchmark.dir/clean
+.PHONY : example/raftCoreExample/CMakeFiles/benchmark.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

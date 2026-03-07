@@ -83,4 +83,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "example/rpcExample/caller/CMakeFiles/consumer.dir/DependInfo.cmake"
   "example/raftCoreExample/CMakeFiles/raftCoreRun.dir/DependInfo.cmake"
   "example/raftCoreExample/CMakeFiles/callerMain.dir/DependInfo.cmake"
+  "example/raftCoreExample/CMakeFiles/benchmark.dir/DependInfo.cmake"
   )

@@ -171,4 +171,55 @@ mit6.824课程，如果你已经学习过该课程，那么已经不需要本项
   </picture>
 </a>
 
+---
 
+### 快速运行指南 (Docker 环境)
+
+#### 1. 环境启动
+在项目根目录下，启动开发容器：
+```bash
+docker compose up -d
+docker exec -it kv-dev-container bash
+```
+
+#### 2. 编译项目
+在容器内执行：
+```bash
+mkdir -p build && cd build
+cmake ..
+make -j$(nproc)
+```
+
+#### 3. 配置集群 (`bin/test.conf`)
+在运行前，请确保 `bin/test.conf` 已正确配置。格式如下：
+```conf
+node0ip=127.0.0.1
+node0port=29016
+node1ip=127.0.0.1
+node1port=29017
+node2ip=127.0.0.1
+node2port=29018
+```
+
+#### 4. 启动 Raft 节点集群
+由于代码已重构为单节点启动模式，请在不同的终端窗口（或使用后台运行）分别启动节点：
+```bash
+cd bin
+./raftCoreRun -n 0 -f test.conf > node0.log 2>&1 &
+./raftCoreRun -n 1 -f test.conf > node1.log 2>&1 &
+./raftCoreRun -n 2 -f test.conf > node2.log 2>&1 &
+```
+
+#### 5. 运行客户端或性能测试
+```bash
+# 运行普通示例
+./callerMain
+
+# 运行性能基准测试
+./benchmark
+```
+
+### 重要注意事项 (Debug 总结)
+*   **网络模式**: 推荐使用 Docker 的 `host` 网络模式，以避免容器内网与公网 IP 绑定冲突。
+*   **超时配置**: 在云端或高延迟环境下，请调大 `src/common/include/config.h` 中的 `debugMul` 系数（如设为 5），以增加选举超时容忍度。
+*   **配置锁定**: `RpcProvider` 已修复自动篡改 `test.conf` 的行为，现在的配置完全由手动控制。
