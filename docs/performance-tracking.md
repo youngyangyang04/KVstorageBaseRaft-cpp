@@ -58,8 +58,20 @@ Measured throughput uplift on the Alibaba Cloud server:
 - `8 clients x 30 ops/thread`
   - first recorded run: `32.1976 -> 47.5597 QPS` (`+47.71%`)
   - automation rerun: `32.2128 -> 46.9394 QPS` (`+45.72%`)
+  - latency-instrumented rerun: `32.1967 -> 44.4635 QPS` (`+38.10%`)
+    - single-group put/get p95: `254.3294ms / 254.7010ms`
+    - two-group put/get p95: `251.2518ms / 251.4273ms`
+    - target group distribution: `g0=242;g1=238`
 
 The second case is the more important signal. At higher concurrency, the single-group setup starts to saturate while the two-group layout keeps scaling better. The low-load case shows only a small gain, but the high-load case repeatedly shows roughly `+46%` to `+48%` uplift. That is the core interview story for this phase.
+
+The latency-instrumented rerun is also useful in interviews because it proves we are no longer relying on QPS alone. We can now show:
+
+- throughput improvement
+- tail latency behavior
+- whether traffic is actually being spread across groups
+
+That makes the horizontal-scaling claim much more credible.
 
 ## How To Explain This In An Interview
 

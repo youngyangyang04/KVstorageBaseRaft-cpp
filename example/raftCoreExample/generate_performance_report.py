@@ -20,6 +20,13 @@ CSV_COLUMNS = [
     "total_ops",
     "total_time_sec",
     "qps",
+    "put_avg_ms",
+    "put_p50_ms",
+    "put_p95_ms",
+    "get_avg_ms",
+    "get_p50_ms",
+    "get_p95_ms",
+    "group_distribution",
     "raw_log",
 ]
 
@@ -36,6 +43,13 @@ class Row:
     total_ops: int
     total_time_sec: float
     qps: float
+    put_avg_ms: Optional[float]
+    put_p50_ms: Optional[float]
+    put_p95_ms: Optional[float]
+    get_avg_ms: Optional[float]
+    get_p50_ms: Optional[float]
+    get_p95_ms: Optional[float]
+    group_distribution: str
     raw_log: str
 
     @property
@@ -51,6 +65,19 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def parse_optional_float(raw_value: str) -> Optional[float]:
+    if not raw_value:
+        return None
+    return float(raw_value)
+
+
+def average_optional(values: List[Optional[float]]) -> Optional[float]:
+    present = [value for value in values if value is not None]
+    if not present:
+        return None
+    return mean(present)
+
+
 def load_rows(csv_path: Path) -> List[Row]:
     with csv_path.open("r", newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
@@ -61,6 +88,11 @@ def load_rows(csv_path: Path) -> List[Row]:
         for raw in reader:
             if not raw["timestamp"]:
                 continue
+            group_distribution = raw["group_distribution"]
+            raw_log = raw["raw_log"]
+            if group_distribution.startswith("/") and not raw_log:
+                raw_log = group_distribution
+                group_distribution = ""
             rows.append(
                 Row(
                     timestamp=raw["timestamp"],
@@ -73,7 +105,14 @@ def load_rows(csv_path: Path) -> List[Row]:
                     total_ops=int(float(raw["total_ops"])),
                     total_time_sec=float(raw["total_time_sec"]),
                     qps=float(raw["qps"]),
-                    raw_log=raw["raw_log"],
+                    put_avg_ms=parse_optional_float(raw["put_avg_ms"]),
+                    put_p50_ms=parse_optional_float(raw["put_p50_ms"]),
+                    put_p95_ms=parse_optional_float(raw["put_p95_ms"]),
+                    get_avg_ms=parse_optional_float(raw["get_avg_ms"]),
+                    get_p50_ms=parse_optional_float(raw["get_p50_ms"]),
+                    get_p95_ms=parse_optional_float(raw["get_p95_ms"]),
+                    group_distribution=group_distribution,
+                    raw_log=raw_log,
                 )
             )
         return rows
@@ -85,7 +124,12 @@ def summarize_topology(rows: List[Row]) -> Dict[str, object]:
         "avg_qps": mean(row.qps for row in rows),
         "best_qps": max(row.qps for row in rows),
         "avg_time_sec": mean(row.total_time_sec for row in rows),
+        "avg_put_p95_ms": average_optional([row.put_p95_ms for row in rows]),
+        "avg_get_p95_ms": average_optional([row.get_p95_ms for row in rows]),
+        "avg_put_avg_ms": average_optional([row.put_avg_ms for row in rows]),
+        "avg_get_avg_ms": average_optional([row.get_avg_ms for row in rows]),
         "config": rows[0].config,
+        "group_distribution": next((row.group_distribution for row in reversed(rows) if row.group_distribution), ""),
         "raw_logs": [row.raw_log for row in rows if row.raw_log],
     }
 
@@ -141,6 +185,23 @@ def build_latest_section(summary: Dict[str, object]) -> List[str]:
         lines.append(
             f"| {topology} | {stats['repeats']} | {fmt_number(stats['avg_qps'], 4)} | "
             f"{fmt_number(stats['best_qps'], 4)} | {fmt_number(stats['avg_time_sec'], 4)} | `{stats['config']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "| Topology | Avg Put p95 (ms) | Avg Get p95 (ms) | Group distribution sample |",
+            "| --- | ---: | ---: | --- |",
+        ]
+    )
+
+    for topology in ("single-group", "two-group-static-shard"):
+        stats = topology_summary.get(topology)
+        if not stats:
+            continue
+        lines.append(
+            f"| {topology} | {fmt_number(stats['avg_put_p95_ms'], 4)} | "
+            f"{fmt_number(stats['avg_get_p95_ms'], 4)} | `{stats['group_distribution'] or 'n/a'}` |"
         )
 
     lines.extend([""])
@@ -199,6 +260,7 @@ def build_interpretation(summaries: List[Dict[str, object]]) -> List[str]:
     lines.extend(
         [
             "- Larger uplift at higher concurrency is a sign that the original single-group path is the bottleneck.",
+            "- The latency columns let us show whether scaling improves tail behavior, not only average throughput.",
             "",
         ]
     )

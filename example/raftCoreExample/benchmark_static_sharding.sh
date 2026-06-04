@@ -16,7 +16,7 @@ REPORT_MD="${REPORT_MD:-${REPO_ROOT}/docs/performance-report.md}"
 TMP_ROOT="${TMP_ROOT:-/tmp/kv-benchmark-suite}"
 RAW_LOG_ROOT="${RAW_LOG_ROOT:-${TMP_ROOT}/raw-logs/${SUITE_ID}}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
-EXPECTED_HEADER="timestamp,suite,repeat,topology,config,concurrency,ops_per_thread,total_ops,total_time_sec,qps,raw_log"
+EXPECTED_HEADER="timestamp,suite,repeat,topology,config,concurrency,ops_per_thread,total_ops,total_time_sec,qps,put_avg_ms,put_p50_ms,put_p95_ms,get_avg_ms,get_p50_ms,get_p95_ms,group_distribution,raw_log"
 
 mkdir -p "$(dirname "${RESULTS_CSV}")"
 mkdir -p "${TMP_ROOT}"
@@ -39,8 +39,20 @@ upgrade_results_csv() {
     upgraded_csv="$(mktemp)"
     echo "${EXPECTED_HEADER}" >"${upgraded_csv}"
     awk -F',' 'NR > 1 {
-      printf "%s,legacy-import,1,%s,%s,%s,%s,%s,%s,%s,\n",
+      printf "%s,legacy-import,1,%s,%s,%s,%s,%s,%s,%s,,,,,,,,\n",
         $1, $2, $3, $4, $5, $6, $7, $8
+    }' "${RESULTS_CSV}" >>"${upgraded_csv}"
+    mv "${upgraded_csv}" "${RESULTS_CSV}"
+    return
+  fi
+
+  if [[ "${current_header}" == "timestamp,suite,repeat,topology,config,concurrency,ops_per_thread,total_ops,total_time_sec,qps,raw_log" ]]; then
+    local upgraded_csv
+    upgraded_csv="$(mktemp)"
+    echo "${EXPECTED_HEADER}" >"${upgraded_csv}"
+    awk -F',' 'NR > 1 {
+      printf "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,,,,,,,%s,%s\n",
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, "", $11
     }' "${RESULTS_CSV}" >>"${upgraded_csv}"
     mv "${upgraded_csv}" "${RESULTS_CSV}"
     return
@@ -84,11 +96,25 @@ run_case() {
   local total_ops
   local total_time
   local qps
+  local put_avg_ms
+  local put_p50_ms
+  local put_p95_ms
+  local get_avg_ms
+  local get_p50_ms
+  local get_p95_ms
+  local group_distribution
   total_ops="$(echo "${output}" | awk -F': ' '/Total operations/ {print $2}')"
   total_time="$(echo "${output}" | awk -F': ' '/Total time/ {gsub(/ seconds/, "", $2); print $2}')"
   qps="$(echo "${output}" | awk -F': ' '/QPS/ {print $2}')"
+  put_avg_ms="$(echo "${output}" | awk -F': ' '/Put avg latency ms/ {print $2}')"
+  put_p50_ms="$(echo "${output}" | awk -F': ' '/Put p50 latency ms/ {print $2}')"
+  put_p95_ms="$(echo "${output}" | awk -F': ' '/Put p95 latency ms/ {print $2}')"
+  get_avg_ms="$(echo "${output}" | awk -F': ' '/Get avg latency ms/ {print $2}')"
+  get_p50_ms="$(echo "${output}" | awk -F': ' '/Get p50 latency ms/ {print $2}')"
+  get_p95_ms="$(echo "${output}" | awk -F': ' '/Get p95 latency ms/ {print $2}')"
+  group_distribution="$(echo "${output}" | awk -F': ' '/Target group distribution/ {print $2}')"
 
-  printf '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
+  printf '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
     "$(date '+%Y-%m-%d %H:%M:%S')" \
     "${SUITE_ID}" \
     "${repeat_index}" \
@@ -99,6 +125,13 @@ run_case() {
     "${total_ops}" \
     "${total_time}" \
     "${qps}" \
+    "${put_avg_ms}" \
+    "${put_p50_ms}" \
+    "${put_p95_ms}" \
+    "${get_avg_ms}" \
+    "${get_p50_ms}" \
+    "${get_p95_ms}" \
+    "${group_distribution}" \
     "${raw_log}" >>"${RESULTS_CSV}"
 }
 
