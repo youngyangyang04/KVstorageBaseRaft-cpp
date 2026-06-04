@@ -7,12 +7,12 @@
 
 const bool Debug = true;
 
-const int debugMul = 1;  // 本地测试恢复为 1
-const int HeartBeatTimeout = 25 * debugMul;  // 25ms
-const int ApplyInterval = 10 * debugMul;     // 10ms
+const int debugMul = 5;  // 时间单位系数，调大以适应公网延迟和慢速 CPU
+const int HeartBeatTimeout = 25 * debugMul;  // 125ms
+const int ApplyInterval = 10 * debugMul;     // 50ms
 
-const int minRandomizedElectionTime = 300 * debugMul;  // 300ms
-const int maxRandomizedElectionTime = 500 * debugMul;  // 500ms
+const int minRandomizedElectionTime = 500 * debugMul;  // 2.5s
+const int maxRandomizedElectionTime = 1000 * debugMul; // 5.0s
 
 
 const int CONSENSUS_TIMEOUT = 500 * debugMul;  // ms
