@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libfiber_lib.a CMakeFiles/fiber_lib.dir/fd_manager.cpp.o CMakeFiles/fiber_lib.dir/fiber.cpp.o CMakeFiles/fiber_lib.dir/hook.cpp.o CMakeFiles/fiber_lib.dir/iomanager.cpp.o CMakeFiles/fiber_lib.dir/scheduler.cpp.o CMakeFiles/fiber_lib.dir/thread.cpp.o CMakeFiles/fiber_lib.dir/timer.cpp.o CMakeFiles/fiber_lib.dir/utils.cpp.o
+/usr/bin/ranlib ../../../lib/libfiber_lib.a

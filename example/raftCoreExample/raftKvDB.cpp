@@ -2,32 +2,45 @@
 // Created by swx on 23-12-28.
 //
 #include <iostream>
-#include "raft.h"
-// #include "kvServer.h"
-#include <kvServer.h>
+#include <memory>
+#include <cstdlib>
 #include <unistd.h>
-#include <iostream>
-#include <random>
+
+#include "kvServer.h"
+#include "mprpcconfig.h"
+#include "shardConfig.h"
+
+namespace {
+short ResolveNodePort(MprpcConfig& config, int groupId, int nodeId) {
+  auto topology = LoadStaticGroupTopology(config);
+  auto it = topology.groupServers.find(groupId);
+  if (it == topology.groupServers.end() || nodeId < 0 || nodeId >= static_cast<int>(it->second.size())) {
+    return 0;
+  }
+  return it->second[nodeId].second;
+}
+}  // namespace
 
 void ShowArgsHelp();
 
-int main(int argc, char **argv) {
-  //////////////////////////////////读取命令参数：节点数量、写入raft节点节点信息到哪个文件
+int main(int argc, char** argv) {
   if (argc < 2) {
     ShowArgsHelp();
     exit(EXIT_FAILURE);
   }
+
   int c = 0;
-  int nodeNum = 0;
+  int nodeId = 0;
+  int groupId = 0;
   std::string configFileName;
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<> dis(10000, 29999);
-  unsigned short startPort = dis(gen);
-  while ((c = getopt(argc, argv, "n:f:")) != -1) {
+
+  while ((c = getopt(argc, argv, "g:n:f:")) != -1) {
     switch (c) {
+      case 'g':
+        groupId = atoi(optarg);
+        break;
       case 'n':
-        nodeNum = atoi(optarg);
+        nodeId = atoi(optarg);
         break;
       case 'f':
         configFileName = optarg;
@@ -37,38 +50,22 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
   }
-  std::ofstream file(configFileName, std::ios::out | std::ios::app);
-  file.close();
-  file = std::ofstream(configFileName, std::ios::out | std::ios::trunc);
-  if (file.is_open()) {
-    file.close();
-    std::cout << configFileName << " 已清空" << std::endl;
-  } else {
-    std::cout << "无法打开 " << configFileName << std::endl;
+
+  MprpcConfig config;
+  config.LoadConfigFile(configFileName.c_str());
+  short port = ResolveNodePort(config, groupId, nodeId);
+  if (port == 0) {
+    std::cout << "Error: could not resolve port for group " << groupId << " node " << nodeId << " from "
+              << configFileName << std::endl;
     exit(EXIT_FAILURE);
   }
-  for (int i = 0; i < nodeNum; i++) {
-    short port = startPort + static_cast<short>(i);
-    std::cout << "start to create raftkv node:" << i << "    port:" << port << " pid:" << getpid() << std::endl;
-    pid_t pid = fork();  // 创建新进程
-    if (pid == 0) {
-      // 如果是子进程
-      // 子进程的代码
 
-      auto kvServer = new KvServer(i, 500, configFileName, port);
-      pause();  // 子进程进入等待状态，不会执行 return 语句
-    } else if (pid > 0) {
-      // 如果是父进程
-      // 父进程的代码
-      sleep(1);
-    } else {
-      // 如果创建进程失败
-      std::cerr << "Failed to create child process." << std::endl;
-      exit(EXIT_FAILURE);
-    }
-  }
+  std::cout << "Starting shard-aware raftkv node: group=" << groupId << " node=" << nodeId << " port=" << port
+            << " pid=" << getpid() << std::endl;
+
+  auto kvServer = std::make_unique<KvServer>(nodeId, groupId, 500, configFileName, port);
   pause();
   return 0;
 }
 
-void ShowArgsHelp() { std::cout << "format: command -n <nodeNum> -f <configFileName>" << std::endl; }
+void ShowArgsHelp() { std::cout << "format: command -g <groupId> -n <nodeId> -f <configFileName>" << std::endl; }

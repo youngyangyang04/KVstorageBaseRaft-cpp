@@ -3,70 +3,135 @@
 //
 #include "clerk.h"
 
-#include "raftServerRpcUtil.h"
-
-#include "util.h"
-
 #include <string>
 #include <vector>
-std::string Clerk::Get(std::string key) {
-  m_requestId++;
-  auto requestId = m_requestId;
-  int server = m_recentLeaderId;
-  raftKVRpcProctoc::GetArgs args;
-  args.set_key(key);
-  args.set_clientid(m_clientId);
-  args.set_requestid(requestId);
 
-  while (true) {
-    raftKVRpcProctoc::GetReply reply;
-    bool ok = m_servers[server]->Get(&args, &reply);
-    if (!ok ||
-        reply.err() ==
-            ErrWrongLeader) {  //会一直重试，因为requestId没有改变，因此可能会因为RPC的丢失或者其他情况导致重试，kvserver层来保证不重复执行（线性一致性）
-      server = (server + 1) % m_servers.size();
-      continue;
+#include "raftServerRpcUtil.h"
+#include "util.h"
+
+int Clerk::ResolveGroupId(const std::string& key) const {
+  if (m_shardOwners.empty()) {
+    return 0;
+  }
+  const int shardId = KeyToShard(key, m_shardCount);
+  if (shardId < 0 || shardId >= static_cast<int>(m_shardOwners.size())) {
+    return 0;
+  }
+  return m_shardOwners[shardId];
+}
+
+void Clerk::LoadRoutingConfig() {
+  MprpcConfig config;
+  config.LoadConfigFile(m_configFileName.c_str());
+  const auto topology = LoadStaticGroupTopology(config);
+
+  m_shardCount = topology.shardCount;
+  m_shardOwners = topology.shardOwners;
+  m_groupServers.clear();
+
+  for (const auto& [groupId, servers] : topology.groupServers) {
+    std::vector<std::shared_ptr<raftServerRpcUtil>> groupClients;
+    groupClients.reserve(servers.size());
+    for (const auto& [ip, port] : servers) {
+      groupClients.push_back(std::shared_ptr<raftServerRpcUtil>(new raftServerRpcUtil(ip, port)));
     }
-    if (reply.err() == ErrNoKey) {
-      return "";
-    }
-    if (reply.err() == OK) {
-      m_recentLeaderId = server;
-      return reply.value();
+    m_groupServers[groupId] = std::move(groupClients);
+    if (m_recentLeaderByGroup.find(groupId) == m_recentLeaderByGroup.end()) {
+      m_recentLeaderByGroup[groupId] = 0;
+    } else if (!m_groupServers[groupId].empty()) {
+      m_recentLeaderByGroup[groupId] %= static_cast<int>(m_groupServers[groupId].size());
     }
   }
-  return "";
+}
+
+std::string Clerk::Get(std::string key) {
+  m_requestId++;
+  const auto requestId = m_requestId;
+
+  while (true) {
+    const int groupId = ResolveGroupId(key);
+    auto serverIt = m_groupServers.find(groupId);
+    if (serverIt == m_groupServers.end() || serverIt->second.empty()) {
+      LoadRoutingConfig();
+      continue;
+    }
+
+    auto& groupServers = serverIt->second;
+    int server = m_recentLeaderByGroup[groupId] % static_cast<int>(groupServers.size());
+
+    raftKVRpcProctoc::GetArgs args;
+    args.set_key(key);
+    args.set_clientid(m_clientId);
+    args.set_requestid(requestId);
+
+    for (int attempt = 0; attempt < static_cast<int>(groupServers.size()); ++attempt) {
+      raftKVRpcProctoc::GetReply reply;
+      bool ok = groupServers[server]->Get(&args, &reply);
+      if (!ok || reply.err() == ErrWrongLeader) {
+        server = (server + 1) % groupServers.size();
+        continue;
+      }
+      if (reply.err() == ErrShardNotReady) {
+        sleepNMilliseconds(200);
+        continue;
+      }
+      if (reply.err() == ErrWrongGroup) {
+        LoadRoutingConfig();
+        break;
+      }
+      if (reply.err() == ErrNoKey) {
+        m_recentLeaderByGroup[groupId] = server;
+        return "";
+      }
+      if (reply.err() == OK) {
+        m_recentLeaderByGroup[groupId] = server;
+        return reply.value();
+      }
+    }
+  }
 }
 
 void Clerk::PutAppend(std::string key, std::string value, std::string op) {
-  // You will have to modify this function.
   m_requestId++;
-  auto requestId = m_requestId;
-  auto server = m_recentLeaderId;
+  const auto requestId = m_requestId;
+
   while (true) {
+    const int groupId = ResolveGroupId(key);
+    auto serverIt = m_groupServers.find(groupId);
+    if (serverIt == m_groupServers.end() || serverIt->second.empty()) {
+      LoadRoutingConfig();
+      continue;
+    }
+
+    auto& groupServers = serverIt->second;
+    int server = m_recentLeaderByGroup[groupId] % static_cast<int>(groupServers.size());
+
     raftKVRpcProctoc::PutAppendArgs args;
     args.set_key(key);
     args.set_value(value);
     args.set_op(op);
     args.set_clientid(m_clientId);
     args.set_requestid(requestId);
-    raftKVRpcProctoc::PutAppendReply reply;
-    bool ok = m_servers[server]->PutAppend(&args, &reply);
-    if (!ok || reply.err() == ErrWrongLeader) {
-      DPrintf("【Clerk::PutAppend】原以为的leader：{%d}请求失败，向新leader{%d}重试  ，操作：{%s}", server, server + 1,
-              op.c_str());
-      if (!ok) {
-        DPrintf("重试原因 ，rpc失敗 ，");
+
+    for (int attempt = 0; attempt < static_cast<int>(groupServers.size()); ++attempt) {
+      raftKVRpcProctoc::PutAppendReply reply;
+      bool ok = groupServers[server]->PutAppend(&args, &reply);
+      if (!ok || reply.err() == ErrWrongLeader) {
+        server = (server + 1) % groupServers.size();
+        continue;
       }
-      if (reply.err() == ErrWrongLeader) {
-        DPrintf("重試原因：非leader");
+      if (reply.err() == ErrShardNotReady) {
+        sleepNMilliseconds(200);
+        continue;
       }
-      server = (server + 1) % m_servers.size();  // try the next server
-      continue;
-    }
-    if (reply.err() == OK) {  //什么时候reply errno为ok呢？？？
-      m_recentLeaderId = server;
-      return;
+      if (reply.err() == ErrWrongGroup) {
+        LoadRoutingConfig();
+        break;
+      }
+      if (reply.err() == OK) {
+        m_recentLeaderByGroup[groupId] = server;
+        return;
+      }
     }
   }
 }
@@ -74,30 +139,10 @@ void Clerk::PutAppend(std::string key, std::string value, std::string op) {
 void Clerk::Put(std::string key, std::string value) { PutAppend(key, value, "Put"); }
 
 void Clerk::Append(std::string key, std::string value) { PutAppend(key, value, "Append"); }
-//初始化客户端
-void Clerk::Init(std::string configFileName) {
-  //获取所有raft节点ip、port ，并进行连接
-  MprpcConfig config;
-  config.LoadConfigFile(configFileName.c_str());
-  std::vector<std::pair<std::string, short>> ipPortVt;
-  for (int i = 0; i < INT_MAX - 1; ++i) {
-    std::string node = "node" + std::to_string(i);
 
-    std::string nodeIp = config.Load(node + "ip");
-    std::string nodePortStr = config.Load(node + "port");
-    if (nodeIp.empty()) {
-      break;
-    }
-    ipPortVt.emplace_back(nodeIp, atoi(nodePortStr.c_str()));  //沒有atos方法，可以考慮自己实现
-  }
-  //进行连接
-  for (const auto& item : ipPortVt) {
-    std::string ip = item.first;
-    short port = item.second;
-    // 2024-01-04 todo：bug fix
-    auto* rpc = new raftServerRpcUtil(ip, port);
-    m_servers.push_back(std::shared_ptr<raftServerRpcUtil>(rpc));
-  }
+void Clerk::Init(std::string configFileName) {
+  m_configFileName = std::move(configFileName);
+  LoadRoutingConfig();
 }
 
-Clerk::Clerk() : m_clientId(Uuid()), m_requestId(0), m_recentLeaderId(0) {}
+Clerk::Clerk() : m_clientId(Uuid()), m_requestId(0), m_shardCount(kDefaultShardCount) {}

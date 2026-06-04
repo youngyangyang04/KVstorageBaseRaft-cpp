@@ -48,7 +48,7 @@ struct TableStruct_kvServerRPC_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -56,6 +56,12 @@ struct TableStruct_kvServerRPC_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_kvServerRPC_2eproto;
 namespace raftKVRpcProctoc {
+class FetchShardDataArgs;
+class FetchShardDataArgsDefaultTypeInternal;
+extern FetchShardDataArgsDefaultTypeInternal _FetchShardDataArgs_default_instance_;
+class FetchShardDataReply;
+class FetchShardDataReplyDefaultTypeInternal;
+extern FetchShardDataReplyDefaultTypeInternal _FetchShardDataReply_default_instance_;
 class GetArgs;
 class GetArgsDefaultTypeInternal;
 extern GetArgsDefaultTypeInternal _GetArgs_default_instance_;
@@ -70,6 +76,8 @@ class PutAppendReplyDefaultTypeInternal;
 extern PutAppendReplyDefaultTypeInternal _PutAppendReply_default_instance_;
 }  // namespace raftKVRpcProctoc
 PROTOBUF_NAMESPACE_OPEN
+template<> ::raftKVRpcProctoc::FetchShardDataArgs* Arena::CreateMaybeMessage<::raftKVRpcProctoc::FetchShardDataArgs>(Arena*);
+template<> ::raftKVRpcProctoc::FetchShardDataReply* Arena::CreateMaybeMessage<::raftKVRpcProctoc::FetchShardDataReply>(Arena*);
 template<> ::raftKVRpcProctoc::GetArgs* Arena::CreateMaybeMessage<::raftKVRpcProctoc::GetArgs>(Arena*);
 template<> ::raftKVRpcProctoc::GetReply* Arena::CreateMaybeMessage<::raftKVRpcProctoc::GetReply>(Arena*);
 template<> ::raftKVRpcProctoc::PutAppendArgs* Arena::CreateMaybeMessage<::raftKVRpcProctoc::PutAppendArgs>(Arena*);
@@ -846,6 +854,372 @@ class PutAppendReply PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_kvServerRPC_2eproto;
 };
+// -------------------------------------------------------------------
+
+class FetchShardDataArgs PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:raftKVRpcProctoc.FetchShardDataArgs) */ {
+ public:
+  inline FetchShardDataArgs() : FetchShardDataArgs(nullptr) {};
+  virtual ~FetchShardDataArgs();
+
+  FetchShardDataArgs(const FetchShardDataArgs& from);
+  FetchShardDataArgs(FetchShardDataArgs&& from) noexcept
+    : FetchShardDataArgs() {
+    *this = ::std::move(from);
+  }
+
+  inline FetchShardDataArgs& operator=(const FetchShardDataArgs& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FetchShardDataArgs& operator=(FetchShardDataArgs&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const FetchShardDataArgs& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const FetchShardDataArgs* internal_default_instance() {
+    return reinterpret_cast<const FetchShardDataArgs*>(
+               &_FetchShardDataArgs_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(FetchShardDataArgs& a, FetchShardDataArgs& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FetchShardDataArgs* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FetchShardDataArgs* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline FetchShardDataArgs* New() const final {
+    return CreateMaybeMessage<FetchShardDataArgs>(nullptr);
+  }
+
+  FetchShardDataArgs* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<FetchShardDataArgs>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const FetchShardDataArgs& from);
+  void MergeFrom(const FetchShardDataArgs& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(FetchShardDataArgs* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "raftKVRpcProctoc.FetchShardDataArgs";
+  }
+  protected:
+  explicit FetchShardDataArgs(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_kvServerRPC_2eproto);
+    return ::descriptor_table_kvServerRPC_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kShardIdFieldNumber = 1,
+    kConfigVersionFieldNumber = 2,
+  };
+  // int32 ShardId = 1;
+  void clear_shardid();
+  ::PROTOBUF_NAMESPACE_ID::int32 shardid() const;
+  void set_shardid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shardid() const;
+  void _internal_set_shardid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 ConfigVersion = 2;
+  void clear_configversion();
+  ::PROTOBUF_NAMESPACE_ID::int32 configversion() const;
+  void set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_configversion() const;
+  void _internal_set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:raftKVRpcProctoc.FetchShardDataArgs)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shardid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 configversion_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_kvServerRPC_2eproto;
+};
+// -------------------------------------------------------------------
+
+class FetchShardDataReply PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:raftKVRpcProctoc.FetchShardDataReply) */ {
+ public:
+  inline FetchShardDataReply() : FetchShardDataReply(nullptr) {};
+  virtual ~FetchShardDataReply();
+
+  FetchShardDataReply(const FetchShardDataReply& from);
+  FetchShardDataReply(FetchShardDataReply&& from) noexcept
+    : FetchShardDataReply() {
+    *this = ::std::move(from);
+  }
+
+  inline FetchShardDataReply& operator=(const FetchShardDataReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FetchShardDataReply& operator=(FetchShardDataReply&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const FetchShardDataReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const FetchShardDataReply* internal_default_instance() {
+    return reinterpret_cast<const FetchShardDataReply*>(
+               &_FetchShardDataReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(FetchShardDataReply& a, FetchShardDataReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FetchShardDataReply* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FetchShardDataReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline FetchShardDataReply* New() const final {
+    return CreateMaybeMessage<FetchShardDataReply>(nullptr);
+  }
+
+  FetchShardDataReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<FetchShardDataReply>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const FetchShardDataReply& from);
+  void MergeFrom(const FetchShardDataReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(FetchShardDataReply* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "raftKVRpcProctoc.FetchShardDataReply";
+  }
+  protected:
+  explicit FetchShardDataReply(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_kvServerRPC_2eproto);
+    return ::descriptor_table_kvServerRPC_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrFieldNumber = 1,
+    kShardDataFieldNumber = 3,
+    kLastRequestIdFieldNumber = 4,
+    kConfigVersionFieldNumber = 2,
+  };
+  // bytes Err = 1;
+  void clear_err();
+  const std::string& err() const;
+  void set_err(const std::string& value);
+  void set_err(std::string&& value);
+  void set_err(const char* value);
+  void set_err(const void* value, size_t size);
+  std::string* mutable_err();
+  std::string* release_err();
+  void set_allocated_err(std::string* err);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_err();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_err(
+      std::string* err);
+  private:
+  const std::string& _internal_err() const;
+  void _internal_set_err(const std::string& value);
+  std::string* _internal_mutable_err();
+  public:
+
+  // bytes ShardData = 3;
+  void clear_sharddata();
+  const std::string& sharddata() const;
+  void set_sharddata(const std::string& value);
+  void set_sharddata(std::string&& value);
+  void set_sharddata(const char* value);
+  void set_sharddata(const void* value, size_t size);
+  std::string* mutable_sharddata();
+  std::string* release_sharddata();
+  void set_allocated_sharddata(std::string* sharddata);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_sharddata();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_sharddata(
+      std::string* sharddata);
+  private:
+  const std::string& _internal_sharddata() const;
+  void _internal_set_sharddata(const std::string& value);
+  std::string* _internal_mutable_sharddata();
+  public:
+
+  // bytes LastRequestId = 4;
+  void clear_lastrequestid();
+  const std::string& lastrequestid() const;
+  void set_lastrequestid(const std::string& value);
+  void set_lastrequestid(std::string&& value);
+  void set_lastrequestid(const char* value);
+  void set_lastrequestid(const void* value, size_t size);
+  std::string* mutable_lastrequestid();
+  std::string* release_lastrequestid();
+  void set_allocated_lastrequestid(std::string* lastrequestid);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_lastrequestid();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_lastrequestid(
+      std::string* lastrequestid);
+  private:
+  const std::string& _internal_lastrequestid() const;
+  void _internal_set_lastrequestid(const std::string& value);
+  std::string* _internal_mutable_lastrequestid();
+  public:
+
+  // int32 ConfigVersion = 2;
+  void clear_configversion();
+  ::PROTOBUF_NAMESPACE_ID::int32 configversion() const;
+  void set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_configversion() const;
+  void _internal_set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:raftKVRpcProctoc.FetchShardDataReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr err_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sharddata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr lastrequestid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 configversion_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_kvServerRPC_2eproto;
+};
 // ===================================================================
 
 class kvServerRpc_Stub;
@@ -868,6 +1242,10 @@ class kvServerRpc : public ::PROTOBUF_NAMESPACE_ID::Service {
   virtual void Get(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                        const ::raftKVRpcProctoc::GetArgs* request,
                        ::raftKVRpcProctoc::GetReply* response,
+                       ::google::protobuf::Closure* done);
+  virtual void FetchShardData(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::raftKVRpcProctoc::FetchShardDataArgs* request,
+                       ::raftKVRpcProctoc::FetchShardDataReply* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -905,6 +1283,10 @@ class kvServerRpc_Stub : public kvServerRpc {
   void Get(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                        const ::raftKVRpcProctoc::GetArgs* request,
                        ::raftKVRpcProctoc::GetReply* response,
+                       ::google::protobuf::Closure* done);
+  void FetchShardData(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::raftKVRpcProctoc::FetchShardDataArgs* request,
+                       ::raftKVRpcProctoc::FetchShardDataReply* response,
                        ::google::protobuf::Closure* done);
  private:
   ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel_;
@@ -944,31 +1326,31 @@ inline const std::string& GetArgs::_internal_key() const {
   return key_.Get();
 }
 inline void GetArgs::_internal_set_key(const std::string& value) {
-
+  
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetArgs::set_key(std::string&& value) {
-
+  
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetArgs.Key)
 }
 inline void GetArgs::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetArgs.Key)
 }
 inline void GetArgs::set_key(const void* value,
     size_t size) {
-
+  
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetArgs.Key)
 }
 inline std::string* GetArgs::_internal_mutable_key() {
-
+  
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetArgs::release_key() {
@@ -977,9 +1359,9 @@ inline std::string* GetArgs::release_key() {
 }
 inline void GetArgs::set_allocated_key(std::string* key) {
   if (key != nullptr) {
-
+    
   } else {
-
+    
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
@@ -988,7 +1370,7 @@ inline void GetArgs::set_allocated_key(std::string* key) {
 inline std::string* GetArgs::unsafe_arena_release_key() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetArgs.Key)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return key_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -996,9 +1378,9 @@ inline void GetArgs::unsafe_arena_set_allocated_key(
     std::string* key) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (key != nullptr) {
-
+    
   } else {
-
+    
   }
   key_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       key, GetArena());
@@ -1025,31 +1407,31 @@ inline const std::string& GetArgs::_internal_clientid() const {
   return clientid_.Get();
 }
 inline void GetArgs::_internal_set_clientid(const std::string& value) {
-
+  
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetArgs::set_clientid(std::string&& value) {
-
+  
   clientid_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetArgs.ClientId)
 }
 inline void GetArgs::set_clientid(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetArgs.ClientId)
 }
 inline void GetArgs::set_clientid(const void* value,
     size_t size) {
-
+  
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetArgs.ClientId)
 }
 inline std::string* GetArgs::_internal_mutable_clientid() {
-
+  
   return clientid_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetArgs::release_clientid() {
@@ -1058,9 +1440,9 @@ inline std::string* GetArgs::release_clientid() {
 }
 inline void GetArgs::set_allocated_clientid(std::string* clientid) {
   if (clientid != nullptr) {
-
+    
   } else {
-
+    
   }
   clientid_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), clientid,
       GetArena());
@@ -1069,7 +1451,7 @@ inline void GetArgs::set_allocated_clientid(std::string* clientid) {
 inline std::string* GetArgs::unsafe_arena_release_clientid() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetArgs.ClientId)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return clientid_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1077,9 +1459,9 @@ inline void GetArgs::unsafe_arena_set_allocated_clientid(
     std::string* clientid) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (clientid != nullptr) {
-
+    
   } else {
-
+    
   }
   clientid_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       clientid, GetArena());
@@ -1098,7 +1480,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 GetArgs::requestid() const {
   return _internal_requestid();
 }
 inline void GetArgs::_internal_set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-
+  
   requestid_ = value;
 }
 inline void GetArgs::set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1130,31 +1512,31 @@ inline const std::string& GetReply::_internal_err() const {
   return err_.Get();
 }
 inline void GetReply::_internal_set_err(const std::string& value) {
-
+  
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetReply::set_err(std::string&& value) {
-
+  
   err_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetReply.Err)
 }
 inline void GetReply::set_err(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetReply.Err)
 }
 inline void GetReply::set_err(const void* value,
     size_t size) {
-
+  
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetReply.Err)
 }
 inline std::string* GetReply::_internal_mutable_err() {
-
+  
   return err_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetReply::release_err() {
@@ -1163,9 +1545,9 @@ inline std::string* GetReply::release_err() {
 }
 inline void GetReply::set_allocated_err(std::string* err) {
   if (err != nullptr) {
-
+    
   } else {
-
+    
   }
   err_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), err,
       GetArena());
@@ -1174,7 +1556,7 @@ inline void GetReply::set_allocated_err(std::string* err) {
 inline std::string* GetReply::unsafe_arena_release_err() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetReply.Err)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return err_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1182,9 +1564,9 @@ inline void GetReply::unsafe_arena_set_allocated_err(
     std::string* err) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (err != nullptr) {
-
+    
   } else {
-
+    
   }
   err_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       err, GetArena());
@@ -1211,31 +1593,31 @@ inline const std::string& GetReply::_internal_value() const {
   return value_.Get();
 }
 inline void GetReply::_internal_set_value(const std::string& value) {
-
+  
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void GetReply::set_value(std::string&& value) {
-
+  
   value_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.GetReply.Value)
 }
 inline void GetReply::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.GetReply.Value)
 }
 inline void GetReply::set_value(const void* value,
     size_t size) {
-
+  
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.GetReply.Value)
 }
 inline std::string* GetReply::_internal_mutable_value() {
-
+  
   return value_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* GetReply::release_value() {
@@ -1244,9 +1626,9 @@ inline std::string* GetReply::release_value() {
 }
 inline void GetReply::set_allocated_value(std::string* value) {
   if (value != nullptr) {
-
+    
   } else {
-
+    
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArena());
@@ -1255,7 +1637,7 @@ inline void GetReply::set_allocated_value(std::string* value) {
 inline std::string* GetReply::unsafe_arena_release_value() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.GetReply.Value)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return value_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1263,9 +1645,9 @@ inline void GetReply::unsafe_arena_set_allocated_value(
     std::string* value) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (value != nullptr) {
-
+    
   } else {
-
+    
   }
   value_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       value, GetArena());
@@ -1296,31 +1678,31 @@ inline const std::string& PutAppendArgs::_internal_key() const {
   return key_.Get();
 }
 inline void PutAppendArgs::_internal_set_key(const std::string& value) {
-
+  
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_key(std::string&& value) {
-
+  
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.Key)
 }
 inline void PutAppendArgs::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.Key)
 }
 inline void PutAppendArgs::set_key(const void* value,
     size_t size) {
-
+  
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.Key)
 }
 inline std::string* PutAppendArgs::_internal_mutable_key() {
-
+  
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_key() {
@@ -1329,9 +1711,9 @@ inline std::string* PutAppendArgs::release_key() {
 }
 inline void PutAppendArgs::set_allocated_key(std::string* key) {
   if (key != nullptr) {
-
+    
   } else {
-
+    
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
@@ -1340,7 +1722,7 @@ inline void PutAppendArgs::set_allocated_key(std::string* key) {
 inline std::string* PutAppendArgs::unsafe_arena_release_key() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.Key)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return key_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1348,9 +1730,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_key(
     std::string* key) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (key != nullptr) {
-
+    
   } else {
-
+    
   }
   key_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       key, GetArena());
@@ -1377,31 +1759,31 @@ inline const std::string& PutAppendArgs::_internal_value() const {
   return value_.Get();
 }
 inline void PutAppendArgs::_internal_set_value(const std::string& value) {
-
+  
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_value(std::string&& value) {
-
+  
   value_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.Value)
 }
 inline void PutAppendArgs::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.Value)
 }
 inline void PutAppendArgs::set_value(const void* value,
     size_t size) {
-
+  
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.Value)
 }
 inline std::string* PutAppendArgs::_internal_mutable_value() {
-
+  
   return value_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_value() {
@@ -1410,9 +1792,9 @@ inline std::string* PutAppendArgs::release_value() {
 }
 inline void PutAppendArgs::set_allocated_value(std::string* value) {
   if (value != nullptr) {
-
+    
   } else {
-
+    
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArena());
@@ -1421,7 +1803,7 @@ inline void PutAppendArgs::set_allocated_value(std::string* value) {
 inline std::string* PutAppendArgs::unsafe_arena_release_value() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.Value)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return value_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1429,9 +1811,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_value(
     std::string* value) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (value != nullptr) {
-
+    
   } else {
-
+    
   }
   value_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       value, GetArena());
@@ -1458,31 +1840,31 @@ inline const std::string& PutAppendArgs::_internal_op() const {
   return op_.Get();
 }
 inline void PutAppendArgs::_internal_set_op(const std::string& value) {
-
+  
   op_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_op(std::string&& value) {
-
+  
   op_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.Op)
 }
 inline void PutAppendArgs::set_op(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   op_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.Op)
 }
 inline void PutAppendArgs::set_op(const void* value,
     size_t size) {
-
+  
   op_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.Op)
 }
 inline std::string* PutAppendArgs::_internal_mutable_op() {
-
+  
   return op_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_op() {
@@ -1491,9 +1873,9 @@ inline std::string* PutAppendArgs::release_op() {
 }
 inline void PutAppendArgs::set_allocated_op(std::string* op) {
   if (op != nullptr) {
-
+    
   } else {
-
+    
   }
   op_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), op,
       GetArena());
@@ -1502,7 +1884,7 @@ inline void PutAppendArgs::set_allocated_op(std::string* op) {
 inline std::string* PutAppendArgs::unsafe_arena_release_op() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.Op)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return op_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1510,9 +1892,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_op(
     std::string* op) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (op != nullptr) {
-
+    
   } else {
-
+    
   }
   op_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       op, GetArena());
@@ -1539,31 +1921,31 @@ inline const std::string& PutAppendArgs::_internal_clientid() const {
   return clientid_.Get();
 }
 inline void PutAppendArgs::_internal_set_clientid(const std::string& value) {
-
+  
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendArgs::set_clientid(std::string&& value) {
-
+  
   clientid_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendArgs.ClientId)
 }
 inline void PutAppendArgs::set_clientid(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendArgs.ClientId)
 }
 inline void PutAppendArgs::set_clientid(const void* value,
     size_t size) {
-
+  
   clientid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendArgs.ClientId)
 }
 inline std::string* PutAppendArgs::_internal_mutable_clientid() {
-
+  
   return clientid_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendArgs::release_clientid() {
@@ -1572,9 +1954,9 @@ inline std::string* PutAppendArgs::release_clientid() {
 }
 inline void PutAppendArgs::set_allocated_clientid(std::string* clientid) {
   if (clientid != nullptr) {
-
+    
   } else {
-
+    
   }
   clientid_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), clientid,
       GetArena());
@@ -1583,7 +1965,7 @@ inline void PutAppendArgs::set_allocated_clientid(std::string* clientid) {
 inline std::string* PutAppendArgs::unsafe_arena_release_clientid() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendArgs.ClientId)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return clientid_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1591,9 +1973,9 @@ inline void PutAppendArgs::unsafe_arena_set_allocated_clientid(
     std::string* clientid) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (clientid != nullptr) {
-
+    
   } else {
-
+    
   }
   clientid_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       clientid, GetArena());
@@ -1612,7 +1994,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 PutAppendArgs::requestid() const {
   return _internal_requestid();
 }
 inline void PutAppendArgs::_internal_set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-
+  
   requestid_ = value;
 }
 inline void PutAppendArgs::set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1644,31 +2026,31 @@ inline const std::string& PutAppendReply::_internal_err() const {
   return err_.Get();
 }
 inline void PutAppendReply::_internal_set_err(const std::string& value) {
-
+  
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
 inline void PutAppendReply::set_err(std::string&& value) {
-
+  
   err_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
   // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.PutAppendReply.Err)
 }
 inline void PutAppendReply::set_err(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-
+  
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
   // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.PutAppendReply.Err)
 }
 inline void PutAppendReply::set_err(const void* value,
     size_t size) {
-
+  
   err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
   // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.PutAppendReply.Err)
 }
 inline std::string* PutAppendReply::_internal_mutable_err() {
-
+  
   return err_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* PutAppendReply::release_err() {
@@ -1677,9 +2059,9 @@ inline std::string* PutAppendReply::release_err() {
 }
 inline void PutAppendReply::set_allocated_err(std::string* err) {
   if (err != nullptr) {
-
+    
   } else {
-
+    
   }
   err_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), err,
       GetArena());
@@ -1688,7 +2070,7 @@ inline void PutAppendReply::set_allocated_err(std::string* err) {
 inline std::string* PutAppendReply::unsafe_arena_release_err() {
   // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.PutAppendReply.Err)
   GOOGLE_DCHECK(GetArena() != nullptr);
-
+  
   return err_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
@@ -1696,18 +2078,333 @@ inline void PutAppendReply::unsafe_arena_set_allocated_err(
     std::string* err) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (err != nullptr) {
-
+    
   } else {
-
+    
   }
   err_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       err, GetArena());
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:raftKVRpcProctoc.PutAppendReply.Err)
 }
 
+// -------------------------------------------------------------------
+
+// FetchShardDataArgs
+
+// int32 ShardId = 1;
+inline void FetchShardDataArgs::clear_shardid() {
+  shardid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 FetchShardDataArgs::_internal_shardid() const {
+  return shardid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 FetchShardDataArgs::shardid() const {
+  // @@protoc_insertion_point(field_get:raftKVRpcProctoc.FetchShardDataArgs.ShardId)
+  return _internal_shardid();
+}
+inline void FetchShardDataArgs::_internal_set_shardid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shardid_ = value;
+}
+inline void FetchShardDataArgs::set_shardid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shardid(value);
+  // @@protoc_insertion_point(field_set:raftKVRpcProctoc.FetchShardDataArgs.ShardId)
+}
+
+// int32 ConfigVersion = 2;
+inline void FetchShardDataArgs::clear_configversion() {
+  configversion_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 FetchShardDataArgs::_internal_configversion() const {
+  return configversion_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 FetchShardDataArgs::configversion() const {
+  // @@protoc_insertion_point(field_get:raftKVRpcProctoc.FetchShardDataArgs.ConfigVersion)
+  return _internal_configversion();
+}
+inline void FetchShardDataArgs::_internal_set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  configversion_ = value;
+}
+inline void FetchShardDataArgs::set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_configversion(value);
+  // @@protoc_insertion_point(field_set:raftKVRpcProctoc.FetchShardDataArgs.ConfigVersion)
+}
+
+// -------------------------------------------------------------------
+
+// FetchShardDataReply
+
+// bytes Err = 1;
+inline void FetchShardDataReply::clear_err() {
+  err_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& FetchShardDataReply::err() const {
+  // @@protoc_insertion_point(field_get:raftKVRpcProctoc.FetchShardDataReply.Err)
+  return _internal_err();
+}
+inline void FetchShardDataReply::set_err(const std::string& value) {
+  _internal_set_err(value);
+  // @@protoc_insertion_point(field_set:raftKVRpcProctoc.FetchShardDataReply.Err)
+}
+inline std::string* FetchShardDataReply::mutable_err() {
+  // @@protoc_insertion_point(field_mutable:raftKVRpcProctoc.FetchShardDataReply.Err)
+  return _internal_mutable_err();
+}
+inline const std::string& FetchShardDataReply::_internal_err() const {
+  return err_.Get();
+}
+inline void FetchShardDataReply::_internal_set_err(const std::string& value) {
+  
+  err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void FetchShardDataReply::set_err(std::string&& value) {
+  
+  err_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.FetchShardDataReply.Err)
+}
+inline void FetchShardDataReply::set_err(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.FetchShardDataReply.Err)
+}
+inline void FetchShardDataReply::set_err(const void* value,
+    size_t size) {
+  
+  err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.FetchShardDataReply.Err)
+}
+inline std::string* FetchShardDataReply::_internal_mutable_err() {
+  
+  return err_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* FetchShardDataReply::release_err() {
+  // @@protoc_insertion_point(field_release:raftKVRpcProctoc.FetchShardDataReply.Err)
+  return err_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void FetchShardDataReply::set_allocated_err(std::string* err) {
+  if (err != nullptr) {
+    
+  } else {
+    
+  }
+  err_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), err,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:raftKVRpcProctoc.FetchShardDataReply.Err)
+}
+inline std::string* FetchShardDataReply::unsafe_arena_release_err() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.FetchShardDataReply.Err)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return err_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void FetchShardDataReply::unsafe_arena_set_allocated_err(
+    std::string* err) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (err != nullptr) {
+    
+  } else {
+    
+  }
+  err_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      err, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:raftKVRpcProctoc.FetchShardDataReply.Err)
+}
+
+// int32 ConfigVersion = 2;
+inline void FetchShardDataReply::clear_configversion() {
+  configversion_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 FetchShardDataReply::_internal_configversion() const {
+  return configversion_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 FetchShardDataReply::configversion() const {
+  // @@protoc_insertion_point(field_get:raftKVRpcProctoc.FetchShardDataReply.ConfigVersion)
+  return _internal_configversion();
+}
+inline void FetchShardDataReply::_internal_set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  configversion_ = value;
+}
+inline void FetchShardDataReply::set_configversion(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_configversion(value);
+  // @@protoc_insertion_point(field_set:raftKVRpcProctoc.FetchShardDataReply.ConfigVersion)
+}
+
+// bytes ShardData = 3;
+inline void FetchShardDataReply::clear_sharddata() {
+  sharddata_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& FetchShardDataReply::sharddata() const {
+  // @@protoc_insertion_point(field_get:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+  return _internal_sharddata();
+}
+inline void FetchShardDataReply::set_sharddata(const std::string& value) {
+  _internal_set_sharddata(value);
+  // @@protoc_insertion_point(field_set:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+}
+inline std::string* FetchShardDataReply::mutable_sharddata() {
+  // @@protoc_insertion_point(field_mutable:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+  return _internal_mutable_sharddata();
+}
+inline const std::string& FetchShardDataReply::_internal_sharddata() const {
+  return sharddata_.Get();
+}
+inline void FetchShardDataReply::_internal_set_sharddata(const std::string& value) {
+  
+  sharddata_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void FetchShardDataReply::set_sharddata(std::string&& value) {
+  
+  sharddata_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+}
+inline void FetchShardDataReply::set_sharddata(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  sharddata_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+}
+inline void FetchShardDataReply::set_sharddata(const void* value,
+    size_t size) {
+  
+  sharddata_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+}
+inline std::string* FetchShardDataReply::_internal_mutable_sharddata() {
+  
+  return sharddata_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* FetchShardDataReply::release_sharddata() {
+  // @@protoc_insertion_point(field_release:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+  return sharddata_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void FetchShardDataReply::set_allocated_sharddata(std::string* sharddata) {
+  if (sharddata != nullptr) {
+    
+  } else {
+    
+  }
+  sharddata_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sharddata,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+}
+inline std::string* FetchShardDataReply::unsafe_arena_release_sharddata() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return sharddata_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void FetchShardDataReply::unsafe_arena_set_allocated_sharddata(
+    std::string* sharddata) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (sharddata != nullptr) {
+    
+  } else {
+    
+  }
+  sharddata_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      sharddata, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:raftKVRpcProctoc.FetchShardDataReply.ShardData)
+}
+
+// bytes LastRequestId = 4;
+inline void FetchShardDataReply::clear_lastrequestid() {
+  lastrequestid_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& FetchShardDataReply::lastrequestid() const {
+  // @@protoc_insertion_point(field_get:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+  return _internal_lastrequestid();
+}
+inline void FetchShardDataReply::set_lastrequestid(const std::string& value) {
+  _internal_set_lastrequestid(value);
+  // @@protoc_insertion_point(field_set:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+}
+inline std::string* FetchShardDataReply::mutable_lastrequestid() {
+  // @@protoc_insertion_point(field_mutable:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+  return _internal_mutable_lastrequestid();
+}
+inline const std::string& FetchShardDataReply::_internal_lastrequestid() const {
+  return lastrequestid_.Get();
+}
+inline void FetchShardDataReply::_internal_set_lastrequestid(const std::string& value) {
+  
+  lastrequestid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void FetchShardDataReply::set_lastrequestid(std::string&& value) {
+  
+  lastrequestid_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+}
+inline void FetchShardDataReply::set_lastrequestid(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  lastrequestid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+}
+inline void FetchShardDataReply::set_lastrequestid(const void* value,
+    size_t size) {
+  
+  lastrequestid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+}
+inline std::string* FetchShardDataReply::_internal_mutable_lastrequestid() {
+  
+  return lastrequestid_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* FetchShardDataReply::release_lastrequestid() {
+  // @@protoc_insertion_point(field_release:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+  return lastrequestid_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void FetchShardDataReply::set_allocated_lastrequestid(std::string* lastrequestid) {
+  if (lastrequestid != nullptr) {
+    
+  } else {
+    
+  }
+  lastrequestid_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), lastrequestid,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+}
+inline std::string* FetchShardDataReply::unsafe_arena_release_lastrequestid() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return lastrequestid_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void FetchShardDataReply::unsafe_arena_set_allocated_lastrequestid(
+    std::string* lastrequestid) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (lastrequestid != nullptr) {
+    
+  } else {
+    
+  }
+  lastrequestid_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      lastrequestid, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:raftKVRpcProctoc.FetchShardDataReply.LastRequestId)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

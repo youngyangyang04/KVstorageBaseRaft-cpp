@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/test_server.dir/server.cpp.o -o ../../../bin/test_server   -L/workspace/lib  -Wl,-rpath,/workspace/lib ../../../lib/libfiber_lib.a -lpthread -ldl -ldl 

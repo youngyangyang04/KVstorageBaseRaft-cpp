@@ -36,10 +36,11 @@ class Persister {
  public:
   void Save(std::string raftstate, std::string snapshot);
   std::string ReadSnapshot();
-  void SaveRaftState(const std::string& data);
+ void SaveRaftState(const std::string& data);
   long long RaftStateSize();
   std::string ReadRaftState();
   explicit Persister(int me);
+  explicit Persister(const std::string& persistId);
   ~Persister();
 
  private:

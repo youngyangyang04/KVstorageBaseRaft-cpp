@@ -46,20 +46,17 @@ void RpcProvider::Run(int nodeIndex, short port) {
   struct hostent *hent;
   gethostname(hname, sizeof(hname));
   hent = gethostbyname(hname);
+  /*
   for (int i = 0; hent->h_addr_list[i]; i++) {
     ipC = inet_ntoa(*(struct in_addr *)(hent->h_addr_list[i]));  // IP地址
   }
   std::string ip = std::string(ipC);
-  //    // 获取端口
-  //    if(getReleasePort(port)) //在port的基础上获取一个可用的port，不知道为何没有效果
-  //    {
-  //        std::cout << "可用的端口号为：" << port << std::endl;
-  //    }
-  //    else
-  //    {
-  //        std::cout << "获取可用端口号失败！" << std::endl;
-  //    }
-  //写入文件 "test.conf"
+  */
+  std::string ip = "0.0.0.0"; // 强制绑定所有网卡
+
+  // 写入文件 "test.conf"
+  // 注释掉自动重写逻辑，防止覆盖手动配置的 127.0.0.1 或公网 IP
+  /*
   std::string node = "node" + std::to_string(nodeIndex);
   std::ofstream outfile;
   outfile.open("test.conf", std::ios::app);  //打开文件并追加写入
@@ -70,6 +67,7 @@ void RpcProvider::Run(int nodeIndex, short port) {
   outfile << node + "ip=" + ip << std::endl;
   outfile << node + "port=" + std::to_string(port) << std::endl;
   outfile.close();
+  */
 
   //创建服务器
   muduo::net::InetAddress address(ip, port);

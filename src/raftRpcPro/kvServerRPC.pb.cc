@@ -31,7 +31,43 @@ class PutAppendReplyDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PutAppendReply> _instance;
 } _PutAppendReply_default_instance_;
+class FetchShardDataArgsDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<FetchShardDataArgs> _instance;
+} _FetchShardDataArgs_default_instance_;
+class FetchShardDataReplyDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<FetchShardDataReply> _instance;
+} _FetchShardDataReply_default_instance_;
 }  // namespace raftKVRpcProctoc
+static void InitDefaultsscc_info_FetchShardDataArgs_kvServerRPC_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::raftKVRpcProctoc::_FetchShardDataArgs_default_instance_;
+    new (ptr) ::raftKVRpcProctoc::FetchShardDataArgs();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::raftKVRpcProctoc::FetchShardDataArgs::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_FetchShardDataArgs_kvServerRPC_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_FetchShardDataArgs_kvServerRPC_2eproto}, {}};
+
+static void InitDefaultsscc_info_FetchShardDataReply_kvServerRPC_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::raftKVRpcProctoc::_FetchShardDataReply_default_instance_;
+    new (ptr) ::raftKVRpcProctoc::FetchShardDataReply();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::raftKVRpcProctoc::FetchShardDataReply::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_FetchShardDataReply_kvServerRPC_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_FetchShardDataReply_kvServerRPC_2eproto}, {}};
+
 static void InitDefaultsscc_info_GetArgs_kvServerRPC_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -88,7 +124,7 @@ static void InitDefaultsscc_info_PutAppendReply_kvServerRPC_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PutAppendReply_kvServerRPC_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_PutAppendReply_kvServerRPC_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_kvServerRPC_2eproto[4];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_kvServerRPC_2eproto[6];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_kvServerRPC_2eproto = nullptr;
 static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* file_level_service_descriptors_kvServerRPC_2eproto[1];
 
@@ -124,12 +160,30 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_kvServerRPC_2eproto::offsets[]
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::PutAppendReply, err_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataArgs, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataArgs, shardid_),
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataArgs, configversion_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataReply, err_),
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataReply, configversion_),
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataReply, sharddata_),
+  PROTOBUF_FIELD_OFFSET(::raftKVRpcProctoc::FetchShardDataReply, lastrequestid_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::raftKVRpcProctoc::GetArgs)},
   { 8, -1, sizeof(::raftKVRpcProctoc::GetReply)},
   { 15, -1, sizeof(::raftKVRpcProctoc::PutAppendArgs)},
   { 25, -1, sizeof(::raftKVRpcProctoc::PutAppendReply)},
+  { 31, -1, sizeof(::raftKVRpcProctoc::FetchShardDataArgs)},
+  { 38, -1, sizeof(::raftKVRpcProctoc::FetchShardDataReply)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -137,6 +191,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::raftKVRpcProctoc::_GetReply_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::raftKVRpcProctoc::_PutAppendArgs_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::raftKVRpcProctoc::_PutAppendReply_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::raftKVRpcProctoc::_FetchShardDataArgs_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::raftKVRpcProctoc::_FetchShardDataReply_default_instance_),
 };
 
 const char descriptor_table_protodef_kvServerRPC_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -146,15 +202,24 @@ const char descriptor_table_protodef_kvServerRPC_2eproto[] PROTOBUF_SECTION_VARI
   "\001(\014\022\r\n\005Value\030\002 \001(\014\"\\\n\rPutAppendArgs\022\013\n\003K"
   "ey\030\001 \001(\014\022\r\n\005Value\030\002 \001(\014\022\n\n\002Op\030\003 \001(\014\022\020\n\010C"
   "lientId\030\004 \001(\014\022\021\n\tRequestId\030\005 \001(\005\"\035\n\016PutA"
-  "ppendReply\022\013\n\003Err\030\001 \001(\0142\233\001\n\013kvServerRpc\022"
-  "N\n\tPutAppend\022\037.raftKVRpcProctoc.PutAppen"
-  "dArgs\032 .raftKVRpcProctoc.PutAppendReply\022"
-  "<\n\003Get\022\031.raftKVRpcProctoc.GetArgs\032\032.raft"
-  "KVRpcProctoc.GetReplyB\003\200\001\001b\006proto3"
+  "ppendReply\022\013\n\003Err\030\001 \001(\014\"<\n\022FetchShardDat"
+  "aArgs\022\017\n\007ShardId\030\001 \001(\005\022\025\n\rConfigVersion\030"
+  "\002 \001(\005\"c\n\023FetchShardDataReply\022\013\n\003Err\030\001 \001("
+  "\014\022\025\n\rConfigVersion\030\002 \001(\005\022\021\n\tShardData\030\003 "
+  "\001(\014\022\025\n\rLastRequestId\030\004 \001(\0142\372\001\n\013kvServerR"
+  "pc\022N\n\tPutAppend\022\037.raftKVRpcProctoc.PutAp"
+  "pendArgs\032 .raftKVRpcProctoc.PutAppendRep"
+  "ly\022<\n\003Get\022\031.raftKVRpcProctoc.GetArgs\032\032.r"
+  "aftKVRpcProctoc.GetReply\022]\n\016FetchShardDa"
+  "ta\022$.raftKVRpcProctoc.FetchShardDataArgs"
+  "\032%.raftKVRpcProctoc.FetchShardDataReplyB"
+  "\003\200\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_kvServerRPC_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_kvServerRPC_2eproto_sccs[4] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_kvServerRPC_2eproto_sccs[6] = {
+  &scc_info_FetchShardDataArgs_kvServerRPC_2eproto.base,
+  &scc_info_FetchShardDataReply_kvServerRPC_2eproto.base,
   &scc_info_GetArgs_kvServerRPC_2eproto.base,
   &scc_info_GetReply_kvServerRPC_2eproto.base,
   &scc_info_PutAppendArgs_kvServerRPC_2eproto.base,
@@ -162,10 +227,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_kvS
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_kvServerRPC_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_kvServerRPC_2eproto = {
-  false, false, descriptor_table_protodef_kvServerRPC_2eproto, "kvServerRPC.proto", 434,
-  &descriptor_table_kvServerRPC_2eproto_once, descriptor_table_kvServerRPC_2eproto_sccs, descriptor_table_kvServerRPC_2eproto_deps, 4, 0,
+  false, false, descriptor_table_protodef_kvServerRPC_2eproto, "kvServerRPC.proto", 692,
+  &descriptor_table_kvServerRPC_2eproto_once, descriptor_table_kvServerRPC_2eproto_sccs, descriptor_table_kvServerRPC_2eproto_deps, 6, 0,
   schemas, file_default_instances, TableStruct_kvServerRPC_2eproto::offsets,
-  file_level_metadata_kvServerRPC_2eproto, 4, file_level_enum_descriptors_kvServerRPC_2eproto, file_level_service_descriptors_kvServerRPC_2eproto,
+  file_level_metadata_kvServerRPC_2eproto, 6, file_level_enum_descriptors_kvServerRPC_2eproto, file_level_service_descriptors_kvServerRPC_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -1209,6 +1274,534 @@ void PutAppendReply::InternalSwap(PutAppendReply* other) {
 
 // ===================================================================
 
+void FetchShardDataArgs::InitAsDefaultInstance() {
+}
+class FetchShardDataArgs::_Internal {
+ public:
+};
+
+FetchShardDataArgs::FetchShardDataArgs(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:raftKVRpcProctoc.FetchShardDataArgs)
+}
+FetchShardDataArgs::FetchShardDataArgs(const FetchShardDataArgs& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&shardid_, &from.shardid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&configversion_) -
+    reinterpret_cast<char*>(&shardid_)) + sizeof(configversion_));
+  // @@protoc_insertion_point(copy_constructor:raftKVRpcProctoc.FetchShardDataArgs)
+}
+
+void FetchShardDataArgs::SharedCtor() {
+  ::memset(&shardid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&configversion_) -
+      reinterpret_cast<char*>(&shardid_)) + sizeof(configversion_));
+}
+
+FetchShardDataArgs::~FetchShardDataArgs() {
+  // @@protoc_insertion_point(destructor:raftKVRpcProctoc.FetchShardDataArgs)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void FetchShardDataArgs::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+}
+
+void FetchShardDataArgs::ArenaDtor(void* object) {
+  FetchShardDataArgs* _this = reinterpret_cast< FetchShardDataArgs* >(object);
+  (void)_this;
+}
+void FetchShardDataArgs::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void FetchShardDataArgs::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const FetchShardDataArgs& FetchShardDataArgs::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_FetchShardDataArgs_kvServerRPC_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void FetchShardDataArgs::Clear() {
+// @@protoc_insertion_point(message_clear_start:raftKVRpcProctoc.FetchShardDataArgs)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&shardid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&configversion_) -
+      reinterpret_cast<char*>(&shardid_)) + sizeof(configversion_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* FetchShardDataArgs::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int32 ShardId = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          shardid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ConfigVersion = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          configversion_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* FetchShardDataArgs::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:raftKVRpcProctoc.FetchShardDataArgs)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 ShardId = 1;
+  if (this->shardid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_shardid(), target);
+  }
+
+  // int32 ConfigVersion = 2;
+  if (this->configversion() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_configversion(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:raftKVRpcProctoc.FetchShardDataArgs)
+  return target;
+}
+
+size_t FetchShardDataArgs::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:raftKVRpcProctoc.FetchShardDataArgs)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 ShardId = 1;
+  if (this->shardid() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shardid());
+  }
+
+  // int32 ConfigVersion = 2;
+  if (this->configversion() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_configversion());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FetchShardDataArgs::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:raftKVRpcProctoc.FetchShardDataArgs)
+  GOOGLE_DCHECK_NE(&from, this);
+  const FetchShardDataArgs* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<FetchShardDataArgs>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:raftKVRpcProctoc.FetchShardDataArgs)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:raftKVRpcProctoc.FetchShardDataArgs)
+    MergeFrom(*source);
+  }
+}
+
+void FetchShardDataArgs::MergeFrom(const FetchShardDataArgs& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:raftKVRpcProctoc.FetchShardDataArgs)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.shardid() != 0) {
+    _internal_set_shardid(from._internal_shardid());
+  }
+  if (from.configversion() != 0) {
+    _internal_set_configversion(from._internal_configversion());
+  }
+}
+
+void FetchShardDataArgs::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:raftKVRpcProctoc.FetchShardDataArgs)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FetchShardDataArgs::CopyFrom(const FetchShardDataArgs& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:raftKVRpcProctoc.FetchShardDataArgs)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FetchShardDataArgs::IsInitialized() const {
+  return true;
+}
+
+void FetchShardDataArgs::InternalSwap(FetchShardDataArgs* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FetchShardDataArgs, configversion_)
+      + sizeof(FetchShardDataArgs::configversion_)
+      - PROTOBUF_FIELD_OFFSET(FetchShardDataArgs, shardid_)>(
+          reinterpret_cast<char*>(&shardid_),
+          reinterpret_cast<char*>(&other->shardid_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata FetchShardDataArgs::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void FetchShardDataReply::InitAsDefaultInstance() {
+}
+class FetchShardDataReply::_Internal {
+ public:
+};
+
+FetchShardDataReply::FetchShardDataReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:raftKVRpcProctoc.FetchShardDataReply)
+}
+FetchShardDataReply::FetchShardDataReply(const FetchShardDataReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  err_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_err().empty()) {
+    err_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_err(),
+      GetArena());
+  }
+  sharddata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_sharddata().empty()) {
+    sharddata_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_sharddata(),
+      GetArena());
+  }
+  lastrequestid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_lastrequestid().empty()) {
+    lastrequestid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_lastrequestid(),
+      GetArena());
+  }
+  configversion_ = from.configversion_;
+  // @@protoc_insertion_point(copy_constructor:raftKVRpcProctoc.FetchShardDataReply)
+}
+
+void FetchShardDataReply::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_FetchShardDataReply_kvServerRPC_2eproto.base);
+  err_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sharddata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  lastrequestid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  configversion_ = 0;
+}
+
+FetchShardDataReply::~FetchShardDataReply() {
+  // @@protoc_insertion_point(destructor:raftKVRpcProctoc.FetchShardDataReply)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void FetchShardDataReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  err_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sharddata_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  lastrequestid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void FetchShardDataReply::ArenaDtor(void* object) {
+  FetchShardDataReply* _this = reinterpret_cast< FetchShardDataReply* >(object);
+  (void)_this;
+}
+void FetchShardDataReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void FetchShardDataReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const FetchShardDataReply& FetchShardDataReply::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_FetchShardDataReply_kvServerRPC_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void FetchShardDataReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:raftKVRpcProctoc.FetchShardDataReply)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  err_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  sharddata_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  lastrequestid_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  configversion_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* FetchShardDataReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bytes Err = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_err();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 ConfigVersion = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          configversion_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes ShardData = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_sharddata();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes LastRequestId = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          auto str = _internal_mutable_lastrequestid();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* FetchShardDataReply::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:raftKVRpcProctoc.FetchShardDataReply)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes Err = 1;
+  if (this->err().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_err(), target);
+  }
+
+  // int32 ConfigVersion = 2;
+  if (this->configversion() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_configversion(), target);
+  }
+
+  // bytes ShardData = 3;
+  if (this->sharddata().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_sharddata(), target);
+  }
+
+  // bytes LastRequestId = 4;
+  if (this->lastrequestid().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_lastrequestid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:raftKVRpcProctoc.FetchShardDataReply)
+  return target;
+}
+
+size_t FetchShardDataReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:raftKVRpcProctoc.FetchShardDataReply)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes Err = 1;
+  if (this->err().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_err());
+  }
+
+  // bytes ShardData = 3;
+  if (this->sharddata().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_sharddata());
+  }
+
+  // bytes LastRequestId = 4;
+  if (this->lastrequestid().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_lastrequestid());
+  }
+
+  // int32 ConfigVersion = 2;
+  if (this->configversion() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_configversion());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FetchShardDataReply::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:raftKVRpcProctoc.FetchShardDataReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  const FetchShardDataReply* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<FetchShardDataReply>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:raftKVRpcProctoc.FetchShardDataReply)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:raftKVRpcProctoc.FetchShardDataReply)
+    MergeFrom(*source);
+  }
+}
+
+void FetchShardDataReply::MergeFrom(const FetchShardDataReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:raftKVRpcProctoc.FetchShardDataReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.err().size() > 0) {
+    _internal_set_err(from._internal_err());
+  }
+  if (from.sharddata().size() > 0) {
+    _internal_set_sharddata(from._internal_sharddata());
+  }
+  if (from.lastrequestid().size() > 0) {
+    _internal_set_lastrequestid(from._internal_lastrequestid());
+  }
+  if (from.configversion() != 0) {
+    _internal_set_configversion(from._internal_configversion());
+  }
+}
+
+void FetchShardDataReply::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:raftKVRpcProctoc.FetchShardDataReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FetchShardDataReply::CopyFrom(const FetchShardDataReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:raftKVRpcProctoc.FetchShardDataReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FetchShardDataReply::IsInitialized() const {
+  return true;
+}
+
+void FetchShardDataReply::InternalSwap(FetchShardDataReply* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  err_.Swap(&other->err_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  sharddata_.Swap(&other->sharddata_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  lastrequestid_.Swap(&other->lastrequestid_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(configversion_, other->configversion_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata FetchShardDataReply::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 kvServerRpc::~kvServerRpc() {}
 
 const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* kvServerRpc::descriptor() {
@@ -1236,6 +1829,14 @@ void kvServerRpc::Get(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
   done->Run();
 }
 
+void kvServerRpc::FetchShardData(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                         const ::raftKVRpcProctoc::FetchShardDataArgs*,
+                         ::raftKVRpcProctoc::FetchShardDataReply*,
+                         ::google::protobuf::Closure* done) {
+  controller->SetFailed("Method FetchShardData() not implemented.");
+  done->Run();
+}
+
 void kvServerRpc::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* method,
                              ::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                              const ::PROTOBUF_NAMESPACE_ID::Message* request,
@@ -1259,6 +1860,14 @@ void kvServerRpc::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* me
                  response),
              done);
       break;
+    case 2:
+      FetchShardData(controller,
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::raftKVRpcProctoc::FetchShardDataArgs*>(
+                 request),
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::raftKVRpcProctoc::FetchShardDataReply*>(
+                 response),
+             done);
+      break;
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       break;
@@ -1273,6 +1882,8 @@ const ::PROTOBUF_NAMESPACE_ID::Message& kvServerRpc::GetRequestPrototype(
       return ::raftKVRpcProctoc::PutAppendArgs::default_instance();
     case 1:
       return ::raftKVRpcProctoc::GetArgs::default_instance();
+    case 2:
+      return ::raftKVRpcProctoc::FetchShardDataArgs::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::PROTOBUF_NAMESPACE_ID::MessageFactory::generated_factory()
@@ -1288,6 +1899,8 @@ const ::PROTOBUF_NAMESPACE_ID::Message& kvServerRpc::GetResponsePrototype(
       return ::raftKVRpcProctoc::PutAppendReply::default_instance();
     case 1:
       return ::raftKVRpcProctoc::GetReply::default_instance();
+    case 2:
+      return ::raftKVRpcProctoc::FetchShardDataReply::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::PROTOBUF_NAMESPACE_ID::MessageFactory::generated_factory()
@@ -1320,6 +1933,13 @@ void kvServerRpc_Stub::Get(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
+void kvServerRpc_Stub::FetchShardData(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                              const ::raftKVRpcProctoc::FetchShardDataArgs* request,
+                              ::raftKVRpcProctoc::FetchShardDataReply* response,
+                              ::google::protobuf::Closure* done) {
+  channel_->CallMethod(descriptor()->method(2),
+                       controller, request, response, done);
+}
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace raftKVRpcProctoc
@@ -1335,6 +1955,12 @@ template<> PROTOBUF_NOINLINE ::raftKVRpcProctoc::PutAppendArgs* Arena::CreateMay
 }
 template<> PROTOBUF_NOINLINE ::raftKVRpcProctoc::PutAppendReply* Arena::CreateMaybeMessage< ::raftKVRpcProctoc::PutAppendReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::raftKVRpcProctoc::PutAppendReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::raftKVRpcProctoc::FetchShardDataArgs* Arena::CreateMaybeMessage< ::raftKVRpcProctoc::FetchShardDataArgs >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::raftKVRpcProctoc::FetchShardDataArgs >(arena);
+}
+template<> PROTOBUF_NOINLINE ::raftKVRpcProctoc::FetchShardDataReply* Arena::CreateMaybeMessage< ::raftKVRpcProctoc::FetchShardDataReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::raftKVRpcProctoc::FetchShardDataReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

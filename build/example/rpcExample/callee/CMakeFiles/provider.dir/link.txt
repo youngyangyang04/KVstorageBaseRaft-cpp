@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/provider.dir/friendService.cpp.o CMakeFiles/provider.dir/__/friend.pb.cc.o -o ../../../../bin/provider   -L/workspace/lib  -Wl,-rpath,/workspace/lib ../../../../lib/librpc_lib.a -lprotobuf -lmuduo_net -lmuduo_base -lpthread -lboost_serialization 
