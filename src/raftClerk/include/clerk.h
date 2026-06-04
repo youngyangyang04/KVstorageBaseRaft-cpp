@@ -12,8 +12,12 @@
 #include <unistd.h>
 
 #include <cerrno>
+#include <atomic>
+#include <chrono>
 #include <memory>
+#include <sstream>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <vector>
 
@@ -33,7 +37,11 @@ class Clerk {
   int m_shardCount;
 
   std::string Uuid() {
-    return std::to_string(rand()) + std::to_string(rand()) + std::to_string(rand()) + std::to_string(rand());
+    static std::atomic<unsigned long long> counter{0};
+    std::stringstream ss;
+    ss << std::chrono::steady_clock::now().time_since_epoch().count() << "-" << getpid() << "-"
+       << std::hash<std::thread::id>{}(std::this_thread::get_id()) << "-" << counter.fetch_add(1);
+    return ss.str();
   }
 
   int ResolveGroupId(const std::string& key) const;

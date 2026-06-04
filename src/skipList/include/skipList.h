@@ -296,7 +296,7 @@ void SkipList<K, V>::load_file(const std::string &dumpStr) {
   boost::archive::text_iarchive ia(iss);
   ia >> dumper;
   for (int i = 0; i < dumper.keyDumpVt_.size(); ++i) {
-    insert_element(dumper.keyDumpVt_[i], dumper.keyDumpVt_[i]);
+    insert_element(dumper.keyDumpVt_[i], dumper.valDumpVt_[i]);
   }
 }
 

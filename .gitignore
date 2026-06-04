@@ -7,3 +7,5 @@ lib
 
 *.out
 *.a
+example/raftCoreExample/dynamic_migration_live.conf
+src/raftRpcPro/kvServerRPC.pb.h

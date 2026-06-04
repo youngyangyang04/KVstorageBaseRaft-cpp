@@ -15,3 +15,9 @@ target_link_libraries(callerMain skip_list_on_raft  protobuf boost_serialization
 set(SRC_LIST3 benchmark.cpp)
 add_executable(benchmark ${src_raftClerk} ${SRC_LIST3} ${src_common})
 target_link_libraries(benchmark skip_list_on_raft protobuf boost_serialization)
+
+#################################
+
+set(SRC_LIST4 migration_client.cpp)
+add_executable(migrationClient ${src_raftClerk} ${SRC_LIST4} ${src_common})
+target_link_libraries(migrationClient skip_list_on_raft protobuf boost_serialization)

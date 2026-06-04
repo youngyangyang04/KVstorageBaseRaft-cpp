@@ -71,6 +71,10 @@ std::string Clerk::Get(std::string key) {
         server = (server + 1) % groupServers.size();
         continue;
       }
+      if (reply.err() == ErrShardNotReady) {
+        sleepNMilliseconds(200);
+        continue;
+      }
       if (reply.err() == ErrWrongGroup) {
         LoadRoutingConfig();
         break;
@@ -114,6 +118,10 @@ void Clerk::PutAppend(std::string key, std::string value, std::string op) {
       bool ok = groupServers[server]->PutAppend(&args, &reply);
       if (!ok || reply.err() == ErrWrongLeader) {
         server = (server + 1) % groupServers.size();
+        continue;
+      }
+      if (reply.err() == ErrShardNotReady) {
+        sleepNMilliseconds(200);
         continue;
       }
       if (reply.err() == ErrWrongGroup) {

@@ -71,6 +71,7 @@ inline std::vector<std::pair<std::string, short>> LoadNodeList(MprpcConfig& conf
 }
 
 struct StaticGroupTopology {
+  int configVersion = 0;
   int shardCount = kDefaultShardCount;
   int groupCount = 1;
   std::vector<int> shardOwners;
@@ -79,6 +80,8 @@ struct StaticGroupTopology {
 
 inline StaticGroupTopology LoadStaticGroupTopology(MprpcConfig& config) {
   StaticGroupTopology topology;
+  topology.configVersion =
+      ParseConfigInt(config.Load("config_version"), ParseConfigInt(config.Load("cluster_config_version"), 0));
   topology.shardCount =
       ParseConfigInt(config.Load("cluster_shard_count"), ParseConfigInt(config.Load("shard_count"), kDefaultShardCount));
 

@@ -10,6 +10,9 @@
 #include "mprpcconfig.h"
 
 namespace {
+constexpr int kConfigPollIntervalMs = 1000;
+constexpr int kMigrationPollIntervalMs = 500;
+
 std::vector<std::pair<std::string, short>> LoadRaftPeersForGroup(MprpcConfig& config, int groupId) {
   StaticGroupTopology topology = LoadStaticGroupTopology(config);
   auto it = topology.groupServers.find(groupId);
@@ -38,6 +41,19 @@ bool KvServer::IsShardServedByThisGroup(int shardId) const {
   return shardId >= 0 && shardId < static_cast<int>(m_shardOwners.size()) && m_shardOwners[shardId] == m_groupId;
 }
 
+bool KvServer::IsShardReadyLocked(int shardId) {
+  auto it = m_shardLifecycle.find(shardId);
+  if (it == m_shardLifecycle.end()) {
+    return false;
+  }
+  return it->second == ShardLifecycle::Serving;
+}
+
+bool KvServer::IsShardReady(int shardId) {
+  std::lock_guard<std::mutex> lg(m_mtx);
+  return IsShardReadyLocked(shardId);
+}
+
 KvServer::ShardState& KvServer::EnsureShardState(int shardId) {
   auto it = m_shards.find(shardId);
   if (it == m_shards.end()) {
@@ -52,6 +68,65 @@ const KvServer::ShardState* KvServer::FindShardState(int shardId) const {
     return nullptr;
   }
   return it->second.get();
+}
+
+std::string KvServer::SerializeLastRequestIdMap(const std::unordered_map<std::string, int>& requestMap) const {
+  std::stringstream ss;
+  boost::archive::text_oarchive oa(ss);
+  oa << requestMap;
+  return ss.str();
+}
+
+std::unordered_map<std::string, int> KvServer::DeserializeLastRequestIdMap(const std::string& serialized) const {
+  if (serialized.empty()) {
+    return {};
+  }
+  std::unordered_map<std::string, int> requestMap;
+  std::stringstream ss(serialized);
+  boost::archive::text_iarchive ia(ss);
+  ia >> requestMap;
+  return requestMap;
+}
+
+void KvServer::ApplyTopologyUpdate(const StaticGroupTopology& topology) {
+  std::lock_guard<std::mutex> lg(m_mtx);
+  if (topology.configVersion <= m_configVersion) {
+    return;
+  }
+
+  const std::vector<int> oldOwners = m_shardOwners;
+  const int oldConfigVersion = m_configVersion;
+  m_configVersion = topology.configVersion;
+  m_shardCount = topology.shardCount;
+  m_shardOwners = topology.shardOwners;
+
+  for (int shardId = 0; shardId < m_shardCount; ++shardId) {
+    if (!IsShardServedByThisGroup(shardId)) {
+      m_shardLifecycle.erase(shardId);
+      m_shardSourceGroup.erase(shardId);
+      continue;
+    }
+
+    const bool previouslyOwned =
+        shardId < static_cast<int>(oldOwners.size()) && oldOwners[shardId] == m_groupId;
+    if (previouslyOwned || oldConfigVersion == 0) {
+      EnsureShardState(shardId);
+      m_shardLifecycle[shardId] = ShardLifecycle::Serving;
+      m_shardSourceGroup.erase(shardId);
+      continue;
+    }
+
+    if (FindShardState(shardId) != nullptr) {
+      m_shardLifecycle[shardId] = ShardLifecycle::Serving;
+      m_shardSourceGroup.erase(shardId);
+      continue;
+    }
+
+    m_shardLifecycle[shardId] = ShardLifecycle::Pulling;
+    if (shardId < static_cast<int>(oldOwners.size())) {
+      m_shardSourceGroup[shardId] = oldOwners[shardId];
+    }
+  }
 }
 
 void KvServer::ExecuteAppendOpOnKVDB(const Op& op) {
@@ -92,6 +167,23 @@ void KvServer::ExecutePutOpOnKVDB(const Op& op) {
   shardState.lastRequestId[op.ClientId] = op.RequestId;
 }
 
+void KvServer::ExecuteInstallShardOp(const Op& op) {
+  std::lock_guard<std::mutex> lg(m_mtx);
+  if (op.ShardId < 0 || !IsShardServedByThisGroup(op.ShardId)) {
+    return;
+  }
+
+  auto& shardState = EnsureShardState(op.ShardId);
+  shardState.skipList = std::make_unique<SkipList<std::string, std::string>>(6);
+  shardState.lastRequestId = op.ShardLastRequestId;
+  if (!op.ShardData.empty()) {
+    shardState.skipList->load_file(op.ShardData);
+  }
+
+  m_shardLifecycle[op.ShardId] = ShardLifecycle::Serving;
+  m_shardSourceGroup.erase(op.ShardId);
+}
+
 void KvServer::Get(const raftKVRpcProctoc::GetArgs* args, raftKVRpcProctoc::GetReply* reply) {
   Op op;
   op.Operation = "Get";
@@ -103,6 +195,10 @@ void KvServer::Get(const raftKVRpcProctoc::GetArgs* args, raftKVRpcProctoc::GetR
   const int shardId = GetShardIdForKey(op.Key);
   if (!IsShardServedByThisGroup(shardId)) {
     reply->set_err(ErrWrongGroup);
+    return;
+  }
+  if (!IsShardReady(shardId)) {
+    reply->set_err(ErrShardNotReady);
     return;
   }
 
@@ -174,13 +270,17 @@ void KvServer::GetCommandFromRaft(ApplyMsg message) {
     return;
   }
 
-  const int shardId = GetShardIdForKey(op.Key);
-  if (IsShardServedByThisGroup(shardId) && !ifRequestDuplicate(shardId, op.ClientId, op.RequestId)) {
-    if (op.Operation == "Put") {
-      ExecutePutOpOnKVDB(op);
-    }
-    if (op.Operation == "Append") {
-      ExecuteAppendOpOnKVDB(op);
+  if (op.Operation == "InstallShard") {
+    ExecuteInstallShardOp(op);
+  } else {
+    const int shardId = GetShardIdForKey(op.Key);
+    if (IsShardServedByThisGroup(shardId) && !ifRequestDuplicate(shardId, op.ClientId, op.RequestId)) {
+      if (op.Operation == "Put") {
+        ExecutePutOpOnKVDB(op);
+      }
+      if (op.Operation == "Append") {
+        ExecuteAppendOpOnKVDB(op);
+      }
     }
   }
 
@@ -215,6 +315,10 @@ void KvServer::PutAppend(const raftKVRpcProctoc::PutAppendArgs* args, raftKVRpcP
   const int shardId = GetShardIdForKey(op.Key);
   if (!IsShardServedByThisGroup(shardId)) {
     reply->set_err(ErrWrongGroup);
+    return;
+  }
+  if (!IsShardReady(shardId)) {
+    reply->set_err(ErrShardNotReady);
     return;
   }
 
@@ -255,6 +359,130 @@ void KvServer::PutAppend(const raftKVRpcProctoc::PutAppendArgs* args, raftKVRpcP
   waitApplyCh.erase(raftIndex);
   delete tmp;
   m_mtx.unlock();
+}
+
+void KvServer::FetchShardData(const raftKVRpcProctoc::FetchShardDataArgs* args,
+                              raftKVRpcProctoc::FetchShardDataReply* reply) {
+  int ignoredTerm = -1;
+  bool isLeader = false;
+  m_raftNode->GetState(&ignoredTerm, &isLeader);
+  if (!isLeader) {
+    reply->set_err(ErrWrongLeader);
+    return;
+  }
+
+  std::lock_guard<std::mutex> lg(m_mtx);
+  reply->set_configversion(m_configVersion);
+  const auto* shardState = FindShardState(args->shardid());
+  if (shardState == nullptr) {
+    reply->set_err(OK);
+    reply->set_sharddata("");
+    reply->set_lastrequestid("");
+    return;
+  }
+
+  reply->set_err(OK);
+  reply->set_sharddata(shardState->skipList->dump_file());
+  reply->set_lastrequestid(SerializeLastRequestIdMap(shardState->lastRequestId));
+}
+
+bool KvServer::TryFetchShardData(int shardId, int sourceGroupId, int configVersion, std::string* shardData,
+                                 std::unordered_map<std::string, int>* lastRequestId) {
+  MprpcConfig config;
+  config.LoadConfigFile(m_configFileName.c_str());
+  const auto topology = LoadStaticGroupTopology(config);
+  auto it = topology.groupServers.find(sourceGroupId);
+  if (it == topology.groupServers.end()) {
+    return false;
+  }
+
+  raftKVRpcProctoc::FetchShardDataArgs args;
+  args.set_shardid(shardId);
+  args.set_configversion(configVersion);
+
+  for (const auto& [ip, port] : it->second) {
+    std::unique_ptr<raftKVRpcProctoc::kvServerRpc_Stub> stub(
+        new raftKVRpcProctoc::kvServerRpc_Stub(new MprpcChannel(ip, port, false)));
+    MprpcController controller;
+    raftKVRpcProctoc::FetchShardDataReply reply;
+    stub->FetchShardData(&controller, &args, &reply, nullptr);
+    if (controller.Failed() || reply.err() == ErrWrongLeader) {
+      continue;
+    }
+    if (reply.err() != OK) {
+      return false;
+    }
+
+    *shardData = reply.sharddata();
+    *lastRequestId = DeserializeLastRequestIdMap(reply.lastrequestid());
+    return true;
+  }
+
+  return false;
+}
+
+void KvServer::ConfigPollLoop() {
+  while (true) {
+    sleepNMilliseconds(kConfigPollIntervalMs);
+    MprpcConfig config;
+    config.LoadConfigFile(m_configFileName.c_str());
+    ApplyTopologyUpdate(LoadStaticGroupTopology(config));
+  }
+}
+
+void KvServer::MigrationLoop() {
+  while (true) {
+    sleepNMilliseconds(kMigrationPollIntervalMs);
+
+    int ignoredTerm = -1;
+    bool isLeader = false;
+    m_raftNode->GetState(&ignoredTerm, &isLeader);
+    if (!isLeader) {
+      continue;
+    }
+
+    std::vector<std::pair<int, int>> pendingShards;
+    int configVersion = 0;
+    {
+      std::lock_guard<std::mutex> lg(m_mtx);
+      configVersion = m_configVersion;
+      for (const auto& [shardId, lifecycle] : m_shardLifecycle) {
+        if (lifecycle != ShardLifecycle::Pulling) {
+          continue;
+        }
+        auto sourceIt = m_shardSourceGroup.find(shardId);
+        if (sourceIt == m_shardSourceGroup.end()) {
+          continue;
+        }
+        pendingShards.emplace_back(shardId, sourceIt->second);
+      }
+    }
+
+    for (const auto& [shardId, sourceGroupId] : pendingShards) {
+      std::string shardData;
+      std::unordered_map<std::string, int> lastRequestId;
+      if (!TryFetchShardData(shardId, sourceGroupId, configVersion, &shardData, &lastRequestId)) {
+        continue;
+      }
+
+      Op installOp;
+      installOp.Operation = "InstallShard";
+      installOp.ClientId = "migration-group-" + std::to_string(m_groupId);
+      installOp.RequestId = configVersion * 1000 + shardId;
+      installOp.ConfigVersion = configVersion;
+      installOp.ShardId = shardId;
+      installOp.ShardData = shardData;
+      installOp.ShardLastRequestId = lastRequestId;
+
+      int raftIndex = -1;
+      int raftTerm = -1;
+      bool stillLeader = false;
+      m_raftNode->Start(installOp, &raftIndex, &raftTerm, &stillLeader);
+      if (!stillLeader) {
+        break;
+      }
+    }
+  }
 }
 
 void KvServer::ReadRaftApplyCommandLoop() {
@@ -317,6 +545,14 @@ void KvServer::Get(google::protobuf::RpcController* controller, const ::raftKVRp
   done->Run();
 }
 
+void KvServer::FetchShardData(google::protobuf::RpcController* controller,
+                              const ::raftKVRpcProctoc::FetchShardDataArgs* request,
+                              ::raftKVRpcProctoc::FetchShardDataReply* response,
+                              ::google::protobuf::Closure* done) {
+  KvServer::FetchShardData(request, response);
+  done->Run();
+}
+
 std::string KvServer::getSnapshotData() {
   m_serializedShardData.clear();
   m_lastRequestIdByShard.clear();
@@ -364,10 +600,13 @@ KvServer::KvServer(int me, int groupId, int maxraftstate, std::string nodeInforF
   m_shardOwners = topology.shardOwners;
   m_maxRaftState = maxraftstate;
   m_lastSnapShotRaftLogIndex = 0;
+  m_configVersion = topology.configVersion;
+  m_configFileName = std::move(nodeInforFileName);
 
   for (int shardId = 0; shardId < m_shardCount; ++shardId) {
     if (IsShardServedByThisGroup(shardId)) {
       EnsureShardState(shardId);
+      m_shardLifecycle[shardId] = ShardLifecycle::Serving;
     }
   }
 
@@ -407,6 +646,12 @@ KvServer::KvServer(int me, int groupId, int maxraftstate, std::string nodeInforF
     ReadSnapShotToInstall(snapshot);
   }
 
-  std::thread t2(&KvServer::ReadRaftApplyCommandLoop, this);
-  t2.join();
+  std::thread configThread(&KvServer::ConfigPollLoop, this);
+  configThread.detach();
+
+  std::thread migrationThread(&KvServer::MigrationLoop, this);
+  migrationThread.detach();
+
+  std::thread applyThread(&KvServer::ReadRaftApplyCommandLoop, this);
+  applyThread.join();
 }
