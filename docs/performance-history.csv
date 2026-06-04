@@ -1,0 +1,9 @@
+timestamp,suite,repeat,topology,config,concurrency,ops_per_thread,total_ops,total_time_sec,qps,raw_log
+2026-06-04 11:22:56,phase1-baseline-4x20,1,single-group,/workspace/bin/test.conf,4,20,160,4.93357,32.4309,
+2026-06-04 11:23:13,phase1-baseline-4x20,1,two-group-static-shard,/workspace/example/raftCoreExample/static_shard_2g.conf,4,20,160,4.7771,33.4931,
+2026-06-04 11:24:37,phase1-baseline-8x30,1,single-group,/workspace/bin/test.conf,8,30,480,14.908,32.1976,
+2026-06-04 11:24:59,phase1-baseline-8x30,1,two-group-static-shard,/workspace/example/raftCoreExample/static_shard_2g.conf,8,30,480,10.0926,47.5597,
+2026-06-04 11:37:29,static-shard-suite-20260604-113712-4x20,1,single-group,/workspace/bin/test.conf,4,20,160,4.92903,32.4607,/tmp/kv-benchmark-suite/raw-logs/static-shard-suite-20260604-113712-4x20/single-group-c4-n20-r1.log
+2026-06-04 11:37:46,static-shard-suite-20260604-113712-4x20,1,two-group-static-shard,/workspace/example/raftCoreExample/static_shard_2g.conf,4,20,160,4.88257,32.7697,/tmp/kv-benchmark-suite/raw-logs/static-shard-suite-20260604-113712-4x20/two-group-static-shard-c4-n20-r1.log
+2026-06-04 11:38:35,static-shard-suite-20260604-113808-8x30,1,single-group,/workspace/bin/test.conf,8,30,480,14.9009,32.2128,/tmp/kv-benchmark-suite/raw-logs/static-shard-suite-20260604-113808-8x30/single-group-c8-n30-r1.log
+2026-06-04 11:38:57,static-shard-suite-20260604-113808-8x30,1,two-group-static-shard,/workspace/example/raftCoreExample/static_shard_2g.conf,8,30,480,10.2259,46.9394,/tmp/kv-benchmark-suite/raw-logs/static-shard-suite-20260604-113808-8x30/two-group-static-shard-c8-n30-r1.log
