@@ -16,6 +16,7 @@
 #include <random>
 #include <sstream>
 #include <thread>
+#include <vector>
 #include "config.h"
 
 template <class F>
@@ -180,6 +181,7 @@ class Op {
 const std::string OK = "OK";
 const std::string ErrNoKey = "ErrNoKey";
 const std::string ErrWrongLeader = "ErrWrongLeader";
+const std::string ErrWrongGroup = "ErrWrongGroup";
 
 ////////////////////////////////////获取可用端口
 

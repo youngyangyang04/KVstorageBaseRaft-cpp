@@ -59,9 +59,11 @@ std::string Persister::ReadRaftState() {
   return snapshot;
 }
 
-Persister::Persister(const int me)
-    : m_raftStateFileName("raftstatePersist" + std::to_string(me) + ".txt"),
-      m_snapshotFileName("snapshotPersist" + std::to_string(me) + ".txt"),
+Persister::Persister(const int me) : Persister("node" + std::to_string(me)) {}
+
+Persister::Persister(const std::string& persistId)
+    : m_raftStateFileName("raftstatePersist_" + persistId + ".txt"),
+      m_snapshotFileName("snapshotPersist_" + persistId + ".txt"),
       m_raftStateSize(0) {
   /**
    * 检查文件状态并清空文件
